@@ -11,5 +11,13 @@
 
   <body>
     <%= yield %>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <% if account_signed_in? %>
+      <p><%= link_to "ログアウト", destroy_account_session_path, method: :delete %></p>
+    <% else %>
+      <p><%= link_to "ログイン", new_account_session_path, method: :get %></p>
+    <% end %>
   </body>
 </html>
