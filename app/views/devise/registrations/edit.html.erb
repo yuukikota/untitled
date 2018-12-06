@@ -1,10 +1,25 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>アカウント情報更新 </h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :name, "アカウント名" %>
+    <%= f.text_field :name , autocomplete: "name"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :grade, "学年" %>
+    <%= f.select :grade, %w[学部1年 学部2年 学部3年 学部4年 院生1年 院生2年 院生3年 院生4年 院生5年] , autocomplete: "grade"%>
+  </div>
+
+  <div class="field">
+    <%= f.label :introduction, "紹介文" %>
+    <%= f.text_area :introduction , maxlength: 1000, autocomplete: "introduction", rows: 5, cols: 50%>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, "メールアドレス" %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
@@ -13,31 +28,31 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password , "パスワード"%> <i>(空欄のままなら、パスワードは変わりません。)</i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= @minimum_password_length %>文字以上</em>
     <% end %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation , "確認"%>
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.label :current_password , "現在のパスワード"%> <i>(更新の認証のために必要になります)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "更新" %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3>アカウント削除</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Unhappy? <%= button_to "削除", registration_path(resource_name), data: { confirm: "本当に削除しますか？" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+<%= link_to "戻る", :back %>

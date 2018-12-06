@@ -1,0 +1,13 @@
+<%= render 'devise/shared/accounts_accessor' %>
+
+<h2> アカウント詳細 </h2>
+
+<% if account_signed_in? %>
+  アカウントID：<%= current_account.acc_id %><br />
+  アカウント名：<%= current_account.name %><br />
+  大学名：<%= current_account.university %><br />
+  学部名：<%= current_account.faculty %><br />
+  学科名：<%= current_account.department %><br />
+  学年：<%= current_account.grade %><br />
+  紹介文：<%= current_account.introduction %><br />
+<% end %>
