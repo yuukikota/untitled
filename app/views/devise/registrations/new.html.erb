@@ -1,0 +1,63 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <!--  ↓追加分↓-->
+
+  <div class="field">
+    <%= f.label :acc_id, "アカウントID" %><br />
+    <%= f.text_field :acc_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name, "アカウント名" %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :university, "大学名" %><br />
+    <%= f.text_field :university %>
+  </div>
+
+  <div class="field">
+    <%= f.label :faculty, "学部名"%><br />
+    <%= f.text_field :faculty %>
+  </div>
+
+  <div class="field">
+    <%= f.label :department, "学科名" %><br />
+    <%= f.text_field :department %>
+  </div>
+
+  <div class="field">
+    <%= f.label :grade, "学年" %><br />
+    <%= f.select :grade, %w[学部1年 学部2年 学部3年 学部4年 院生1年 院生2年 院生3年 院生4年 院生5年] %>
+  </div>
+
+  <!--  ↑ここまで↑-->
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
