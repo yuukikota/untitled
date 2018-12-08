@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Com:</strong>
+  <%= @chat.com_id %>
+</p>
+
+<p>
+  <strong>Capacity:</strong>
+  <%= @chat.capacity %>
+</p>
+
+<%= link_to 'Edit', edit_chat_path(@chat) %> |
+<%= link_to 'Back', chats_path %>

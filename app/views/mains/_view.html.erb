@@ -1,0 +1,29 @@
+<h2>発言表示窓</h2>
+
+<table>
+  <thead>
+  <tr>
+    <th>  発言ID/</th>
+    <th>アカウントID/</th>
+    <th>本文/</th>
+    <th>ファイルID</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.id %></td>
+      <td><%= comment.acc_id %></td>
+      <td><%= comment.message %></td>
+      <td><%= comment.file_id %></td>
+     <% if $acc == comment.acc_id %>
+      <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <%end %>
+        </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>参加者一覧に飛ぶよ</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Chat</th>
+      <th>Acc</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @entry_chats.each do |entry_chat| %>
+      <tr>
+        <td><%= entry_chat.chat_id %></td>
+        <td><%= entry_chat.acc_id %></td>
+        <td><%= link_to 'Show', entry_chat %></td>
+        <td><%= link_to 'Edit', edit_entry_chat_path(entry_chat) %></td>
+        <td><%= link_to 'Destroy', entry_chat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Entry Chat', new_entry_chat_path %>

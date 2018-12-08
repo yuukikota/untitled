@@ -1,0 +1,19 @@
+<% if $log %>
+  <h1> 閲覧画面(ログイン前) </h1>
+  <%= render 'login' %>
+  <% else %>
+  <h1> 閲覧画面(ログイン後) </h1>
+  <%= render 'acc' %>
+  <div>
+    <%= render 'community' %>
+  </div>
+  <% end %>
+<br>
+<div>
+  <%= render 'view', comments: @comments %>
+  </div>
+<% if !$log %>
+  <div>
+<%= render 'form', comment: @comment %>
+  </div>
+<% end %>

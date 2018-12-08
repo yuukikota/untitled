@@ -1,0 +1,27 @@
+<%= form_with(model: entry_chat, local: true) do |form| %>
+  <% if entry_chat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(entry_chat.errors.count, "error") %> prohibited this entry_chat from being saved:</h2>
+
+      <ul>
+      <% entry_chat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :chat_id %>
+    <%= form.number_field :chat_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :acc_id %>
+    <%= form.text_field :acc_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Recruitments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post time</th>
+      <th>Update time</th>
+      <th>Acc</th>
+      <th>Chat</th>
+      <th>Resolved</th>
+      <th>Title</th>
+      <th>Detail</th>
+      <th>Ans com</th>
+      <th>Integer</th>
+      <th>Answer</th>
+      <th>File</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recruitments.each do |recruitment| %>
+      <tr>
+        <td><%= recruitment.post_time %></td>
+        <td><%= recruitment.update_time %></td>
+        <td><%= recruitment.acc_id %></td>
+        <td><%= recruitment.chat_id %></td>
+        <td><%= recruitment.resolved %></td>
+        <td><%= recruitment.title %></td>
+        <td><%= recruitment.detail %></td>
+        <td><%= recruitment.ans_com_id %></td>
+        <td><%= recruitment.integer %></td>
+        <td><%= recruitment.answer %></td>
+        <td><%= recruitment.file_id %></td>
+        <td><%= link_to 'Show', recruitment %></td>
+        <td><%= link_to 'Edit', edit_recruitment_path(recruitment) %></td>
+        <td><%= link_to 'Destroy', recruitment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recruitment', new_recruitment_path %>

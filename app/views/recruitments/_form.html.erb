@@ -1,0 +1,72 @@
+<%= form_with(model: recruitment, local: true) do |form| %>
+  <% if recruitment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recruitment.errors.count, "error") %> prohibited this recruitment from being saved:</h2>
+
+      <ul>
+      <% recruitment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :post_time %>
+    <%= form.date_select :post_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :update_time %>
+    <%= form.date_select :update_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :acc_id %>
+    <%= form.text_field :acc_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :chat_id %>
+    <%= form.number_field :chat_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :resolved %>
+    <%= form.check_box :resolved %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detail %>
+    <%= form.text_area :detail %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ans_com_id %>
+    <%= form.text_field :ans_com_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :integer %>
+    <%= form.text_field :integer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :answer %>
+    <%= form.text_area :answer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :file_id %>
+    <%= form.number_field :file_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
