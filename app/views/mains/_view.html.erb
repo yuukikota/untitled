@@ -1,0 +1,18 @@
+
+<h2>発言表示窓</h2>
+
+<table>
+  <% @comments.order("update_time DESC").each do |comment| %>
+    <div class="box">
+      <span><%= comment.post_time %></span>
+      <span><%= comment.acc_id %></span>
+      <span>
+     <% if current_account.acc_id == comment.acc_id %>
+      <%= link_to '削除🚮', comment, method: :delete, data: { confirm: '削除しますか?' } %>
+    <%end %>
+        </span>
+      <div><%= comment.message %></div>
+      <br>
+        </div>
+  <% end %>
+</table>

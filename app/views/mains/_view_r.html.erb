@@ -1,0 +1,19 @@
+
+<h2>募集表示窓</h2>
+
+<table>
+  <% @recruitments.order("update_time DESC").each do |recruitment| %>
+    <div class="box">
+      <div><%= recruitment.title %></div>
+      <span><%= recruitment.post_time %></span>
+      <span><%= recruitment.acc_id %></span>
+      <span>
+     <% if current_account.acc_id == recruitment.acc_id %>
+      <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+    <%end %>
+        </span>
+      <div><%= recruitment.detail %></div>
+    </div>
+    <br>
+  <% end %>
+</table>
