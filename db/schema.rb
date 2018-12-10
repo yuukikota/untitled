@@ -41,12 +41,30 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
+  create_table "comments", primary_key: "com_id", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "post_time", null: false
+    t.datetime "update_time", null: false
+    t.string "acc_id", limit: 20, null: false
+    t.integer "p_com_id"
+    t.string "message", limit: 1000, null: false
+    t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
     t.date "time"
     t.string "comment"
     t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tagmaps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "com_id"
+    t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -70,9 +88,26 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tags", primary_key: "tag_id", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.boolean "tag_type", null: false
+    t.string "tag_name", limit: 30, null: false
+    t.integer "com_count", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "entry_chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "univinfos", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "p_id"
+    t.integer "stat", null: false
+    t.string "name", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
