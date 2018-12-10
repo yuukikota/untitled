@@ -4,7 +4,7 @@
       <th>大学</th><th>学部</th><th>学科</th>
     </tr>
     <tr>
-      <%= form_for @univ, :url => {:action => :update} do |f| %>
+      <%= form_for @inputtag, :url => {:action => :update} do |f| %>
         <td>
           <%= f.text_field :school, list: 'school-name' %>
           <datalist id="school-name">
@@ -28,6 +28,30 @@
           <datalist id="department-name">
             <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
               <option value=<%= tag3.name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <%= f.text_field :tag1, list: 'tag1-name' %>
+          <datalist id="tag1-name">
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag| %>
+              <option value=<%= tag.tag_name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <%= f.text_field :tag2, list: 'tag2-name' %>
+          <datalist id="tag2-name">
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag| %>
+              <option value=<%= tag.tag_name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <%= f.text_field :tag3, list: 'tag3-name' %>
+          <datalist id="tag3-name">
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag| %>
+              <option value=<%= tag.tag_name %>>
             <% end %>
           </datalist>
         </td>
