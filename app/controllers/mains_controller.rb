@@ -22,11 +22,12 @@ class MainsController < ApplicationController
 
   def update
     @inputtag = Inputtag.new(inputtag_params)
+    @comments = Comment.tagnamesearch([params[:inputtag][:school],params[:inputtag][:faculty],params[:inputtag][:department],params[:inputtag][:tag1],params[:inputtag][:tag2],params[:inputtag][:tag3]])
+
     @comment = Comment.new
     @recruitments = Recruitment.all
     @recruitment = Recruitment.new
 
-    @comments = Comment.tagnamesearch([params[:inputtag][:school],params[:inputtag][:faculty],params[:inputtag][:department],params[:inputtag][:tag1],params[:inputtag][:tag2],params[:inputtag][:tag3]])
     render template: 'mains/index'
   end
   private

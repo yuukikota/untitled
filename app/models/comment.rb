@@ -48,7 +48,12 @@ class Comment < ApplicationRecord
       end
       if cnt != 0 then
         query = query + " WHERE comments.p_com_ID IS NULL ORDER BY comments.update_time ASC"
-        Comment.find_by_sql([query])
+        com = Comment.find_by_sql([query])
+        if com.blank? then
+          Comment.none
+        else
+          com
+        end
       else
         Comment.none
       end
