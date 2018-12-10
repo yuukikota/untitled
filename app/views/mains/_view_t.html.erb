@@ -1,0 +1,18 @@
+<%= stylesheet_link_tag "box", :media => "all" %>
+<h2>タイムライン表示窓</h2>
+<%  %>
+<table>
+  <% @comments.join(:@recruitments).order("update_time DESC").each do |comment| %>
+    <div class="box">
+      <span><%= comment.post_time %></span>
+      <span><%= comment.acc_id %></span>
+      <span>
+     <% if $account.acc_id == comment.acc_id %>
+      <%= link_to '削除🚮', comment, method: :delete, data: { confirm: '削除しますか?' } %>
+    <%end %>
+        </span>
+      <div><%= comment.message %></div>
+      <br>
+    </div>
+  <% end %>
+</table>

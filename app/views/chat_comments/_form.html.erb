@@ -1,0 +1,27 @@
+<%= form_with(model: chat_comment, local: true) do |form| %>
+  <% if chat_comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chat_comment.errors.count, "error") %> prohibited this chat_comment from being saved:</h2>
+
+      <ul>
+      <% chat_comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :コメント入力 %>
+    <%= form.text_field :comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :添付 %>
+    <%= form.number_field :file_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit"送信"%>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class ChatComment < ApplicationRecord
+end
