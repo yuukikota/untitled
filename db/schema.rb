@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_040040) do
+ActiveRecord::Schema.define(version: 2018_12_07_190551) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -39,6 +39,58 @@ ActiveRecord::Schema.define(version: 2018_12_04_040040) do
     t.index ["acc_id"], name: "index_accounts_on_acc_id", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
+  end
+
+  create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "chat_id"
+    t.string "acc_id"
+    t.date "time"
+    t.string "comment"
+    t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "com_id"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "post_time"
+    t.datetime "update_time"
+    t.string "acc_id"
+    t.integer "p_com_id"
+    t.integer "p_com_type"
+    t.text "message"
+    t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entry_chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "chat_id"
+    t.string "acc_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.datetime "post_time"
+    t.datetime "update_time"
+    t.string "acc_id"
+    t.integer "chat_id"
+    t.boolean "resolved"
+    t.string "title"
+    t.text "detail"
+    t.string "ans_com_id"
+    t.string "integer"
+    t.text "answer"
+    t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

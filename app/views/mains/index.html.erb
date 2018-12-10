@@ -1,0 +1,38 @@
+
+<% if !account_signed_in? %>
+  <h1> 閲覧画面(ログイン前) </h1>
+  <% else %>
+  <h1> 閲覧画面(ログイン後) </h1>
+<% end %>
+<%= render 'devise/shared/accounts_accessor' %>
+  <div>
+    <%= render 'community' %>
+  </div>
+
+<br>
+<table class="button">
+  <%= button_to '更新🔁', mains_home_path, method: :get %>
+</table>
+<%= render 'button' %>
+<table>
+  <% if $view_num == '1' ||  $view_num == '2'%>
+  <td>
+    <%= render 'view', comments: @comments %>
+  </td>
+    <% end %>
+    <% if $view_num == '1' ||  $view_num == '3'%>
+  <td>
+    <%= render 'view_r', recruitment: @recruitments %>
+  </td>
+  <% end %>
+</table>
+<% if account_signed_in? %>
+  <table align="left">
+    <td>
+<%= render 'form', comment: @comment %>
+    </td>
+    <td>
+    <%= render 'form_r', recruitment: @recruitment %>
+    </td>
+  </table>
+<% end %>
