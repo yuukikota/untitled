@@ -1,0 +1,31 @@
+<h2>発言入力フォーム予定地</h2>
+<%= form_with(model: comment, local: true) do |form| %>
+  <% if comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+        <% comment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="form" align="left">
+  <td>
+    <%= form.label :発言 %>
+    <%= form.text_area :message %>
+    <div class="field">
+      <%= form.label :添付 %>
+      <%= form.number_field :file_id %>
+    </div>
+  </td>
+    <td>
+      <div class="actions">
+        <%= form.submit"送信" %>
+      </div>
+    </td>
+
+  </table>
+
+<% end %>

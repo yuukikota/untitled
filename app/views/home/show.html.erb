@@ -1,4 +1,3 @@
-<%= render 'devise/shared/accounts_accessor' %>
 
 <h2> アカウント詳細 </h2>
 
@@ -10,4 +9,6 @@
   学科名：<%= current_account.department %><br />
   学年：<%= current_account.grade %><br />
   紹介文：<%= current_account.introduction %><br />
+
+  <%= link_to "アカウント情報更新", edit_account_registration_path %>
 <% end %>

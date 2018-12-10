@@ -1,0 +1,12 @@
+<%= render 'form', inputtag: @inputtag %>
+
+<table>
+  <tr>
+    <th>message</th>
+  </tr>
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.message %></td>
+    </tr>
+  <% end %>
+</table>
