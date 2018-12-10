@@ -1,0 +1,66 @@
+<div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+  <table>
+    <tr>
+      <th>大学</th><th>学部</th><th>学科</th>
+    </tr>
+    <tr>
+      <%= form_for @inputtag, :url => {:action => :update} do |f| %>
+        <td>
+          <%= f.text_field :school, list: 'school-name' %>
+          <datalist id="school-name">
+            <% Univinfo.where(stat: '0').order(tag_id: :desc).each do |tag1| %>
+              <option value=<%= tag1.name %>>
+            <% end %>
+          </datalist>
+
+        </td>
+        <td>
+          <%= f.text_field :faculty, list: 'faculty-name' %>
+          <datalist id="faculty-name">
+            <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
+              <option value=<%= tag2.name %>>
+            <% end %>
+          </datalist>
+
+        </td>
+        <td>
+          <%= f.text_field :department, list: 'department-name' %>
+          <datalist id="department-name">
+            <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
+              <option value=<%= tag3.name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <%= f.text_field :tag1, list: 'tag1-name' %>
+          <datalist id="tag1-name">
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag4| %>
+              <option value=<%= tag4.tag_name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <%= f.text_field :tag2, list: 'tag2-name' %>
+          <datalist id="tag2-name">
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag5| %>
+              <option value=<%= tag5.tag_name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <%= f.text_field :tag3, list: 'tag3-name' %>
+          <datalist id="tag3-name">
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag6| %>
+              <option value=<%= tag6.tag_name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <div class="actions">
+            <input name="commit" type="submit" value="検索">
+          </div>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</div>
