@@ -1,0 +1,2 @@
+class InfHatsugenRireki < ApplicationRecord
+end
