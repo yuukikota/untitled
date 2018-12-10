@@ -41,17 +41,16 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
-  create_table "comments", primary_key: "com_id", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time", null: false
-    t.datetime "update_time", null: false
-    t.string "acc_id", limit: 20, null: false
-    t.integer "p_com_id"
-    t.string "message", limit: 1000, null: false
-    t.integer "file_id"
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id", limit: 20
+    t.string "message", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
+    
   create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
@@ -110,20 +109,19 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
+  end    
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time"
-    t.datetime "update_time"
-    t.string "acc_id"
-    t.integer "chat_id"
-    t.boolean "resolved"
-    t.string "title"
-    t.text "detail"
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id"
+    t.string "chat_id"
+    t.string "resolved"
+    t.string "title", limit: 100
+    t.string "detail", limit: 1000
     t.string "ans_com_id"
-    t.string "integer"
-    t.text "answer"
-    t.integer "file_id"
+    t.string "answer", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
