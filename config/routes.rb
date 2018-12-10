@@ -1,19 +1,30 @@
 Rails.application.routes.draw do
 
-  devise_for :accounts
+  get "/inform" => "inform#gamen_sentaku"
+  get "inform/hatsugen_inf"
+  get "inform/hatsugen_inf/:ht11" => "inform#toukou"
+  get "inform/hatsugen_inf/:re_id" => "inform#toukou"
+  get "inform/toukou" => "inform"
+  get "/b_inform/bosyuu_inf"
+  get "b_inform/:ht22" => "b_inform#toukou"
+  get "b_inform/:re_id" => "b_inform#toukou"
+  get "b_inform/toukou" => "b_inform"
+
+  devise_for :accounts, :controllers =>{
+      :registrations => :registrations
+  }
   resources :recruitments
   resources :comments
   resources :chat_comments
-  resources :accounts
   resources :entry_chats
   resources :chats
-  # root 'home#index'
   root 'mains#index'
   get 'home/:acc_id', to: 'home#show', as: :account_show
-  get '/mains/log/:id', to: 'mains#login', as: 'mains_login'
-  get '/mains/home', to: 'mains#home'
+
+  get 'tags/list', to: 'tags#list'
+  post 'tags/list'=> 'tags#update'
+
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
-  get '/acc_views', to: 'acc_views#index'
   get '/jumps/:id', to: 'jumps#index', as: 'jumps'
   get '/members', to: 'members#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

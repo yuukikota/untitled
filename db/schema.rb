@@ -41,12 +41,29 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id", limit: 20
+    t.string "message", limit: 1000
+    t.string "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+    
   create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
     t.date "time"
     t.string "comment"
     t.integer "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tagmaps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "com_id"
+    t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -70,6 +87,14 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tags", primary_key: "tag_id", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.boolean "tag_type", null: false
+    t.string "tag_name", limit: 30, null: false
+    t.integer "com_count", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "entry_chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
@@ -77,18 +102,26 @@ ActiveRecord::Schema.define(version: 2018_12_07_190551) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "univinfos", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "p_id"
+    t.integer "stat", null: false
+    t.string "name", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end    
+
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time"
-    t.datetime "update_time"
-    t.string "acc_id"
-    t.integer "chat_id"
-    t.boolean "resolved"
-    t.string "title"
-    t.text "detail"
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id"
+    t.string "chat_id"
+    t.string "resolved"
+    t.string "title", limit: 100
+    t.string "detail", limit: 1000
     t.string "ans_com_id"
-    t.string "integer"
-    t.text "answer"
-    t.integer "file_id"
+    t.string "answer", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
