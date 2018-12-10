@@ -1,7 +1,4 @@
 class Comment < ApplicationRecord
-<<<<<<< HEAD
-=======
-  self.primary_key = 'com_id'
   has_many :tagmaps
   has_many :tags, through: :tagmaps
 
@@ -54,5 +51,4 @@ class Comment < ApplicationRecord
       end
     end
   end
->>>>>>> b07a98ada9a3cb867cfbb8c7522ff4bac52137f6
 end
