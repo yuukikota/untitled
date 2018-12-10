@@ -1,0 +1,32 @@
+<h2>募集入力フォーム予定地</h2>
+<%= form_with(model: recruitment, local: true) do |form| %>
+  <% if recruitment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recruitment.errors.count, "error") %> prohibited this recruitment from being saved:</h2>
+
+      <ul>
+        <% recruitment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="form">
+    <td>
+    <div class="field">
+      <%= form.label :タイトル %>
+      <%= form.text_field :title %>
+    </div>
+      <div class="field"　>
+      <%= form.label :募集 %>
+      <%= form.text_area :detail %>
+    </div>
+    </td>
+    <td>
+    <div class="actions">
+      <%= form.submit"送信" %>
+    </div>
+    </td>
+  </table>
+
+<% end %>
