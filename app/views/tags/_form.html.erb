@@ -1,0 +1,42 @@
+<div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
+  <table>
+    <tr>
+      <th>大学</th><th>学部</th><th>学科</th>
+    </tr>
+    <tr>
+      <%= form_for @univ, :url => {:action => :update} do |f| %>
+        <td>
+          <%= f.text_field :school, list: 'school-name' %>
+          <datalist id="school-name">
+            <% Univinfo.where(stat: '0').order(tag_id: :desc).each do |tag1| %>
+              <option value=<%= tag1.name %>>
+            <% end %>
+          </datalist>
+
+        </td>
+        <td>
+          <%= f.text_field :faculty, list: 'faculty-name' %>
+          <datalist id="faculty-name">
+            <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
+              <option value=<%= tag2.name %>>
+            <% end %>
+          </datalist>
+
+        </td>
+        <td>
+          <%= f.text_field :department, list: 'department-name' %>
+          <datalist id="department-name">
+            <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
+              <option value=<%= tag3.name %>>
+            <% end %>
+          </datalist>
+        </td>
+        <td>
+          <div class="actions">
+            <input name="commit" type="submit" value="検索">
+          </div>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</div>
