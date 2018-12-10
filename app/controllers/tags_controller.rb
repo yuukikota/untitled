@@ -4,14 +4,14 @@ class TagsController < ApplicationController
     @comments = Comment.tagidsearch([])
   end
   def update
-    @inputtag = InputTag.new(univ_params)
+    @inputtag = Inputtag.new(inputtag_params)
 
-    @comments = Comment.tagnamesearch([params[:univ][:school],params[:univ][:faculty],params[:univ][:department],params[:univ][:tag1],params[:univ][:tag2],params[:univ][:tag3]])
+    @comments = Comment.tagnamesearch([params[:inputtag][:school],params[:inputtag][:faculty],params[:inputtag][:department],params[:inputtag][:tag1],params[:inputtag][:tag2],params[:inputtag][:tag3]])
     render "tags/list"
   end
   private
-  def univ_params
-    params.require(:univ).permit(:school, :faculty, :department, :tag1, :tag2, :tag3)
+  def inputtag_params
+    params.require(:inputtag).permit(:school, :faculty, :department, :tag1, :tag2, :tag3)
   end
 
 end

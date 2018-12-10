@@ -34,24 +34,24 @@
         <td>
           <%= f.text_field :tag1, list: 'tag1-name' %>
           <datalist id="tag1-name">
-            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag| %>
-              <option value=<%= tag.tag_name %>>
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag4| %>
+              <option value=<%= tag4.tag_name %>>
             <% end %>
           </datalist>
         </td>
         <td>
           <%= f.text_field :tag2, list: 'tag2-name' %>
           <datalist id="tag2-name">
-            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag| %>
-              <option value=<%= tag.tag_name %>>
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag5| %>
+              <option value=<%= tag5.tag_name %>>
             <% end %>
           </datalist>
         </td>
         <td>
           <%= f.text_field :tag3, list: 'tag3-name' %>
           <datalist id="tag3-name">
-            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag| %>
-              <option value=<%= tag.tag_name %>>
+            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag6| %>
+              <option value=<%= tag6.tag_name %>>
             <% end %>
           </datalist>
         </td>
