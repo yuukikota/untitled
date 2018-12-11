@@ -20,7 +20,7 @@ class BInformController < ApplicationController
       end
       Recruitment.create(detail:bosyuu_,re_id:re_id_ ,acc_id:"bbb",title:title_)
       Recruitment.where(detail:nil,re_id:nil).destroy_all
-      Recruitment.where(title:nil).destroy_all
+      Recruitment.where(title:none).destroy_all
     end
 
   end
