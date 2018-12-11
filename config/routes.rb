@@ -21,8 +21,7 @@ Rails.application.routes.draw do
   root 'mains#index'
   get 'home/:acc_id', to: 'home#show', as: :account_show
 
-  get 'tags/list', to: 'tags#list'
-  post 'tags/list'=> 'tags#update'
+  post '/'=> 'tags#update'
 
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
   get '/jumps/:id', to: 'jumps#index', as: 'jumps'

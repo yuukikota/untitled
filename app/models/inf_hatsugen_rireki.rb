@@ -1,2 +1,0 @@
-class InfHatsugenRireki < ApplicationRecord
-end

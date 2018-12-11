@@ -1,2 +1,0 @@
-class Hatsugen < ApplicationRecord
-end
