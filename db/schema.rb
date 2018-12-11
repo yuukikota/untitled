@@ -59,13 +59,11 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time"
-    t.datetime "update_time"
-    t.string "acc_id"
-    t.integer "p_com_id"
-    t.integer "p_com_type"
-    t.text "message"
-    t.integer "file_id"
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id", limit: 20
+    t.string "message", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -78,17 +76,16 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
   end
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time"
-    t.datetime "update_time"
-    t.string "acc_id"
-    t.integer "chat_id"
-    t.boolean "resolved"
-    t.string "title"
-    t.text "detail"
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id"
+    t.string "chat_id"
+    t.string "resolved"
+    t.string "title", limit: 100
+    t.string "detail", limit: 1000
     t.string "ans_com_id"
-    t.string "integer"
-    t.text "answer"
-    t.integer "file_id"
+    t.string "answer", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
