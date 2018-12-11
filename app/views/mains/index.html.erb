@@ -4,35 +4,59 @@
 <% else %>
   <h1> 閲覧画面(ログイン後) </h1>
 <% end %>
-<%= render 'devise/shared/accounts_accessor' %>
-  <div>
-    <%= render :partial =>'tags/form' , inputtag: @inputtag %>
-  </div>
 
-<br>
-<table class="button">
-  <%= button_to '更新🔁', root_path, method: :get %>
-</table>
-<%= render 'mains/button' %>
+<%= render 'devise/shared/accounts_accessor' %>
+
+<div>
+  <%= render :partial =>'tags/form' , inputtag: @inputtag %>
+</div>
+
 <table>
-  <% if $view_num == '1' ||  $view_num == '2'%>
-  <td>
-    <%= render 'mains/view', comments: @comments %>
-  </td>
-    <% end %>
-    <% if $view_num == '1' ||  $view_num == '3'%>
-  <td>
-    <%= render 'mains/view_r', recruitment: @recruitments %>
-  </td>
-  <% end %>
+  <tr>
+    <td>
+      <% if account_signed_in? %>
+        <table align="left">
+          <tr>
+            <td>
+              <%= render 'mains/form', comment: @comment %>
+            </td>
+            <td>
+              <%= render 'mains/form_r', recruitment: @recruitment %>
+            </td>
+          </tr>
+
+        </table>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+
+      <table class="button">
+        <%= button_to '更新🔁', root_path, method: :get %>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= render 'mains/button' %>
+
+      <table>
+        <% if $view_num == '1' ||  $view_num == '2'%>
+          <td>
+            <%= render 'mains/view', comments: @comments %>
+          </td>
+        <% end %>
+
+        <% if $view_num == '1' ||  $view_num == '3'%>
+          <td>
+            <%= render 'mains/view_r', recruitment: @recruitments %>
+          </td>
+        <% end %>
+      </table>
+    </td>
+  </tr>
+
 </table>
-<% if account_signed_in? %>
-  <table align="left">
-    <td>
-<%= render 'mains/form', comment: @comment %>
-    </td>
-    <td>
-    <%= render 'mains/form_r', recruitment: @recruitment %>
-    </td>
-  </table>
-<% end %>

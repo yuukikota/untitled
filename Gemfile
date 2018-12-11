@@ -53,4 +53,4 @@ gem 'config'
 
 gem 'devise'
 
-gem 'railroady'
+gem 'railroad'
