@@ -1,13 +1,14 @@
 class TagsController < ApplicationController
-  def list
-    @inputtag = Inputtag.new
-    @comments = Comment.tagidsearch([])
-  end
+
   def update
     @inputtag = Inputtag.new(inputtag_params)
-
     @comments = Comment.tagnamesearch([params[:inputtag][:school],params[:inputtag][:faculty],params[:inputtag][:department],params[:inputtag][:tag1],params[:inputtag][:tag2],params[:inputtag][:tag3]])
-    render "tags/list"
+
+    @comment = Comment.new
+    @recruitments = Recruitment.all
+    @recruitment = Recruitment.new
+
+    render template: 'mains/index'
   end
   private
   def inputtag_params
