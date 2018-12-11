@@ -2,7 +2,7 @@
 <h2>発言表示窓</h2>
 
 <table>
-  <% @comments.order("update_time DESC").each do |comment| %>
+  <% @comments.order("updated_at DESC").each do |comment| %>
     <div class="box">
       <span><%= comment.post_time %></span>
       <span><%= comment.acc_id %></span>
