@@ -4,7 +4,7 @@
       <th>大学</th><th>学部</th><th>学科</th>
     </tr>
     <tr>
-      <%= form_for @inputtag, :url => {:action => :update} do |f| %>
+      <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"} do |f| %>
         <td>
           <%= f.text_field :school, list: 'school-name' %>
           <datalist id="school-name">
