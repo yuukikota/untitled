@@ -1,7 +1,4 @@
 class Comment < ApplicationRecord
-  self.primary_key = 'com_id'
-  has_many :tagmaps
-  has_many :tags, through: :tagmaps
 
   def self.tagidsearch(tagid)
     query = "SELECT  comments.* FROM comments"
