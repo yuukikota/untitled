@@ -1,2 +1,0 @@
-class Bosyuu < ApplicationRecord
-end

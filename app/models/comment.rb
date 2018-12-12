@@ -1,5 +1,10 @@
 class Comment < ApplicationRecord
 
+  has_many :tagmaps
+  has_many :tags, through: :tagmaps
+  validates :message, presence: true, length: { maximum: 1000 }
+  validates :p_com_id, format: {with: /[0-9]+/}
+
   def self.tagidsearch(tagid)
     query = "SELECT  comments.* FROM comments"
     if tagid.blank? then
