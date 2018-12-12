@@ -1,66 +1,95 @@
-<div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
-  <table>
-    <tr>
-      <th>大学</th><th>学部</th><th>学科</th>
-    </tr>
-    <tr>
-      <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"} do |f| %>
-        <td>
-          <%= f.text_field :school, list: 'school-name' %>
-          <datalist id="school-name">
-            <% Univinfo.where(stat: '0').order(tag_id: :desc).each do |tag1| %>
-              <option value=<%= tag1.name %>>
-            <% end %>
-          </datalist>
 
-        </td>
-        <td>
-          <%= f.text_field :faculty, list: 'faculty-name' %>
-          <datalist id="faculty-name">
-            <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
-              <option value=<%= tag2.name %>>
-            <% end %>
-          </datalist>
+<table width="100%" border="3" rules="none">
+  <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"} do |f| %>
+    <tr><td height="4"></td><td></td></tr>
+    <tr valign="center"><td>
 
-        </td>
-        <td>
-          <%= f.text_field :department, list: 'department-name' %>
-          <datalist id="department-name">
-            <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
-              <option value=<%= tag3.name %>>
-            <% end %>
-          </datalist>
-        </td>
-        <td>
-          <%= f.text_field :tag1, list: 'tag1-name' %>
-          <datalist id="tag1-name">
-            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag4| %>
-              <option value=<%= tag4.tag_name %>>
-            <% end %>
-          </datalist>
-        </td>
-        <td>
-          <%= f.text_field :tag2, list: 'tag2-name' %>
-          <datalist id="tag2-name">
-            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag5| %>
-              <option value=<%= tag5.tag_name %>>
-            <% end %>
-          </datalist>
-        </td>
-        <td>
-          <%= f.text_field :tag3, list: 'tag3-name' %>
-          <datalist id="tag3-name">
-            <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag6| %>
-              <option value=<%= tag6.tag_name %>>
-            <% end %>
-          </datalist>
-        </td>
-        <td>
-          <div class="actions">
-            <input name="commit" type="submit" value="検索">
-          </div>
-        </td>
-      <% end %>
+      <%= f.text_field :school, list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
+      <datalist id="school-name">
+        <% Univinfo.where(stat: '0').order(tag_id: :desc).each do |tag1| %>
+          <option value=<%= tag1.name %>>
+        <% end %>
+      </datalist>
+
+
+
+      <%= f.text_field :faculty, list: 'faculty-name' ,placeholder: "学部名を入力して下さい" ,:size=>"22" %>
+      <datalist id="faculty-name">
+        <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
+          <option value=<%= tag2.name %>>
+        <% end %>
+      </datalist>
+
+
+
+      <%= f.text_field :department, list: 'department-name' ,placeholder: "学科名を入力して下さい" ,:size=>"22" %>
+      <datalist id="department-name">
+        <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
+          <option value=<%= tag3.name %>>
+        <% end %>
+      </datalist>
+
+    </td><td></td></tr>
+    <tr>
+      <td>
+        <%= f.text_field :tag1, list: 'tag1-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag1-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag1| %>
+            <option value=<%= tag1.tag_name %>>
+          <% end %>
+        </datalist>
+
+
+        <%= f.text_field :tag2, list: 'tag2-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag2-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag2| %>
+            <option value=<%= tag2.tag_name %>>
+          <% end %>
+        </datalist>
+
+
+        <%= f.text_field :tag3, list: 'tag3-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag3-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag3| %>
+            <option value=<%= tag3.tag_name %>>
+          <% end %>
+        </datalist>
+
+
+        <%= f.text_field :tag4, list: 'tag4-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag1-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag4| %>
+            <option value=<%= tag4.tag_name %>>
+          <% end %>
+        </datalist>
+
+        <%= f.text_field :tag5, list: 'tag5-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag2-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag5| %>
+            <option value=<%= tag5.tag_name %>>
+          <% end %>
+        </datalist>
+
+        <%= f.text_field :tag6, list: 'tag6-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag6-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag6| %>
+            <option value=<%= tag6.tag_name %>>
+          <% end %>
+        </datalist>
+
+        <%= f.text_field :tag7, list: 'tag7-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
+        <datalist id="tag7-name">
+          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag7| %>
+            <option value=<%= tag7.tag_name %>>
+          <% end %>
+        </datalist>
+      </td>
+
+      <td valign="bottom">
+        <div class="actions">
+          <input name="commit" type="submit" value="検索" style="width:150px; height:23px" >
+        </div>
+      </td>
     </tr>
-  </table>
-</div>
+  <% end %>
+</table>

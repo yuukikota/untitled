@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_132427) do
+ActiveRecord::Schema.define(version: 2018_12_12_084852) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -86,6 +86,22 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
     t.string "ans_com_id"
     t.string "answer", limit: 1000
     t.string "file_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "taghistories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "acc_id", null: false
+    t.string "univtag", limit: 30
+    t.string "faculty", limit: 30
+    t.string "department", limit: 30
+    t.string "tag1", limit: 30
+    t.string "tag2", limit: 30
+    t.string "tag3", limit: 30
+    t.string "tag4", limit: 30
+    t.string "tag5", limit: 30
+    t.string "tag6", limit: 30
+    t.string "tag7", limit: 30
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

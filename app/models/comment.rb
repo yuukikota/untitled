@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+
   has_many :tagmaps
   has_many :tags, through: :tagmaps
   validates :message, presence: true, length: { maximum: 1000 }
