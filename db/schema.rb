@@ -29,13 +29,13 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "acc_id", null: false
-    t.string "name", null: false
-    t.string "grade", null: false
-    t.string "university", null: false
-    t.string "faculty", null: false
-    t.string "department", null: false
-    t.string "introduction", default: "", null: false
+    t.string "acc_id", limit: 20, null: false
+    t.string "name", limit: 20, null: false
+    t.string "grade", limit: 5, null: false
+    t.string "university", limit: 20, null: false
+    t.string "faculty", limit: 20, null: false
+    t.string "department", limit: 20, null: false
+    t.string "introduction", limit: 1000, default: "", null: false
     t.index ["acc_id"], name: "index_accounts_on_acc_id", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
@@ -59,13 +59,13 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "com_id"
-    t.string "acc_id", limit: 20
-    t.string "re_id"
-    t.string "message", limit: 1000
-    t.string "file_id"
+    t.string "acc_id", limit: 20, null: false
+    t.integer "p_com_id", null: false
+    t.string "message", limit: 1000, null: false
+    t.integer "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["p_com_id"], name: "index_comments_on_p_com_id"
   end
 
   create_table "entry_chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

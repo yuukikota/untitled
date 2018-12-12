@@ -1,0 +1,46 @@
+
+<h2>返信一覧</h2>
+
+<table>
+  <tr>
+    <td>
+      <table>
+        <thead>
+        <tr>
+          <th>ID/</th>
+          <th>アカウントID/</th>
+          <th>時間/</th>
+          <th>コメント文/</th>
+          <th>ファイルID</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <% if !@comments.nil? %>
+            <% @comments.each do |comment| %>
+              <tr>
+                <td><%= comment.id %></td>
+                <td><%= link_to account_show_path(current_account.acc_id) do %>
+                      <%= current_account.acc_id %>
+                    <% end %>
+                </td>
+                <td><%= comment.created_at %></td>
+                <td><%= comment.message %></td>
+                <td><%= comment.file_id %></td>
+                <td><%= link_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= render 'comments/new', comment: @comment %>
+    </td>
+  </tr>
+
+</table>
