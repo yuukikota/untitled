@@ -18,7 +18,7 @@ class TagsController < ApplicationController
     @recruitments = Recruitment.all
     @recruitment = Recruitment.new
     @taghistoryid = Taghistoryid.new
-    if params[:type] == "input" then
+    if account_signed_in? && params[:type] == "input" then
       add_taghistory(inputtag_params)
     end
     render template: 'mains/index'
@@ -116,7 +116,7 @@ class TagsController < ApplicationController
     end
     tmp = Taghistory.find_by(acc_id: 1,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[7])
     if tmp.blank? then
-      taghistory = Taghistory.new({acc_id: 1,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[7], display:display})
+      taghistory = Taghistory.new({acc_id: current_account.acc_id,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[7], display:display})
       taghistory.save
     else
       tmp.touch

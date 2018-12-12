@@ -6,8 +6,8 @@ class MainsController < ApplicationController
     @recruitments = Recruitment.all
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new
-    @taghistoryid = Taghistoryid.new
     if account_signed_in? then
+      @taghistoryid = Taghistoryid.new
       @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
     end
     render template: 'mains/index'
