@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_084852) do
+ActiveRecord::Schema.define(version: 2018_12_12_085852) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -76,7 +76,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_084852) do
   end
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "com_id"
     t.string "acc_id", limit: 20
     t.string "re_id"
     t.string "chat_id"
@@ -102,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_084852) do
     t.string "tag5", limit: 30
     t.string "tag6", limit: 30
     t.string "tag7", limit: 30
+    t.string "display", limit: 300
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

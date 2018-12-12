@@ -1,7 +1,6 @@
 class CreateRecruitments < ActiveRecord::Migration[5.2]
   def change
     create_table :recruitments do |t|
-      t.string :com_id
       t.string :acc_id, :limit=>20
       t.string :re_id
       t.string :chat_id

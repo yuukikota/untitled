@@ -87,9 +87,19 @@
 
       <td valign="bottom">
         <div class="actions">
+          <input type="hidden" name="type" value="input">
           <input name="commit" type="submit" value="検索" style="width:150px; height:23px" >
         </div>
       </td>
     </tr>
   <% end %>
+  <tr>
+    <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
+      <td colspan="2">
+        <%= f.collection_select :id,  Taghistory.where(acc_id: '1').where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴"%>
+        <input type="hidden" name="type" value="history">
+        <input name="commit" type="submit" value="履歴で検索" style="width:150px; height:23px" >
+      </td>
+    <% end %>
+  </tr>
 </table>
