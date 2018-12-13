@@ -16,6 +16,13 @@ class RecruitmentsController < ApplicationController
   # POST /recruitments
   # POST /recruitments.json
   def create
+    @recruitments = Recruitment.all
+    @inputtag = Inputtag.new
+    if account_signed_in? then
+      @taghistoryid = Taghistoryid.new
+      @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
+    end
+
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
     @recruitment.update_time = Time.now.to_s(:datetime)
@@ -25,6 +32,7 @@ class RecruitmentsController < ApplicationController
 
     if $view_com_num == '5'
       @recruitment.re_id  = '発言'
+      @recruitment.title = "発言"
     else if  $view_com_num == '6'
            @recruitment.re_id  = '募集'
            @recruitment.resolved = '未解決'
@@ -36,7 +44,7 @@ class RecruitmentsController < ApplicationController
         format.html { redirect_to root_path, notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
-        format.html { render '/mains/index' }
+        format.html { render :template => "mains/index" }
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end

@@ -8,14 +8,13 @@
       <span><%= recruitment.created_at %></span>
       <span><%= recruitment.acc_id %></span>
       <span>
-        <span>
       <%= link_to '返信', root_path(recruitment.id), method: :get  %>
-        </span>
+      </span>
      <% if current_account.acc_id == recruitment.acc_id %>
-
+      <span>
       <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
     <%end %>
-        </span>
+      </span>
       <div><%= recruitment.detail %></div>
     </div>
     <br>

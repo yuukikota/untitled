@@ -1,5 +1,7 @@
 class Recruitment < ApplicationRecord
 
+  validates :detail, presence: true
+  validates :title, presence: true
 
   # タグIDの配列からそのタグをすべて含む発言を取得する
   def self.tagidsearch(tagid)
