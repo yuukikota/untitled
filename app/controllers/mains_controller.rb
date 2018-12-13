@@ -24,6 +24,8 @@ class MainsController < ApplicationController
     @recruitments = Recruitment.all.limit(20).offset(params[:size])
 
     @recruitment = Recruitment.new
+    @inputtag = Inputtag.new
+  
 
     if account_signed_in? then #ログインしている
       @taghistoryid = Taghistoryid.new #履歴用に変数準備

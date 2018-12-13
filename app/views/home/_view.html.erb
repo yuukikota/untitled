@@ -9,7 +9,7 @@
       <% end %>
       <span><%= recruitment.created_at %></span>
       <span><%= link_to account_show_path(recruitment.acc_id) do %>
-          <%= recruitment.acc_id %>
+         <%= Account.find_by(acc_id: recruitment.acc_id).name %>
         <% end %>
          </span>
       <span>

@@ -4,11 +4,11 @@
 <table>
   <% @recruitments.where("re_id = '発言'").order("updated_at DESC").each do |recruitment| %>
     <div class="box">
-      <span><%= recruitment.acc_id %></span>
       <span><%= link_to account_show_path(recruitment.acc_id) do %>
-          <%= recruitment.name %>
+         <%= Account.find_by(acc_id: recruitment.acc_id).name %>
         <% end %>
       </span>
+      <span><%= recruitment.acc_id %></span>
       <span><%= recruitment.created_at %></span>
 
       <span>

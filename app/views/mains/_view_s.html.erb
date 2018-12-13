@@ -4,28 +4,33 @@
 <table>
 
   <% @recruitments.where("re_id = '募集'").where("resolved = '解決済み'").order("updated_at DESC").each do |recruitment| %>
-    <% if recruitment.re_id == '募集' && recruitment.resolved == '解決済み'%>
-      <div class="box">
-        <div><%= recruitment.title %></div>
-        <span><%= recruitment.created_at %></span>
+
+    <div class="box">
+      <div><%= recruitment.title %></div>
+
+      <%= link_to account_show_path(recruitment.acc_id) do %>
+          <span>
+            <%= Account.find_by(acc_id: recruitment.acc_id).name %>
+          </span>
         <span><%= recruitment.acc_id %></span>
-        <span>
-        <%= link_to '返信', root_path(recruitment.id), method: :get  %>
-        </span>
-       <% if current_account.acc_id == recruitment.acc_id %>
-        <span>
-        <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
-       </span>
-        <%end %>
-        <% if  current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id) != nil %>
-         <span>
-          <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
-        </span>
-          <% end %>
-        <div><%= recruitment.detail %></div>
-      </div>
-      <br>
-    <% end %>
-  <% end %>
+        <span><%= recruitment.created_at %></span>
+      <% end %>
+      <span>
+      <%= link_to '返信', root_path(recruitment.id), method: :get  %>
+      </span>
+     <% if current_account.acc_id == recruitment.acc_id %>
+      <span>
+      <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+     </span>
+      <%end %>
+      <% if  current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present? %>
+       <span>
+        <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
+      </span>
+        <% end %>
+      <div><%= recruitment.detail %></div>
+    </div>
+    <br>
+    <%end %>
 
 </table>
