@@ -1,20 +1,18 @@
 
-<h2>募集表示窓</h2>
+<h2>解決済み募集表示窓</h2>
 
 <table>
-  <% @recruitments.where("re_id = '募集'").order("updated_at DESC").each do |recruitment| %>
+  <% @recruitments.where("re_id = '募集'").where("resolved = '解決済み'").order("updated_at DESC").each do |recruitment| %>
     <div class="box">
       <div><%= recruitment.title %></div>
       <span><%= recruitment.created_at %></span>
       <span><%= recruitment.acc_id %></span>
       <span>
+        <span>
       <%= link_to '返信', root_path(recruitment.id), method: :get  %> <!--返信画面のパスへ書き換える-->
         </span>
-      <span>
      <% if current_account.acc_id == recruitment.acc_id %>
-          <% if recruitment.resolved == '未解決' %>
-          <%= link_to '募集結果選択', root_path(recruitment.id), method: :get  %>
-            <% end %>
+
       <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
     <%end %>
         </span>

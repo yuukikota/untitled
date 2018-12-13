@@ -26,15 +26,25 @@ class RecruitmentsController < ApplicationController
   def create
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
-    @recruitment.post_time = Time.now.to_s(:datetime)
     @recruitment.update_time = Time.now.to_s(:datetime)
+    if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
+      @recruitment.detail = nil
+    end
+
+    if $view_com_num == '5'
+      @recruitment.re_id  = '発言'
+    else if  $view_com_num == '6'
+           @recruitment.re_id  = '募集'
+           @recruitment.resolved = '未解決'
+         end
+    end
 
     respond_to do |format|
       if @recruitment.save
-        format.html { redirect_to mains_home_path, notice: 'Recruitment was successfully created.' }
+        format.html { redirect_to root_path, notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
-        format.html { render mains_home_path }
+        format.html { render '/mains/index' }
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end
@@ -59,7 +69,7 @@ class RecruitmentsController < ApplicationController
   def destroy
     @recruitment.destroy
     respond_to do |format|
-      format.html { redirect_to mains_home_path, notice: 'Recruitment was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

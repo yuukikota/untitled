@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "com_id"
+    t.datetime "update_time"
     t.string "acc_id", limit: 20
     t.string "re_id"
     t.string "chat_id"
