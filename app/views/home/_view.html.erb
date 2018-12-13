@@ -1,16 +1,16 @@
 
-<h2>タイムライン表示窓</h2>
+<h2>自身のコメント一覧</h2>
 
 <table>
-  <% @recruitments.each do |recruitment| %>
+  <% @recruitments.order("update_time DESC").each do |recruitment| %>
     <div class="box">
       <% if recruitment.re_id == '募集'%>
-      <div><%= recruitment.title %></div>
-        <% end %>
+        <div><%= recruitment.title %></div>
+      <% end %>
       <span><%= recruitment.created_at %></span>
       <span><%= link_to account_show_path(recruitment.acc_id) do %>
-              <%= recruitment.acc_id %>
-            <% end %>
+          <%= recruitment.acc_id %>
+        <% end %>
          </span>
       <span>
       <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
@@ -26,7 +26,6 @@
              <span>
                <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
              </span>
-       
             <% end %>
             <%end %>
             <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>

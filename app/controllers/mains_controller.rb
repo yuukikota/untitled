@@ -1,11 +1,28 @@
 class MainsController < ApplicationController
- 
 
   def index
     $view_num = '1'
     $view_com_num = '5'
-
+    @comments = Comment.all
     @comment = Comment.new
+
+    @recruitments = Recruitment.all.limit(20)
+    @recruitment = Recruitment.new
+    @inputtag = Inputtag.new
+    if account_signed_in? then
+      @taghistoryid = Taghistoryid.new
+      @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
+    end
+    render template: 'mains/index'
+  end
+
+  def add_index
+    $view_num = '1'
+    $view_com_num = '5'
+    @comments = Comment.all
+    @comment = Comment.new
+    @recruitments = Recruitment.all.limit(20).offset(params[:size])
+
     @recruitment = Recruitment.new
 
     if account_signed_in? then #ログインしている
@@ -33,9 +50,10 @@ class MainsController < ApplicationController
 
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new(inputtag_params)#入力されているタグを取得
-    @recruitments = Recruitment.tagnamesearch(arry_tag_params)#入力されているタグで検索
+    @recruitments = Recruitment.tagnamesearch(arry_tag_params).limit(20)#入力されているタグで検索
 
     if account_signed_in? then #ログインしている
+
       @taghistoryid = Taghistoryid.new
       @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
     end

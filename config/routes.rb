@@ -13,22 +13,30 @@ Rails.application.routes.draw do
   devise_for :accounts, :controllers =>{
       :registrations => :registrations
   }
-  resources :recruitments, only: [ :create, :destroy ]
+  resources :recruitments, only: [ :edit, :update, :create, :destroy ]
+
+  # 返信追加読み込み
+  get '/recruitments/edit/add/:id/:size', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/, size: /[0-9]+/ }
+
+  # 返信生成削除
   resources :comments, only: [ :create, :destroy ]
+  # 返信一覧
   get '/comments/index/:p_com_id', to: 'comments#index', as: :comments_index, constraints: { p_com_id: /[0-9]+/ }
-  get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { size: /[0-9]+/ }
+  # 返信追加読み込み
+  get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { p_com_id: /[0-9]+/, size: /[0-9]+/ }
+
   resources :chat_comments
   resources :entry_chats
-  resources :chats
   root 'mains#index'
 
   get 'home/:acc_id', to: 'home#show', as: :account_show
+  get '/home/button/:id', to: 'home#button', as: 'home_button'
 
   post '/'=> 'tags#update'#タグ検索フォーム
   post '/'=> 'tags#update'#履歴検索フォーム
 
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
-  get '/jumps/:id', to: 'jumps#index', as: 'jumps'
+  get '/mains/index/add/:size', to: 'mains#add_index', as: :mains_add, constraints: { size: /[0-9]+/ }
   get '/members', to: 'members#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

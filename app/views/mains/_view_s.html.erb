@@ -2,7 +2,8 @@
 <h2>解決済み募集表示窓</h2>
 
 <table>
-  <% @recruitments.each do |recruitment| %>
+
+  <% @recruitments.where("re_id = '募集'").where("resolved = '解決済み'").order("updated_at DESC").each do |recruitment| %>
     <% if recruitment.re_id == '募集' && recruitment.resolved == '解決済み'%>
       <div class="box">
         <div><%= recruitment.title %></div>
@@ -14,11 +15,17 @@
        <% if current_account.acc_id == recruitment.acc_id %>
         <span>
         <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
-      <%end %>
+       </span>
+        <%end %>
+        <% if  current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id) != nil %>
+         <span>
+          <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
         </span>
+          <% end %>
         <div><%= recruitment.detail %></div>
       </div>
       <br>
     <% end %>
   <% end %>
+
 </table>
