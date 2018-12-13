@@ -1,12 +1,11 @@
 class MainsController < ApplicationController
   def index
     $view_num = '1'
-
     $view_com_num = '5'
-    @comments = Comment.all
 
     @comment = Comment.new
     @recruitments = Recruitment.all
+    @recruitments = @recruitments.order(updated_at: "DESC")
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new
     if account_signed_in? then
@@ -19,8 +18,12 @@ class MainsController < ApplicationController
     @comments = Comment.all
     @comment = Comment.new
     @recruitments = Recruitment.all
+    @recruitments = @recruitments.order(updated_at: "DESC")
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new
+    if account_signed_in? then
+      @taghistoryid = Taghistoryid.new
+    end
     tmp = params[:id]
     if tmp == '1' || tmp == '2' || tmp == '3' || tmp == '4'
       $view_num = tmp

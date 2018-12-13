@@ -32,7 +32,8 @@ class Recruitment < ApplicationRecord
   def self.tagnamesearch(tagname)
     query = "SELECT recruitments.* FROM recruitments"
     if tagname.blank? then
-      Recruitment.all
+      tmp = Recruitment.all
+      tmp.order(updated_at: "DESC")
     else
       cnt = 0
       for i in 0..(tagname.length)
@@ -49,7 +50,7 @@ class Recruitment < ApplicationRecord
         end
       end
       if cnt != 0 then
-        query = query + " ORDER BY recruitments.updated_at ASC"
+        query = query + " ORDER BY recruitments.updated_at DESC"
         com = Recruitment.find_by_sql([query])
         if com.blank? then
           Recruitment.none
@@ -57,7 +58,8 @@ class Recruitment < ApplicationRecord
           com
         end
       else
-        Recruitment.none
+        tmp = Recruitment.all
+        tmp.order(updated_at: "DESC")
       end
     end
   end
