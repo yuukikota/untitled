@@ -5,9 +5,10 @@
   <h1> 閲覧画面(ログイン後) </h1>
 <% end %>
 <%= render 'devise/shared/accounts_accessor' %>
-  <div>
-    <%= render :partial =>'tags/form' , inputtag: @inputtag %>
-  </div>
+
+<div>
+  <%= render :partial =>'tags/form' , inputtag: @inputtag , taghistoryid: @taghistoryid%>
+</div>
 
 <br>
 <table class="button">

@@ -23,7 +23,8 @@ Rails.application.routes.draw do
 
   get 'home/:acc_id', to: 'home#show', as: :account_show
 
-  post '/'=> 'tags#update'
+  post '/'=> 'tags#update'#タグ検索フォーム
+  post '/'=> 'tags#update'#履歴検索フォーム
 
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
   get '/jumps/:id', to: 'jumps#index', as: 'jumps'
