@@ -12,7 +12,7 @@
 
 <br>
 <table class="button">
-  <%= button_to '最新を読み込む🔁', root_path, method: :get %>
+  <%= button_to '最新を読み込む🔁', root_path, method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7} %>
 </table>
 <%= render 'mains/button' %>
 <table class="view">
