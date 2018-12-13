@@ -2,7 +2,7 @@
 <h2>タイムライン表示窓</h2>
 
 <table>
-  <% @recruitments.order("update_time DESC").each do |recruitment| %>
+  <% @recruitments.each do |recruitment| %>
     <div class="box">
       <span><%= recruitment.created_at %></span>
       <span><%= recruitment.acc_id %></span>

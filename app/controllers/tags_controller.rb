@@ -13,10 +13,11 @@ class TagsController < ApplicationController
     end
 
     @comment = Comment.new
-    @recruitments =  Recruitment.tagnamesearch([@inputtag.school,@inputtag.faculty,@inputtag.department,@inputtag.tag1,@inputtag.tag2,@inputtag.tag3,@inputtag.tag4,@inputtag.tag5,@inputtag.tag6,@inputtag.tag7])
+    @recruitments = Recruitment.tagnamesearch([@inputtag.school,@inputtag.faculty,@inputtag.department,@inputtag.tag1,@inputtag.tag2,@inputtag.tag3,@inputtag.tag4,@inputtag.tag5,@inputtag.tag6,@inputtag.tag7])
     @recruitment = Recruitment.new
     @taghistoryid = Taghistoryid.new
     if account_signed_in? && params[:type] == "input" then
+
       add_taghistory(inputtag_params)
     end
     render template: 'mains/index'

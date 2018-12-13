@@ -5,6 +5,7 @@ class RecruitmentsController < ApplicationController
   # GET /recruitments.json
   def index
     @recruitments = Recruitment.all
+    @recruitments.order(updated_at: "DESC")
   end
 
   # GET /recruitments/new
@@ -33,9 +34,9 @@ class RecruitmentsController < ApplicationController
 
     respond_to do |format|
       if @recruitment.save
+        Tagmap.associate(@recruitment.id, current_account.acc_id)
         format.html { redirect_to root_path, notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
-        Tagmap.associate(@recruitment.id)
       else
         format.html { render '/mains/index' }
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }

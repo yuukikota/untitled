@@ -1,8 +1,8 @@
 class Tagmap < ApplicationRecord
   # コメントに履歴からタグをつける
   # 引数：コメントID
-  def self.associate(comid)
-    history = Taghistory.where(acc_id: current_account.acc_id).order(updated_at:"DESC").first
+  def self.associate(comid, accid)
+    history = Taghistory.where(acc_id: accid).order(updated_at:"DESC").first
     if history.present? then
       if history[:univtag].present? then
         tagid = Tag.increment(history[:univtag])
