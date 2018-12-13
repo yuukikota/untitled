@@ -2,15 +2,18 @@
 <h2>タイムライン表示窓</h2>
 
 <table>
-  <% @recruitments.each do |recruitment| %>
+  <% @recruitments.order("updated_at DESC").each do |recruitment| %>
     <div class="box">
       <% if recruitment.re_id == '募集'%>
       <div><%= recruitment.title %></div>
         <% end %>
+      <%= link_to account_show_path(recruitment.acc_id) do %>
+          <span>
+            <%= Account.find_by(acc_id: recruitment.acc_id).name %>
+          </span>
+      <% end %>
+      <span><%= recruitment.acc_id %></span>
       <span><%= recruitment.created_at %></span>
-      <span><%= link_to account_show_path(recruitment.acc_id) do %>
-              <%= recruitment.acc_id %>
-            <% end %>
          </span>
       <span>
       <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
@@ -22,7 +25,7 @@
               <% if  recruitment.resolved == '未解決' %>
                 <%= link_to '募集結果選択', root_path(recruitment.id), method: :get  %>
               <% end %>
-              <% if  recruitment.resolved == '解決'  && (current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id) != nil) %>
+              <% if  recruitment.resolved == '解決'  && (current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present?) %>
              <span>
                <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
              </span>
