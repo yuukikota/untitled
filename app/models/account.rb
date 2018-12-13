@@ -8,7 +8,7 @@ class Account < ApplicationRecord
   attr_accessor :login
 
   before_save { self.acc_id = acc_id.downcase }
-  validates :acc_id       , presence: true, length: { maximum: 20}, format:{with: /\A\w+\z/i}, uniqueness: { case_sensitive: false }
+  validates :acc_id       , presence: true, length: { maximum: 20}, format:{with: /\A[a-z0-9]+\z/i}, uniqueness: { case_sensitive: false }
   validates :name         , presence: true, length: { maximum: 20}
   validates :university   , presence: true, length: { maximum: 20}
   validates :faculty      , presence: true, length: { maximum: 20}

@@ -1,6 +1,7 @@
 <h2>発言入力フォーム予定地</h2>
-<%= form_with(model: recruitment, local: true) do |form| %>
-  <% if recruitment.errors.any? %>
+
+<%= form_with(model: comment, local: true) do |form| %>
+  <% if comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(recruitment.errors.count, "error") %> prohibited this recruitment from being saved:</h2>
 
@@ -11,6 +12,13 @@
       </ul>
     </div>
   <% end %>
+<form action="/inform/toukou/" method="get">
+
+  <label for="mail">返信先:<input type="text" id="mail" name="re_id"><br>
+    <textarea name="ht1" rows="20" cols="50" maxlength="1000">
+</textarea><br>
+    <input type="submit" name="button" value="発言"/>
+</form>
   <table class="form" align="left">
   <td>
     <%= form.label :発言 %>
