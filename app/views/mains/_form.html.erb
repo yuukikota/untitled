@@ -1,20 +1,12 @@
-<h2>発言入力フォーム予定地</h2>
+<h2>発言入力フォーム</h2>
 
-<form action="/inform/toukou/" method="get">
-
-  <label for="mail">返信先:<input type="text" id="mail" name="re_id"><br>
-    <textarea name="ht1" rows="20" cols="50" maxlength="1000">
-</textarea><br>
-    <input type="submit" name="button" value="発言"/>
-</form>
-
-<%= form_with(model: comment, local: true) do |form| %>
-  <% if comment.errors.any? %>
+<%= form_with(model: recruitment, local: true) do |form| %>
+  <% if recruitment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+      <h2><%= pluralize(recruitment.errors.count, "error") %> prohibited this recruitment from being saved:</h2>
 
       <ul>
-        <% comment.errors.full_messages.each do |message| %>
+        <% recruitment.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -23,15 +15,17 @@
   <table class="form" align="left">
   <td>
     <%= form.label :発言 %>
-    <%= form.text_area :message %>
+    <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
     <div class="field">
+      <!--
       <%= form.label :添付 %>
       <%= form.number_field :file_id %>
+      -->
     </div>
   </td>
     <td>
       <div class="actions">
-        <%= form.submit"送信" %>
+        <%= form.submit"送信📤" %>
       </div>
     </td>
 

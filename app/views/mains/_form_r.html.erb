@@ -1,15 +1,5 @@
 <h2>募集入力フォーム予定地</h2>
 
-<form action="/b_inform/toukou/" method="get">
-  <label for="title">タイトル:<input type="text" id="title" name="title_">
-    <label for="mail">返信先　:<input type="text" id="mail" name="re_id">
-      <br />
-      <textarea name="ht2"  rows="20" cols="50" maxlength="1000">
-</textarea><br/>
-      <input type="submit" name="button" value="募集"/>
-</form>
-
-<!--
 <%= form_with(model: recruitment, local: true) do |form| %>
   <% if recruitment.errors.any? %>
     <div id="error_explanation">
@@ -30,15 +20,14 @@
     </div>
       <div class="field"　>
       <%= form.label :募集 %>
-      <%= form.text_area :detail %>
+        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
     </div>
     </td>
     <td>
     <div class="actions">
-      <%= form.submit"送信" %>
+      <%= form.submit"送信📤" %>
     </div>
     </td>
   </table>
 
 <% end %>
--->

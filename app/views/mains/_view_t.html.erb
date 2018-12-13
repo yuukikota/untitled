@@ -1,19 +1,24 @@
-<%= stylesheet_link_tag "box", :media => "all" %>
+
 <h2>タイムライン表示窓</h2>
-<!--
+
 <table>
-  <% @comments.join(:@recruitments).order("update_time DESC").each do |comment| %>
+  <% @recruitments.order("update_time DESC").each do |recruitment| %>
     <div class="box">
-      <span><%= comment.post_time %></span>
-      <span><%= comment.acc_id %></span>
+      <span><%= recruitment.created_at %></span>
+      <span><%= recruitment.acc_id %></span>
       <span>
-     <% if $account.acc_id == comment.acc_id %>
-      <%= link_to '削除🚮', comment, method: :delete, data: { confirm: '削除しますか?' } %>
+      <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
+        </span>
+      <span>
+     <% if current_account.acc_id == recruitment.acc_id %>
+           <% if recruitment.re_id == '募集' && recruitment.resolved == '未解決' %>
+          <%= link_to '募集結果選択', root_path(recruitment.id), method: :get  %>
+            <% end %>
+      <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
     <%end %>
         </span>
-      <div><%= comment.message %></div>
+      <div><%= recruitment.detail %></div>
       <br>
     </div>
   <% end %>
 </table>
--->

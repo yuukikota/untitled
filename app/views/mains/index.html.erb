@@ -4,59 +4,52 @@
 <% else %>
   <h1> 閲覧画面(ログイン後) </h1>
 <% end %>
-
 <%= render 'devise/shared/accounts_accessor' %>
 
 <div>
-  <%= render :partial =>'tags/form' , inputtag: @inputtag %>
+  <%= render :partial =>'tags/form' , inputtag: @inputtag , taghistoryid: @taghistoryid%>
 </div>
 
-<table>
-  <tr>
-    <td>
-      <% if account_signed_in? %>
-        <table align="left">
-          <tr>
-            <td>
-              <%= render 'mains/form', comment: @comment %>
-            </td>
-            <td>
-              <%= render 'mains/form_r', recruitment: @recruitment %>
-            </td>
-          </tr>
-
-        </table>
-      <% end %>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-
-      <table class="button">
-        <%= button_to '更新🔁', root_path, method: :get %>
-      </table>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <%= render 'mains/button' %>
-
-      <table>
-        <% if $view_num == '1' ||  $view_num == '2'%>
-          <td>
-            <!--<%= render 'mains/view', comments: @comments %>-->
-          </td>
-        <% end %>
-
-        <% if $view_num == '1' ||  $view_num == '3'%>
-          <td>
-            <!--<%= render 'mains/view_r', recruitment: @recruitments %>-->
-          </td>
-        <% end %>
-      </table>
-    </td>
-  </tr>
-
+<br>
+<table class="button">
+  <%= button_to '更新🔁', root_path, method: :get %>
 </table>
+<%= render 'mains/button' %>
+<table>
+  <% if $view_num == '1'%>
+    <td>
+      <%= render 'mains/view_t', recruitment: @recruitments %>
+    </td>
+  <% end %>
+  <% if $view_num == '2'%>
+  <td>
+    <%= render 'mains/view', recruitment: @recruitments %>
+  </td>
+  <% end %>
+  <% if $view_num == '3'%>
+  <td>
+    <%= render 'mains/view_r', recruitment: @recruitments %>
+  </td>
+  <% end %>
+  <% if $view_num == '4'%>
+    <td>
+      <%= render 'mains/view_s', recruitment: @recruitments %>
+    </td>
+  <% end %>
+</table>
+
+<% if account_signed_in? %>
+  <%= render 'mains/button_f', recruitment: @recruitment%>
+  <table align="left">
+    <% if $view_com_num == '5' %>
+    <td>
+<%= render 'mains/form', recruitment: @recruitment %>
+    </td>
+      <% end %>
+    <% if $view_com_num == '6' %>
+    <td>
+    <%= render 'mains/form_r', recruitment: @recruitment %>
+    </td>
+    <% end %>
+  </table>
+<% end %>

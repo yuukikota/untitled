@@ -7,59 +7,48 @@ class RecruitmentsController < ApplicationController
     @recruitments = Recruitment.all
   end
 
-  # GET /recruitments/1
-  # GET /recruitments/1.json
-  def show
-  end
-
   # GET /recruitments/new
   def new
     @recruitment = Recruitment.new
   end
 
-  # GET /recruitments/1/edit
-  def edit
-  end
 
   # POST /recruitments
   # POST /recruitments.json
   def create
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
-    @recruitment.post_time = Time.now.to_s(:datetime)
     @recruitment.update_time = Time.now.to_s(:datetime)
+    if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
+      @recruitment.detail = nil
+    end
+
+    if $view_com_num == '5'
+      @recruitment.re_id  = '発言'
+    else if  $view_com_num == '6'
+           @recruitment.re_id  = '募集'
+           @recruitment.resolved = '未解決'
+         end
+    end
 
     respond_to do |format|
       if @recruitment.save
-        format.html { redirect_to mains_home_path, notice: 'Recruitment was successfully created.' }
+        format.html { redirect_to root_path, notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
-        format.html { render mains_home_path }
+        format.html { render '/mains/index' }
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /recruitments/1
-  # PATCH/PUT /recruitments/1.json
-  def update
-    respond_to do |format|
-      if @recruitment.update(recruitment_params)
-        format.html { redirect_to @recruitment, notice: 'Recruitment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recruitment }
-      else
-        format.html { render :edit }
-        format.json { render json: @recruitment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /recruitments/1
   # DELETE /recruitments/1.json
   def destroy
     @recruitment.destroy
     respond_to do |format|
-      format.html { redirect_to mains_home_path, notice: 'Recruitment was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

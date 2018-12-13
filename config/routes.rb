@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   devise_for :accounts, :controllers =>{
       :registrations => :registrations
   }
-  resources :recruitments
+  resources :recruitments, only: [ :create, :destroy ]
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:p_com_id', to: 'comments#index', as: :comments_index, constraints: { p_com_id: /[0-9]+/ }
   get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { size: /[0-9]+/ }
@@ -24,7 +24,8 @@ Rails.application.routes.draw do
 
   get 'home/:acc_id', to: 'home#show', as: :account_show
 
-  post '/'=> 'tags#update'
+  post '/'=> 'tags#update'#タグ検索フォーム
+  post '/'=> 'tags#update'#履歴検索フォーム
 
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
   get '/jumps/:id', to: 'jumps#index', as: 'jumps'
