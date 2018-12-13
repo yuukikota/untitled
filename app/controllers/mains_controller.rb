@@ -1,11 +1,7 @@
 class MainsController < ApplicationController
-  def book_list
-    @recruitments = Recruitment.paginate(page: params[:page], per_page: 20)
-  end
 
   def index
     $view_num = '1'
-
     $view_com_num = '5'
     @comments = Comment.all
     @comment = Comment.new
