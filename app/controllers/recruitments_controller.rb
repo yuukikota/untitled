@@ -7,19 +7,11 @@ class RecruitmentsController < ApplicationController
     @recruitments = Recruitment.all
   end
 
-  # GET /recruitments/1
-  # GET /recruitments/1.json
-  def show
-  end
-
   # GET /recruitments/new
   def new
     @recruitment = Recruitment.new
   end
 
-  # GET /recruitments/1/edit
-  def edit
-  end
 
   # POST /recruitments
   # POST /recruitments.json
@@ -50,19 +42,6 @@ class RecruitmentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /recruitments/1
-  # PATCH/PUT /recruitments/1.json
-  def update
-    respond_to do |format|
-      if @recruitment.update(recruitment_params)
-        format.html { redirect_to @recruitment, notice: 'Recruitment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @recruitment }
-      else
-        format.html { render :edit }
-        format.json { render json: @recruitment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # DELETE /recruitments/1
   # DELETE /recruitments/1.json
