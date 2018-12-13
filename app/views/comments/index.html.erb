@@ -5,35 +5,24 @@
   <tr>
     <td>
       <table>
-        <thead>
         <tr>
-          <th>ID/</th>
-          <th>アカウントID/</th>
-          <th>時間/</th>
-          <th>コメント文/</th>
-          <th>ファイルID</th>
-          <th colspan="3"></th>
-        </tr>
-        </thead>
+          <td>
+            <div id="add_comments">
 
-        <tbody>
-          <% if !@comments.nil? %>
-            <% @comments.each do |comment| %>
-              <tr>
-                <td><%= comment.id %></td>
-                <td><%= link_to account_show_path(current_account.acc_id) do %>
-                      <%= current_account.acc_id %>
-                    <% end %>
-                </td>
-                <td><%= comment.created_at %></td>
-                <td><%= comment.message %></td>
-                <td><%= comment.file_id %></td>
-                <td><%= link_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </tbody>
+              <%= render partial: "comment", collection: @comments %>
+
+            </div>
+          </td>
+        </tr>
       </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div id="request_add_comments">
+        <%= button_to "最新を読み込む", comments_add_path(params[:p_com_id], @comments.size.to_s), method: :get, remote: true %>
+      </div>
     </td>
   </tr>
 
