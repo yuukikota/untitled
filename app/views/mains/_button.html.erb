@@ -1,7 +1,7 @@
 
 <table class="button" align="left" >
   <% if $view_num == '1' %>
-  <%= button_to 'タイムライン', mains_button_path(1), method: :get, disabled: :disabled %>
+      <%= button_to 'タイムライン', mains_button_path(1), method: :get, disabled: :disabled %>
     <% else %>
     <%= button_to 'タイムライン', mains_button_path(1), method: :get %>
   <% end %>

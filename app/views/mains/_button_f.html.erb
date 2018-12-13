@@ -1,0 +1,14 @@
+<table class="button" align="left" >
+  <% if $view_com_num == '5' %>
+    <%= button_to '発言', mains_button_path(5), method: :get, disabled: :disabled %>
+  <% else %>
+    <%= button_to '発言', mains_button_path(5), method: :get %>
+  <% end %>
+</table>
+<table class="button" align="left">
+  <% if $view_com_num == '6' %>
+    <%= button_to '募集', mains_button_path(6), method: :get, disabled: :disabled %>
+  <% else %>
+    <%= button_to '募集', mains_button_path(6), method: :get %>
+  <% end %>
+</table>
