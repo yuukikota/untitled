@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   devise_for :accounts, :controllers =>{
       :registrations => :registrations
   }
-  resources :recruitments
+  resources :recruitments, only: [ :create, :destroy ]
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:p_com_id', to: 'comments#index', as: :comments_index, constraints: { p_com_id: /[0-9]/ }
   resources :chat_comments

@@ -8,7 +8,7 @@
       <span><%= recruitment.created_at %></span>
       <span><%= recruitment.acc_id %></span>
       <span>
-      <%= link_to '返信', root_path(recruitment.id), method: :get  %> <!--返信画面のパスへ書き換える-->
+      <%= link_to '返信', comments_index_path(recruitment.id), method: :get  %>
         </span>
       <span>
      <% if current_account.acc_id == recruitment.acc_id %>
