@@ -2,9 +2,8 @@
 <div class="comment">
   <table border="2">
     <tr>
-      <td><%= link_to account_show_path(comment.acc_id) do %>
+      <td>
           <%= comment.acc_id %>
-        <% end %>
       </td>
       <td><%= comment.created_at %></td>
     </tr>
@@ -12,7 +11,7 @@
       <td colspan="2"><%= simple_format(comment.message) %></td>
     </tr>
     <tr>
-      <td colspan="2"><%= button_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
+      <td colspan="2"><%= form.radio_button :answer, comment.message %></td>
     </tr>
   </table>
 </div>

@@ -4,8 +4,15 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20)
+    @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20)  #20件を取得
     @comment = Comment.new(p_com_id: params[:p_com_id])
+    @recruitment = Recruitment.find(params[:p_com_id])
+    if @recruitment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   def add_index
@@ -19,22 +26,30 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-    if account_signed_in? #発言権限を確認
-      @comment.acc_id = current_account.acc_id #アカウントID
-      respond_to do |format|
-        if @comment.save
-          format.html { redirect_to comments_index_path(@comment.p_com_id), notice: '発言を投稿しました' }
-          format.json { render :index, status: :created, location: @comment }
-        else
-          format.html { render :index }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
-        end
-      end
-    else
+    parent = Recruitment.find(@comment.p_com_id)
+    if !account_signed_in? #発言権限はあるか
       respond_to do |format|
         format.html { redirect_to root_path, notice: '発言するには、ログインしてください' }
         format.json { head :no_content }
       end
+    elsif parent.nil? # 返信先は存在するか
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.json { head :no_content }
+      end
+    else
+      @comment.acc_id = current_account.acc_id #アカウントID
+        respond_to do |format|
+          if @comment.save
+            parent.touch
+            parent.save
+            format.html { redirect_to comments_index_path(@comment.p_com_id), notice: '発言を投稿しました' }
+            format.json { render :index, status: :created, location: @comment }
+          else
+            format.html { render :index }
+            format.json { render json: @comment.errors, status: :unprocessable_entity }
+          end
+        end
     end
   end
 

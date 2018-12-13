@@ -1,5 +1,25 @@
 class RecruitmentsController < ApplicationController
-  before_action :set_recruitment, only: [:show, :edit, :update, :destroy]
+  before_action :set_recruitment, only: [ :edit, :update, :destroy]
+
+
+  # GET /recruitments
+  # GET /recruitments.json
+  def index
+    @recruitments = Recruitment.all
+    @recruitments.order(updated_at: "DESC")
+  end
+
+  # GET /recruitments/1
+  # GET /recruitments/1.json
+  def edit
+    @comments = Comment.where(p_com_id: params[:id]).limit(20)  #20件を取得
+  end
+
+  #ajaxで動的に表示項目を追加する
+  def add_result
+    @comments = Comment.where(p_com_id: params[:id]).limit(20).offset(params[:size])
+  end
+
 
 
   # POST /recruitments
@@ -30,6 +50,8 @@ class RecruitmentsController < ApplicationController
 
     respond_to do |format|
       if @recruitment.save
+        tagarry=[params[:school], params[:faculty], params[:department], params[:tag1], params[:tag2], params[:tag3], params[:tag4], params[:tag5], params[:tag6], params[:tag7]]
+        Tagmap.associate(@recruitment.id, tagarry)
         format.html { redirect_to root_path, notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
@@ -39,11 +61,25 @@ class RecruitmentsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /entry_chats/1
+  # PATCH/PUT /entry_chats/1.json
+  def update
+    respond_to do |format|
+      if @recruitment.update(recruitment_params)
+        format.html { redirect_to root_path, notice: '結果選択しました。募集を終了しました。' }
+        format.json { render :show, status: :ok, location: @recruitment }
+      else
+        format.html { render :edit }
+        format.json { render json: @recruitment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /recruitments/1
   # DELETE /recruitments/1.json
   def destroy
     @recruitment.destroy
+    Tagmap.delrelated(@recruitment.id)
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
       format.json { head :no_content }

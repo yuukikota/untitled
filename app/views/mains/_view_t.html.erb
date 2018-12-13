@@ -9,8 +9,8 @@
         <% end %>
       <span><%= recruitment.created_at %></span>
       <span><%= link_to account_show_path(recruitment.acc_id) do %>
-          <%= recruitment.acc_id %>
-        <% end %>
+              <%= recruitment.acc_id %>
+            <% end %>
          </span>
       <span>
       <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
@@ -26,6 +26,7 @@
              <span>
                <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
              </span>
+       
             <% end %>
             <%end %>
             <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
