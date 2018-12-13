@@ -1,5 +1,6 @@
 class Recruitment < ApplicationRecord
 
+
   # タグIDの配列からそのタグをすべて含む発言を取得する
   def self.tagidsearch(tagid)
     query = "SELECT  recruitments.* FROM recruitments"
@@ -17,6 +18,7 @@ class Recruitment < ApplicationRecord
         cnt += 1
       end
       if cnt != 0 then
+
         query = query + " ORDER BY recruitments.updated_at DESC"
         Recruitment.find_by_sql([query])
       else
@@ -25,6 +27,7 @@ class Recruitment < ApplicationRecord
 
     end
   end
+
   # タグ名の配列からそのタグをすべて含む発言を取得する
   def self.tagnamesearch(tagname)
     query = "SELECT recruitments.* FROM recruitments"

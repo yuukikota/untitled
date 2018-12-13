@@ -1,7 +1,10 @@
 class MainsController < ApplicationController
   def index
     $view_num = '1'
-    @comments = Recruitment.all
+
+    $view_com_num = '5'
+    @comments = Comment.all
+
     @comment = Comment.new
     @recruitments = Recruitment.all
     @recruitment = Recruitment.new
@@ -17,8 +20,18 @@ class MainsController < ApplicationController
     @comment = Comment.new
     @recruitments = Recruitment.all
     @recruitment = Recruitment.new
-    $view_num = params[:id]
+    @inputtag = Inputtag.new
+    tmp = params[:id]
+    if tmp == '1' || tmp == '2' || tmp == '3' || tmp == '4'
+      $view_num = tmp
+    end
+    if tmp == '5' || tmp == '6'
+      $view_com_num = tmp
+    end
     render template: 'mains/index'
+    if account_signed_in? then
+      @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
+    end
   end
 
 end
