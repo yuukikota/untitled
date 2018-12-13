@@ -61,7 +61,7 @@ class Tagmap < ApplicationRecord
   def self.delrelated(comid)
     deltagmap = Tagmap.where(com_id: comid)
     deltagmap.each do |t|
-      Tag.decrement(t.com_id)
+      Tag.decrement(t.tag_id)
     end
     deltagmap.destroy_all
   end

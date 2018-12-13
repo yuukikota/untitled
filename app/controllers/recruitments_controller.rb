@@ -57,6 +57,7 @@ class RecruitmentsController < ApplicationController
   # DELETE /recruitments/1.json
   def destroy
     @recruitment.destroy
+    Tagmap.delrelated(@recruitment.id)
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
       format.json { head :no_content }
