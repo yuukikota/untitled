@@ -11,6 +11,7 @@ class CreateRecruitments < ActiveRecord::Migration[5.2]
       t.string :ans_com_id           #結果返信ID
       t.string :answer, :limit=>1000 #結果本文
       t.string :file_id              #ファイルID
+      t.string :capacity             #募集人数
 
       t.timestamps
     end
