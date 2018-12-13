@@ -35,6 +35,7 @@ class RecruitmentsController < ApplicationController
       if @recruitment.save
         format.html { redirect_to root_path, notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
+        Tagmap.associate(@recruitment.id)
       else
         format.html { render '/mains/index' }
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }

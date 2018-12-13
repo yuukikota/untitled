@@ -21,6 +21,9 @@ class MainsController < ApplicationController
     @recruitments = Recruitment.all
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new
+    if account_signed_in? then
+      @taghistoryid = Taghistoryid.new
+    end
     tmp = params[:id]
     if tmp == '1' || tmp == '2' || tmp == '3' || tmp == '4'
       $view_num = tmp
