@@ -1,17 +1,6 @@
 class RecruitmentsController < ApplicationController
   before_action :set_recruitment, only: [:show, :edit, :update, :destroy]
 
-  # GET /recruitments
-  # GET /recruitments.json
-  def index
-    @recruitments = Recruitment.all
-  end
-
-  # GET /recruitments/new
-  def new
-    @recruitment = Recruitment.new
-  end
-
 
   # POST /recruitments
   # POST /recruitments.json

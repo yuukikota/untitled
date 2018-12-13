@@ -13,8 +13,13 @@
      <% if current_account.acc_id == recruitment.acc_id %>
       <span>
       <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
-    <%end %>
+     </span>
+      <%end %>
+      <% if  current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id) != nil %>
+       <span>
+        <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
       </span>
+        <% end %>
       <div><%= recruitment.detail %></div>
     </div>
     <br>

@@ -12,7 +12,7 @@
 
 <br>
 <table class="button">
-  <%= button_to '更新🔁', root_path, method: :get %>
+  <%= button_to '最新を読み込む🔁', root_path, method: :get %>
 </table>
 <%= render 'mains/button' %>
 <table class="view">
@@ -29,6 +29,7 @@
       <%= render 'mains/view_s', recruitment: @recruitments %>
   <% end %>
 </table>
+<%= button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, remote: true %>
 
 <% if account_signed_in? %>
   <%= render 'mains/button_f', recruitment: @recruitment%>

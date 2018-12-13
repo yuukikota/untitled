@@ -1,4 +1,4 @@
-<h2>募集入力フォーム予定地</h2>
+<h2>募集入力フォーム</h2>
 
 <%= form_with(model: recruitment, local: true) do |form| %>
   <% if recruitment.errors.any? %>
@@ -14,10 +14,12 @@
   <% end %>
   <table class="form">
     <td>
-    <div class="field">
-      <%= form.label :タイトル %>
-      <%= form.text_field :title %>
-    </div>
+      <div class="field">
+        <%= form.label :タイトル %>
+        <%= form.text_field :title %>
+      </div>
+        <%= form.label :チャットの有無 %>
+        <%= form.select :chat, [["有","有"],["無","無"]] %>
 
       <div class="field"　>
       <%= form.label :募集 %>

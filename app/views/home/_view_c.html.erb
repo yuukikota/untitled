@@ -1,0 +1,17 @@
+
+<h2>自身の参加チャット一覧</h2>
+<p id="notice"><%= notice %></p>
+<table>
+
+
+  <tbody>
+  <% entry_chats.each do |entry_chat| %>
+    <tr>
+      <% recruitment = Recruitment.find(id: entry_chat.chat_id) %>
+
+      <td><%= recruitment.detail  %></td>
+      <td><%= button_to entry_chat.chat_id, chat_comments_path(entry_chat.chat_id), method: :get %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
