@@ -8,6 +8,9 @@ class TagsController < ApplicationController
       if params[:taghistoryid][:id] != "" then
         @inputtag = set_taghistory(params[:taghistoryid][:id])
       else
+        history = Taghistory.find_by(display: nil)
+        history.touch
+        history.save
         @inputtag = Inputtag.new
       end
     end

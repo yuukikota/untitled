@@ -11,8 +11,6 @@
         <% end %>
       </datalist>
 
-
-
       <%= f.text_field :faculty, list: 'faculty-name' ,placeholder: "学部名を入力して下さい" ,:size=>"22" %>
       <datalist id="faculty-name">
         <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
@@ -57,14 +55,14 @@
 
 
         <%= f.text_field :tag4, list: 'tag4-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag1-name">
+        <datalist id="tag4-name">
           <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag4| %>
             <option value=<%= tag4.tag_name %>>
           <% end %>
         </datalist>
 
         <%= f.text_field :tag5, list: 'tag5-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag2-name">
+        <datalist id="tag5-name">
           <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag5| %>
             <option value=<%= tag5.tag_name %>>
           <% end %>
@@ -88,7 +86,18 @@
       <td valign="bottom">
         <div class="actions">
           <input type="hidden" name="type" value="input">
-          <input type="hidden" name="" value="<% @inputtag.school %>>">
+          <!--====================タグ検索情報====================-->
+          <input type="hidden" name="school" value="<% @inputtag.school %>">
+          <input type="hidden" name="faculty" value="<% @inputtag.faculty %>">
+          <input type="hidden" name="department" value="<% @inputtag.department %>">
+          <input type="hidden" name="tag1" value="<% @inputtag.tag1 %>">
+          <input type="hidden" name="tag2" value="<% @inputtag.tag2 %>">
+          <input type="hidden" name="tag3" value="<% @inputtag.tag3 %>">
+          <input type="hidden" name="tag4" value="<% @inputtag.tag4 %>">
+          <input type="hidden" name="tag5" value="<% @inputtag.tag5 %>">
+          <input type="hidden" name="tag6" value="<% @inputtag.tag6 %>">
+          <input type="hidden" name="tag7" value="<% @inputtag.tag7 %>">
+          <!--====================タグ検索情報====================-->
           <input name="commit" type="submit" value="検索" style="width:150px; height:23px" >
         </div>
       </td>
@@ -97,8 +106,8 @@
   <% if account_signed_in? %>
     <tr>
       <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
-        <td colspan="2">
-          <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴"%>
+        <td colspan="2"><!--.where.not(display: nil)-->
+          <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴"%>
           <input type="hidden" name="type" value="history">
           <input name="commit" type="submit" value="履歴で検索" style="width:150px; height:23px" >
         </td>

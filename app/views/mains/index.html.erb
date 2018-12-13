@@ -43,12 +43,12 @@
   <table align="left">
     <% if $view_com_num == '5' %>
     <td>
-<%= render 'mains/form', recruitment: @recruitment %>
+<%= render 'mains/form', recruitment: @recruitment, inputtag: @inputtag %>
     </td>
       <% end %>
     <% if $view_com_num == '6' %>
     <td>
-    <%= render 'mains/form_r', recruitment: @recruitment %>
+    <%= render 'mains/form_r', recruitment: @recruitment, inputtag: @inputtag %>
     </td>
     <% end %>
   </table>
