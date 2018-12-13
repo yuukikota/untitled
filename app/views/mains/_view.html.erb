@@ -1,13 +1,13 @@
 
 <h2>発言表示窓</h2>
-<!--
+
 <table>
   <% @recruitments.where("re_id = '発言'").order("updated_at DESC").each do |recruitment| %>
     <div class="box">
       <span><%= recruitment.created_at %></span>
       <span><%= recruitment.acc_id %></span>
       <span>
-      <%= link_to '返信', root_path(recruitment.id), method: :get  %> <!--返信画面のパスへ書き換える-->
+      <%= link_to '返信', root_path(recruitment.id), method: :get  %>!--返信画面のパスへ書き換える-->
         </span>
       <span>
      <% if current_account.acc_id == recruitment.acc_id %>
@@ -19,4 +19,3 @@
         </div>
   <% end %>
 </table>
--->

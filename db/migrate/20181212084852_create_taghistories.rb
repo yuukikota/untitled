@@ -1,6 +1,5 @@
 class CreateTaghistories < ActiveRecord::Migration[5.2]
   def change
-    drop_table :taghistories
     create_table :taghistories do |t|
       t.string :acc_id , null:false
       t.string  :univtag, limit: 30
