@@ -1,6 +1,7 @@
 class RecruitmentsController < ApplicationController
   before_action :set_recruitment, only: [ :edit, :update, :destroy]
 
+
   # GET /recruitments
   # GET /recruitments.json
   def index
@@ -19,10 +20,7 @@ class RecruitmentsController < ApplicationController
     @comments = Comment.where(p_com_id: params[:id]).limit(20).offset(params[:size])
   end
 
-  # GET /recruitments/new
-  def new
-    @recruitment = Recruitment.new
-  end
+
 
   # POST /recruitments
   # POST /recruitments.json

@@ -5,14 +5,28 @@ class ChatCommentsController < ApplicationController
   # GET /chat_comments
   # GET /chat_comments.json
   def index
+    if EntryChat.where(chat_id: $chat_id).find(current_account.acc_id[:acc_id]) == nil
+      $chat_id = nil
+      render template: 'mains/index'
+      else
     @chat_comments = ChatComment.where(chat_id: $chat_id)
     @chat_comment = ChatComment.new
-
+    render template: 'chat_comments/index'
+      end
   end
 
   # GET /chat_comments/1
   # GET /chat_comments/1.json
   def show
+    $chat_id = params[:id]
+    if EntryChat.where(chat_id: $chat_id).find(current_account.acc_id[:acc_id]) == nil
+      $chat_id = nil
+      render template: 'mains/index'
+    else
+    @chat_comments = ChatComment.where(chat_id: $chat_id)
+    @chat_comment = ChatComment.new
+    render template: 'chat_comments/index'
+    end
   end
 
   # GET /chat_comments/new
@@ -20,9 +34,6 @@ class ChatCommentsController < ApplicationController
     @chat_comment = ChatComment.new
   end
 
-  # GET /chat_comments/1/edit
-  def edit
-  end
 
   # POST /chat_comments
   # POST /chat_comments.json
