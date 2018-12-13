@@ -1,0 +1,35 @@
+
+<h2>返信一覧</h2>
+
+<table>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <td>
+            <div id="add_comments">
+
+              <%= render partial: "comment", collection: @comments %>
+
+            </div>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div id="request_add_comments">
+        <%= button_to "最新を読み込む", comments_add_path(params[:p_com_id], @comments.size.to_s), method: :get, remote: true %>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= render 'comments/new', comment: @comment %>
+    </td>
+  </tr>
+
+</table>

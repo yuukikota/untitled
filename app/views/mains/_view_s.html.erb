@@ -1,0 +1,23 @@
+
+<h2>解決済み募集表示窓</h2>
+
+<table>
+  <% @recruitments.where("re_id = '募集'").where("resolved = '解決済み'").order("updated_at DESC").each do |recruitment| %>
+    <div class="box">
+      <div><%= recruitment.title %></div>
+      <span><%= recruitment.created_at %></span>
+      <span><%= recruitment.acc_id %></span>
+      <span>
+        <span>
+      <%= link_to '返信', root_path(recruitment.id), method: :get  %>
+        </span>
+     <% if current_account.acc_id == recruitment.acc_id %>
+
+      <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+    <%end %>
+        </span>
+      <div><%= recruitment.detail %></div>
+    </div>
+    <br>
+  <% end %>
+</table>

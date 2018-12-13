@@ -1,0 +1,34 @@
+<h2>発言入力フォーム</h2>
+
+<%= form_with(model: recruitment, local: true) do |form| %>
+  <% if recruitment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(recruitment.errors.count, "error") %> prohibited this recruitment from being saved:</h2>
+
+      <ul>
+        <% recruitment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="form" align="left">
+  <td>
+    <%= form.label :発言 %>
+    <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
+    <div class="field">
+      <!--
+      <%= form.label :添付 %>
+      <%= form.number_field :file_id %>
+      -->
+    </div>
+  </td>
+    <td>
+      <div class="actions">
+        <%= form.submit"送信📤" %>
+      </div>
+    </td>
+
+  </table>
+
+<% end %>

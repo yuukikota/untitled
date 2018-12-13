@@ -1,0 +1,17 @@
+
+<div class="comment">
+  <table>
+    <tr>
+      <td><%= comment.id %></td>
+      <td><%= link_to account_show_path(comment.acc_id) do %>
+          <%= comment.acc_id %>
+        <% end %>
+      </td>
+      <td><%= comment.created_at %></td>
+      <td><%= simple_format(comment.message) %></td>
+      <td><%= comment.file_id %></td>
+      <td><%= link_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
+    </tr>
+  </table>
+</div>
+
