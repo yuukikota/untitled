@@ -82,3 +82,6 @@ ja:
         current_password: "現在のパスワード"
       comment:
         message: "内容"
+      recruitment:
+        detail: "本文"
+        title: "タイトル"

@@ -1,4 +1,6 @@
 class MainsController < ApplicationController
+ 
+
   def index
     $view_num = '1'
     $view_com_num = '5'
@@ -23,6 +25,9 @@ class MainsController < ApplicationController
     @inputtag = Inputtag.new
     if account_signed_in? then
       @taghistoryid = Taghistoryid.new
+
+      @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
+
     end
     tmp = params[:id]
     if tmp == '1' || tmp == '2' || tmp == '3' || tmp == '4'
