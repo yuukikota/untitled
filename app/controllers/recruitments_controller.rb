@@ -51,6 +51,7 @@ class RecruitmentsController < ApplicationController
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
 
