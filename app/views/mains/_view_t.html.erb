@@ -5,8 +5,8 @@
   <% @recruitments.each do |recruitment| %>
     <div class="box">
       <% if recruitment.re_id == '募集'%>
-        <div><%= recruitment.title %></div>
-      <% end %>
+      <div><%= recruitment.title %></div>
+        <% end %>
       <span><%= recruitment.created_at %></span>
       <span><%= link_to account_show_path(recruitment.acc_id) do %>
               <%= recruitment.acc_id %>
