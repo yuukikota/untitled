@@ -35,6 +35,8 @@ class MainsController < ApplicationController
     @recruitments = Recruitment.all.limit(20).offset(params[:size])
 
     @recruitment = Recruitment.new
+    @inputtag = Inputtag.new
+  
 
     if account_signed_in? then #ログインしている
       @taghistoryid = Taghistoryid.new #履歴用に変数準備
@@ -64,6 +66,7 @@ class MainsController < ApplicationController
 
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new(inputtag_params)#入力されているタグを取得
+
     @inputtag.freetagnum = @inputtag.count_freetag
     @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)#入力されているタグで検索
 

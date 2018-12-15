@@ -14,19 +14,22 @@ Rails.application.routes.draw do
       :registrations => :registrations
   }
   resources :recruitments, only: [ :edit, :update, :create, :destroy ]
-
+  post '/recruitments/:id', to: 'recruitments#update', constraints: {id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/recruitments/edit/add/:id/:size', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/, size: /[0-9]+/ }
+  get '/recruitments/edit/add/:id/:size/', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/, size: /[0-9]+/ }
 
   # 返信生成削除
   resources :comments, only: [ :create, :destroy ]
-  # 返信一覧
   get '/comments/index/:p_com_id', to: 'comments#index', as: :comments_index, constraints: { p_com_id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { p_com_id: /[0-9]+/, size: /[0-9]+/ }
-
+  get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
   resources :chat_comments
-  resources :entry_chats
+  resources :entry_chats, only: [:create, :destroy]
+  # チャット有り結果選択
+  get '/entry_chats/new/:p_com_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { p_com_id: /[0-9]+/ }
+  # 返信追加読み込み
+  get '/entry_chats/new/add/:p_com_id/:size/', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
+
   root 'mains#index'
 
   get 'home/:acc_id', to: 'home#show', as: :account_show

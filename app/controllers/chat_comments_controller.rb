@@ -19,7 +19,7 @@ class ChatCommentsController < ApplicationController
   # GET /chat_comments/1.json
   def show
     $chat_id = params[:id]
-    if EntryChat.where(chat_id: $chat_id).find(current_account.acc_id[:acc_id]) == nil
+    if EntryChat.where(chat_id: $chat_id).find(current_account.acc_id[:acc_id]).present?
       $chat_id = nil
       render template: 'mains/index'
     else

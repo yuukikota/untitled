@@ -12,8 +12,16 @@ class EntryChatsController < ApplicationController
   def show
   end
 
-  # GET /entry_chats/new
+  # GET /entry_chats/new/:p_com_id
   def new
+    @recruitment = Recruitment.find(params[:p_com_id]) # 元の募集を取得
+    @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20)  #返信20件を取得
+    @entry_chat = EntryChat.new
+  end
+
+  # ajaxで動的に表示項目を追加する
+  def add_result
+    @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20).offset(params[:size])  #返信20件を取得
     @entry_chat = EntryChat.new
   end
 
@@ -25,16 +33,16 @@ class EntryChatsController < ApplicationController
   # POST /entry_chats.json
   def create
     @entry_chat = EntryChat.new(entry_chat_params)
-
-    respond_to do |format|
-      if @entry_chat.save
-        format.html { redirect_to @entry_chat, notice: 'Entry chat was successfully created.' }
-        format.json { render :show, status: :created, location: @entry_chat }
-      else
-        format.html { render :new }
-        format.json { render json: @entry_chat.errors, status: :unprocessable_entity }
-      end
-    end
+    @entry_chat.save
+    #respond_to do |format|
+    #  if @entry_chat.save
+    #    format.html { redirect_to @entry_chat, notice: 'Entry chat was successfully created.' }
+    #    format.json { render :show, status: :created, location: @entry_chat }
+    #  else
+    #    format.html { render :new }
+    #    format.json { render json: @entry_chat.errors, status: :unprocessable_entity }
+    #  end
+    #end
   end
 
   # PATCH/PUT /entry_chats/1
@@ -54,11 +62,14 @@ class EntryChatsController < ApplicationController
   # DELETE /entry_chats/1
   # DELETE /entry_chats/1.json
   def destroy
+    @new_entry_chat = EntryChat.new
+    @new_entry_chat.chat_id = @entry_chat.chat_id
+    @new_entry_chat.acc_id = @entry_chat.acc_id
     @entry_chat.destroy
-    respond_to do |format|
-      format.html { redirect_to entry_chats_url, notice: 'Entry chat was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    #respond_to do |format|
+    #  format.html { redirect_to entry_chats_url, notice: 'Entry chat was successfully destroyed.' }
+    #  format.json { head :no_content }
+    #end
   end
 
   private

@@ -1,0 +1,4 @@
+$('<%= ".result_" + @entry_chat.acc_id %>').html(
+    "<%= escape_javascript(render partial: 'entry_chats/selected', locals: { entry_chat: @entry_chat}) %>"
+);
+$('[type="submit"]').prop('disabled',false);//ボタンを有効化する
