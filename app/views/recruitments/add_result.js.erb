@@ -4,4 +4,3 @@ $('#add_results').append(
 $('#request_add_results').html(
     "<%= escape_javascript(link_to "さらに読み込む", results_add_path(params[:id], (params[:size].to_i+@comments.size).to_s), method: :get, data: { disable_with: "処理中..." }, remote: true) %>"
 );
-

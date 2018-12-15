@@ -21,9 +21,15 @@ Rails.application.routes.draw do
   # 返信生成削除
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:p_com_id', to: 'comments#index', as: :comments_index, constraints: { p_com_id: /[0-9]+/ }
-  get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { size: /[0-9]+/ }
+  # 返信追加読み込み
+  get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
   resources :chat_comments
-  resources :entry_chats
+  resources :entry_chats, only: [:create, :destroy]
+  # チャット有り結果選択
+  get '/entry_chats/new/:p_com_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { p_com_id: /[0-9]+/ }
+  # 返信追加読み込み
+  get '/entry_chats/new/add/:p_com_id/:size/', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
+
   root 'mains#index'
 
   get 'home/:acc_id', to: 'home#show', as: :account_show
