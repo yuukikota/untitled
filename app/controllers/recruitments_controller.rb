@@ -25,11 +25,11 @@ class RecruitmentsController < ApplicationController
   # POST /recruitments
   # POST /recruitments.json
   def create
-    @recruitments = Recruitment.all
-    @inputtag = Inputtag.new
+
+    @inputtag = Inputtag.new(inputtag_params)
+    @recruitments = Recruitment.tagnamesearch(arry_tag_params)
     if account_signed_in? then
       @taghistoryid = Taghistoryid.new
-      @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
     end
 
     @recruitment = Recruitment.new(recruitment_params)
@@ -61,6 +61,7 @@ class RecruitmentsController < ApplicationController
     end
 
   end
+
 
   # PATCH/PUT /entry_chats/1
   # PATCH/PUT /entry_chats/1.json
@@ -94,7 +95,15 @@ class RecruitmentsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+
     def recruitment_params
       params.require(:recruitment).permit(:post_time, :update_time, :acc_id, :chat_id, :resolved,  :ans_com_id, :detail, :title, :integer, :answer, :file_id)
+    end
+
+    def inputtag_params
+      params.permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7)
+    end
+    def arry_tag_params
+      [params[:school],params[:faculty],params[:department],params[:tag1],params[:tag2],params[:tag3],params[:tag4],params[:tag5],params[:tag6],params[:tag7]]
     end
 end

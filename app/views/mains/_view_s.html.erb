@@ -3,7 +3,7 @@
 
 <table>
 
-  <% @recruitments.where("re_id = '募集'").where("resolved = '解決済み'").order("updated_at DESC").each do |recruitment| %>
+  <% @recruitments.each do |recruitment| %>
     <% if recruitment.re_id == '募集' && recruitment.resolved == '解決済み'%>
       <div class="box">
         <div><%= recruitment.title %></div>
