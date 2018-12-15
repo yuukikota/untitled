@@ -65,6 +65,9 @@ class Inputtag
       tmp[i] = self.tag10
       i +=1
     end
+    tmp.uniq!
+    tmp = tmp.sort
+    tmp = tmp.reject(&:blank?)
     self.tag1 = tmp[0]
     self.tag2 = tmp[1]
     self.tag3 = tmp[2]
@@ -85,7 +88,7 @@ class Inputtag
 
   private
   def check(str)
-    if str == nil || str==""  || str.include?("\"") || str.include?("'") || str.length > 30 then
+    if str == nil || str==""  || str.include?("\"") || str.include?("'") || str.include?("`") || str.length > 30 then
       false
     else
       true
