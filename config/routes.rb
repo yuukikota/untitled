@@ -35,11 +35,13 @@ Rails.application.routes.draw do
   get 'home/:acc_id', to: 'home#show', as: :account_show
   get '/home/button/:id', to: 'home#button', as: 'home_button'
 
-  post '/'=> 'tags#update'#タグ検索フォーム
-  post '/'=> 'tags#update'#履歴検索フォーム
+  post '/' => 'tags#update'#タグ検索フォーム
 
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
   get '/mains/index/add/:size', to: 'mains#add_index', as: :mains_add, constraints: { size: /[0-9]+/ }
   get '/members', to: 'members#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '/univtag/list', to: 'univtag#list'
+
 end

@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "univinfos", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "univinfos", primary_key: "infoid", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "p_id"
     t.integer "stat", null: false
     t.string "name", null: false

@@ -3,8 +3,8 @@
 
 <table>
   <% @recruitments.each do |recruitment| %>
-    <div class="box">
-      <% if recruitment.re_id == '募集'%>
+    <% if recruitment.re_id == '募集'%>
+      <div class="box">
       <div><%= recruitment.title %></div>
         <% end %>
       <%= link_to account_show_path(recruitment.acc_id) do %>
