@@ -14,9 +14,9 @@ class TagsController < ApplicationController
         @inputtag = Inputtag.new
       end
     end
-
+    @inputtag.freetagnum = @inputtag.count_freetag #タグの数をかうんと
     @comment = Comment.new
-    @recruitments = Recruitment.tagnamesearch([@inputtag.school,@inputtag.faculty,@inputtag.department,@inputtag.tag1,@inputtag.tag2,@inputtag.tag3,@inputtag.tag4,@inputtag.tag5,@inputtag.tag6,@inputtag.tag7])
+    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力タグで検索
     @recruitment = Recruitment.new
     @taghistoryid = Taghistoryid.new
     if account_signed_in? && params[:type] == "input" then
@@ -29,8 +29,9 @@ class TagsController < ApplicationController
   private
   #タグ検索フォームの情報を取得する
   def inputtag_params
-    params.require(:inputtag).permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7)
+    params.require(:inputtag).permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7, :tag8, :tag9, :tag10)
   end
+
 
   #指定した履歴IDの履歴を取得
   def set_taghistory(id)
@@ -38,7 +39,7 @@ class TagsController < ApplicationController
     history.touch
     history.save
     if history.present? then
-      Inputtag.new(school: history[:univtag], faculty: history[:faculty], department: history[:department], tag1: history[:tag1], tag2: history[:tag2], tag3: history[:tag3], tag4: history[:tag4], tag5: history[:tag5], tag6: history[:tag6], tag7: history[:tag7])
+      Inputtag.new(school: history[:univtag], faculty: history[:faculty], department: history[:department], tag1: history[:tag1], tag2: history[:tag2], tag3: history[:tag3], tag4: history[:tag4], tag5: history[:tag5], tag6: history[:tag6], tag7: history[:tag7], tag8: history[:tag8], tag9: history[:tag9], tag10: history[:tag10])
     else
       Inputtag.new
     end
@@ -111,14 +112,32 @@ class TagsController < ApplicationController
       else
       freetag[6] = nil
     end
+    if tag[:tag8] != "" then
+      freetag[7] = tag[:tag8]
+      display = display + tag[:tag8] + "  "
+    else
+      freetag[7] = nil
+    end
+    if tag[:tag9] != "" then
+      freetag[8] = tag[:tag9]
+      display = display + tag[:tag9] + "  "
+    else
+      freetag[8] = nil
+    end
+    if tag[:tag10] != "" then
+      freetag[9] = tag[:tag10]
+      display = display + tag[:tag10] + "  "
+    else
+      freetag[9] = nil
+    end
     freetag.uniq!
     freetag = freetag.compact.sort
     if display == "" then
       display = nil
     end
-    tmp = Taghistory.find_by(acc_id: current_account.acc_id,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[7])
+    tmp = Taghistory.find_by(acc_id: current_account.acc_id,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[6], tag8:freetag[7], tag9:freetag[8], tag10:freetag[9])
     if tmp.blank? then
-      taghistory = Taghistory.new({acc_id: current_account.acc_id,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[7], display:display})
+      taghistory = Taghistory.new({acc_id: current_account.acc_id,univtag:school[0], faculty:school[1], department:school[2], tag1:freetag[0], tag2:freetag[1], tag3:freetag[2], tag4:freetag[3], tag5:freetag[4], tag6:freetag[5], tag7:freetag[6], tag8:freetag[7], tag9:freetag[8], tag10:freetag[9], display:display})
       taghistory.save
     else
       tmp.touch

@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
 
   def add_index
     @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20).offset(params[:size])
+    @form = params[:form]
     # @size = params[:size] + @comments.size
     # render :partial => "comment", :collection => @comments
 

@@ -51,13 +51,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "com_id"
-    t.integer "capacity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "acc_id", limit: 20, null: false
     t.integer "p_com_id", null: false
@@ -76,7 +69,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
   end
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "update_time"
     t.string "acc_id", limit: 20
     t.string "re_id"
     t.string "chat_id"
@@ -86,6 +78,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.string "ans_com_id"
     t.string "answer", limit: 1000
     t.string "file_id"
+    t.string "chat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -102,6 +95,9 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.string "tag5", limit: 30
     t.string "tag6", limit: 30
     t.string "tag7", limit: 30
+    t.string "tag8", limit: 30
+    t.string "tag9", limit: 30
+    t.string "tag10", limit: 30
     t.string "display", limit: 300
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

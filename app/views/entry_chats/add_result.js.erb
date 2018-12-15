@@ -1,0 +1,9 @@
+$('#add_results').append(
+    "<%= escape_javascript(render partial: 'entry_chats/result', collection: @comments, locals: {entry_chat: @entry_chat, recruitment_id: params[:p_com_id]}) %>"
+);
+$('#request_add_results').html(
+    "<%= escape_javascript(button_to "さらに読み込む", results_chat_add_path(params[:p_com_id],
+    (params[:size].to_i+@comments.size).to_s), method: :get, data: { disable_with: "処理中..." },
+     remote: true, class:"all_disable") %>"
+);
+$('[type="submit"]').prop('disabled',false);//ボタンを有効化する
