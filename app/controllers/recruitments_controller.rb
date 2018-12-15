@@ -1,6 +1,6 @@
 class RecruitmentsController < ApplicationController
-  before_action :set_recruitment, only: [ :edit, :update, :destroy]
-
+  before_action :set_recruitment, only: [ :edit, :destroy]
+  before_action :add_answer, only: [:update]
 
   # GET /recruitments
   # GET /recruitments.json
@@ -34,7 +34,6 @@ class RecruitmentsController < ApplicationController
 
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
-    @recruitment.update_time = Time.now.to_s(:datetime)
     if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
       @recruitment.detail = nil
     end
@@ -66,7 +65,7 @@ class RecruitmentsController < ApplicationController
   # PATCH/PUT /entry_chats/1.json
   def update
     respond_to do |format|
-      if @recruitment.update(recruitment_params)
+      if @recruitment.update(@recruitment_params)
         format.html { redirect_to root_path, notice: '結果選択しました。募集を終了しました。' }
         format.json { render :show, status: :ok, location: @recruitment }
       else
@@ -93,8 +92,21 @@ class RecruitmentsController < ApplicationController
       @recruitment = Recruitment.find(params[:id])
     end
 
+    def add_answer
+      @recruitment = Recruitment.find(params[:id])
+      @recruitment_params = { "id":@recruitment.id,
+                              "acc_id":@recruitment.acc_id,
+                              "chat_id":@recruitment.chat_id,
+                              "resolved":"解決",
+                              "detail":@recruitment.detail,
+                              "title":@recruitment.title,
+                              "answer":params[:answer],
+                              "file_id":@recruitment.file_id}
+
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def recruitment_params
-      params.require(:recruitment).permit(:post_time, :update_time, :acc_id, :chat_id, :resolved,  :ans_com_id, :detail, :title, :integer, :answer, :file_id)
+      params.require(:recruitment).permit(:acc_id, :chat_id, :resolved, :detail, :title, :answer, :file_id)
     end
 end

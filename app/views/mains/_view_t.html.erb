@@ -2,7 +2,7 @@
 <h2>タイムライン表示窓</h2>
 
 <table>
-  <% @recruitments.order("updated_at DESC").each do |recruitment| %>
+  <% @recruitments.each do |recruitment| %>
     <div class="box">
       <% if recruitment.re_id == '募集'%>
       <div><%= recruitment.title %></div>
@@ -23,7 +23,7 @@
           <% if current_account.acc_id == recruitment.acc_id %>
             <% if recruitment.re_id == '募集'%>
               <% if  recruitment.resolved == '未解決' %>
-                <%= link_to '募集結果選択', root_path(recruitment.id), method: :get  %>
+                <%= link_to '募集結果選択', edit_recruitment_path(recruitment.id), method: :get  %>
               <% end %>
               <% if  recruitment.resolved == '解決'  && (current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present?) %>
              <span>

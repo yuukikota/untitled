@@ -52,7 +52,7 @@ class MainsController < ApplicationController
 
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new(inputtag_params)#入力されているタグを取得
-    @recruitments = Recruitment.tagnamesearch(arry_tag_params).limit(20)#入力されているタグで検索
+    @recruitments = Recruitment.tagnamesearch(arry_tag_params)#.limit(20)#入力されているタグで検索
 
     if account_signed_in? then #ログインしている
 
