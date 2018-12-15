@@ -1,17 +1,17 @@
 
 <table width="100%" border="3" rules="none">
-  <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"} do |f| %>
+  <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form'} do |f| %>
     <tr><td height="4"></td><td></td></tr>
     <tr valign="center"><td>
 
-      <%= f.text_field :school, list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
+      <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
       <datalist id="school-name">
         <% Univinfo.where(stat: '0').order(tag_id: :desc).each do |tag1| %>
           <option value=<%= tag1.name %>>
         <% end %>
       </datalist>
 
-      <%= f.text_field :faculty, list: 'faculty-name' ,placeholder: "学部名を入力して下さい" ,:size=>"22" %>
+      <%= f.text_field :faculty, id: 'faculty_tag', list: 'faculty-name' ,placeholder: "学部名を入力して下さい" ,:size=>"22" %>
       <datalist id="faculty-name">
         <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
           <option value=<%= tag2.name %>>
@@ -20,7 +20,7 @@
 
 
 
-      <%= f.text_field :department, list: 'department-name' ,placeholder: "学科名を入力して下さい" ,:size=>"22" %>
+      <%= f.text_field :department, id: 'department_tag', list: 'department-name' ,placeholder: "学科名を入力して下さい" ,:size=>"22" %>
       <datalist id="department-name">
         <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
           <option value=<%= tag3.name %>>
@@ -30,60 +30,30 @@
     </td><td></td></tr>
     <tr>
       <td>
-        <%= f.text_field :tag1, list: 'tag1-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag1-name">
+        <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
+        <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
+        <datalist id="freetaglist">
           <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag1| %>
             <option value=<%= tag1.tag_name %>>
           <% end %>
         </datalist>
 
-
-        <%= f.text_field :tag2, list: 'tag2-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag2-name">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag2| %>
-            <option value=<%= tag2.tag_name %>>
-          <% end %>
-        </datalist>
-
-
-        <%= f.text_field :tag3, list: 'tag3-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag3-name">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag3| %>
-            <option value=<%= tag3.tag_name %>>
-          <% end %>
-        </datalist>
+        <%= f.text_field :tag2, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag2', style: 'display:none' %>
+        <%= f.text_field :tag3, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag3', style: 'display:none' %>
+        <%= f.text_field :tag4, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag4', style: 'display:none' %>
+        <%= f.text_field :tag5, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag5', style: 'display:none' %>
+        <%= f.text_field :tag6, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag6', style: 'display:none' %>
+        <%= f.text_field :tag7, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag7', style: 'display:none' %>
+        <%= f.text_field :tag8, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag8', style: 'display:none' %>
+        <%= f.text_field :tag9, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag9', style: 'display:none' %>
+        <%= f.text_field :tag10, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag10', style: 'display:none' %>
 
 
-        <%= f.text_field :tag4, list: 'tag4-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag4-name">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag4| %>
-            <option value=<%= tag4.tag_name %>>
-          <% end %>
-        </datalist>
-
-        <%= f.text_field :tag5, list: 'tag5-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag5-name">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag5| %>
-            <option value=<%= tag5.tag_name %>>
-          <% end %>
-        </datalist>
-
-        <%= f.text_field :tag6, list: 'tag6-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag6-name">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag6| %>
-            <option value=<%= tag6.tag_name %>>
-          <% end %>
-        </datalist>
-
-        <%= f.text_field :tag7, list: 'tag7-name' ,placeholder: "タグを入力して下さい" ,:size=>"22" %>
-        <datalist id="tag7-name">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag7| %>
-            <option value=<%= tag7.tag_name %>>
-          <% end %>
-        </datalist>
+        <input type="button" value="＋" onclick="add()" id="tagformadd">
+        <input type="button" value="ー" onclick="remove()" id="tagformremove">
       </td>
 
-      <td valign="bottom">
+      <td valign="bottom" align="right">
         <div class="actions">
           <input type="hidden" name="type" value="input">
           <!--====================タグ検索情報====================-->
@@ -97,8 +67,11 @@
           <input type="hidden" name="tag5" value="<%=@inputtag.tag5 %>">
           <input type="hidden" name="tag6" value="<%=@inputtag.tag6 %>">
           <input type="hidden" name="tag7" value="<%=@inputtag.tag7 %>">
+          <input type="hidden" name="tag8" value="<%=@inputtag.tag8 %>">
+          <input type="hidden" name="tag9" value="<%=@inputtag.tag9 %>">
+          <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
           <!--====================タグ検索情報====================-->
-          <input name="commit" type="submit" value="検索" style="width:150px; height:23px">
+          <input name="commit" type="button" value="検索" onclick="_submit();" style="width:150px; height:23px">
         </div>
       </td>
     </tr>
@@ -115,3 +88,150 @@
     </tr>
   <% end %>
 </table>
+
+<script>
+  var tagformcnt = document.getElementById("freetagnum").value;
+  if(tagformcnt >= 10){
+      document.getElementById("tagformadd").style.display = "none";
+      tagformcnt = 10;
+  }else if(tagformcnt <= 1){
+      document.getElementById("tagformremove").style.display = "none";
+      tagformcnt = 1;
+  }
+
+  for ( var i = 0  ; i < tagformcnt ; i++){
+      var formname = "inputtag_tag" + (i+1);
+      document.getElementById(formname).style.display = "";
+  }
+
+  function add() {
+      if(tagformcnt < 10) {
+          var formname = "inputtag_tag" + (tagformcnt+1);
+          document.getElementById(formname).style.display = "";
+          if(tagformcnt == 9) document.getElementById("tagformadd").style.display = "none";
+          if(tagformcnt == 0 || tagformcnt == 1) document.getElementById("tagformremove").style.display = "";
+          tagformcnt++;
+      }
+  }
+  function remove() {
+      if(tagformcnt > 0) {
+          var formname = "inputtag_tag" + tagformcnt;
+          document.getElementById(formname).style.display = "none";
+          document.getElementById(formname).value = "";
+          if(tagformcnt == 10) document.getElementById("tagformadd").style.display = "";
+          if(tagformcnt == 1 || tagformcnt == 2) document.getElementById("tagformremove").style.display = "none";
+          tagformcnt--;
+      }
+  }
+
+
+  function _submit() {
+      var target = document.getElementById("tag_form");
+      var i = 0;
+      var name = null;
+      var str = "";
+      var school_stat = false;
+      var faculty_stat = false;
+      var department_stat = false;
+      var school_length = document.getElementById('school_tag').value.length;
+      var faculty_length = document.getElementById('faculty_tag').value.length;
+      var department_length = document.getElementById('department_tag').value.length;
+      var tag1_length = document.getElementById('inputtag_tag1').value.length;
+      var tag2_length = document.getElementById('inputtag_tag2').value.length;
+      var tag3_length = document.getElementById('inputtag_tag3').value.length;
+      var tag4_length = document.getElementById('inputtag_tag4').value.length;
+      var tag5_length = document.getElementById('inputtag_tag5').value.length;
+      var tag6_length = document.getElementById('inputtag_tag6').value.length;
+      var tag7_length = document.getElementById('inputtag_tag7').value.length;
+      var tag8_length = document.getElementById('inputtag_tag8').value.length;
+      var tag9_length = document.getElementById('inputtag_tag9').value.length;
+      var tag10_length = document.getElementById('inputtag_tag10').value.length;
+
+      //文字数超過チェック
+      if(school_length < 31 && faculty_length <31 && department_length < 31 && tag1_length <31 && tag2_length <31 && tag3_length <31 && tag4_length <31 && tag5_length <31 && tag6_length <31 && tag7_length <31 && tag8_length <31 && tag9_length <31 && tag10_length <31) {
+
+          if (document.getElementById('school_tag').value == "") {
+              school_stat = true;
+          } else {//入力が空でなければ大学名が存在するかチェック
+              while ((name = document.getElementById('school_tag').list.options[i++].getAttribute('value')) != null) {
+                  if (name == document.getElementById('school_tag').value) school_stat = true;
+                  break;
+              }
+          }
+          if (document.getElementById('faculty_tag').value == "") {
+              faculty_stat = true;
+          } else {//入力が空でなければ学部名が存在するかチェック
+              while ((name = document.getElementById('faculty_tag').list.options[i++].getAttribute('value')) != null) {
+                  if (name == document.getElementById('faculty_tag').value) faculty_stat = true;
+                  break;
+              }
+          }
+          if (document.getElementById('department_tag').value == "") {
+              department_stat = true;
+          } else {//入力が空でなければ学科名が存在するかチェック
+              while ((name = document.getElementById('department_tag').list.options[i++].getAttribute('value')) != null) {
+                  if (name == document.getElementById('department_tag').value) department_stat = true;
+                  break;
+              }
+          }
+
+          if (!school_stat || !faculty_stat || !department_stat) {
+              if (!school_stat) {
+                  str = str + "\"" + document.getElementById('school_tag').value + "\" " + "は存在しない大学です" + "\n";
+              }
+              if (!faculty_stat) {
+                  str = str + "\"" + document.getElementById('faculty_tag').value + "\" " + "は存在しない学部です" + "\n";
+              }
+              if (!department_stat) {
+                  str = str + "\"" + document.getElementById('department_tag').value + "\" " + "は存在ない学科です";
+              }
+              alert(str);
+          } else {//文字数超過しておらず、入力された大学名、学部名、学科名が存在すればsubmit
+              target.submit();
+          }
+      }else{
+          var max = 30;
+          if (school_length > max) {
+              str = str + "大学名が文字数制限を超過しています("+school_length+"/"+max+")\n";
+          }
+          if (faculty_length > max) {
+              str = str + "学科名が文字数制限を超過しています("+faculty_length+"/"+max+")\n";
+          }
+          if (department_length > max) {
+              str = str + "学科名が文字数制限を超過しています("+department_length+"/"+max+")\n";
+          }
+          if (tag1_length > max) {
+              str = str + "1つ目のタグが文字数制限を超過しています("+tag1_length+"/"+max+")\n";
+          }
+          if (tag2_length > max) {
+              str = str + "2つ目のタグが文字数制限を超過しています("+tag2_length+"/"+max+")\n";
+          }
+          if (tag3_length > max) {
+              str = str + "3つ目のタグが文字数制限を超過しています("+tag3_length+"/"+max+")\n";
+          }
+          if (tag4_length > max) {
+              str = str + "4つ目のタグが文字数制限を超過しています("+tag4_length+"/"+max+")\n";
+          }
+          if (tag5_length > max) {
+              str = str + "5つ目のタグが文字数制限を超過しています("+tag5_length+"/"+max+")\n";
+          }
+          if (tag6_length > max) {
+              str = str + "6つ目のタグが文字数制限を超過しています("+tag6_length+"/"+max+")\n";
+          }
+          if (tag7_length > max) {
+              str = str + "7つ目のタグが文字数制限を超過しています("+tag7_length+"/"+max+")\n";
+          }
+          if (tag8_length > max) {
+              str = str + "8つ目のタグが文字数制限を超過しています("+tag8_length+"/"+max+")\n";
+          }
+          if (tag9_length > max) {
+              str = str + "9つ目のタグが文字数制限を超過しています("+tag9_length+"/"+max+")\n";
+          }
+          if (tag10_length > max) {
+              str = str + "10つ目のタグが文字数制限を超過しています("+tag10_length+"/"+max+")\n";
+          }
+          alert(str);
+      }
+  }
+
+</script>
