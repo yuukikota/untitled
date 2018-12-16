@@ -6,38 +6,38 @@
     <% if recruitment.re_id == '募集'%>
       <div class="box">
       <div><%= recruitment.title %></div>
-        <% end %>
-      <%= link_to account_show_path(recruitment.acc_id) do %>
-          <span>
-            <%= Account.find_by(acc_id: recruitment.acc_id).name %>
-          </span>
-      <% end %>
-      <span><%= recruitment.acc_id %></span>
-      <span><%= recruitment.created_at %></span>
-         </span>
-      <span>
+    <% end %>
+    <%= link_to account_show_path(recruitment.acc_id) do %>
+    <span>
+      <%= Account.find_by(acc_id: recruitment.acc_id).name %>
+    </span>
+    <% end %>
+    <span><%= recruitment.acc_id %></span>
+    <span><%= recruitment.created_at %></span>
+
+    <span>
       <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
-        </span>
-      <span>
-        <% if account_signed_in? %>
-          <% if current_account.acc_id == recruitment.acc_id %>
-            <% if recruitment.re_id == '募集'%>
-              <% if  recruitment.resolved == '未解決' %>
-                <% if recruitment.chat == "有" %>
-                  <%= link_to '募集結果選択', new_entry_chats_path(recruitment.id), method: :get  %>
-                <% elsif recruitment.chat == "無" %>
-                  <%= link_to '募集結果選択', edit_recruitment_path(recruitment.id), method: :get  %>
-                <% end %>
-              <% elsif recruitment.resolved == '解決' && recruitment.chat == "有" && (current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present?) %>
-                <span>
-                  <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
-                </span>
+    </span>
+    <span>
+      <% if account_signed_in? %>
+        <% if current_account.acc_id == recruitment.acc_id %>
+          <% if recruitment.re_id == '募集'%>
+            <% if  recruitment.resolved == '未解決' %>
+              <% if recruitment.chat == "有" %>
+                <%= link_to '募集結果選択', new_entry_chats_path(recruitment.id), method: :get  %>
+              <% elsif recruitment.chat == "無" %>
+                <%= link_to '募集結果選択', edit_recruitment_path(recruitment.id), method: :get  %>
               <% end %>
-            <%end %>
-            <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+            <% elsif recruitment.resolved == '解決' && recruitment.chat == "有" && (current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present?) %>
+              <span>
+                <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
+              </span>
+            <% end %>
           <%end %>
-        <% end %>
-        </span>
+          <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+        <%end %>
+      <% end %>
+      </span>
       <div><%= recruitment.detail %></div>
       <br>
     </div>
