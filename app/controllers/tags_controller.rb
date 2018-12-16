@@ -1,3 +1,8 @@
+############################################################################################
+# タグ検索に関して処理を行う
+# 検索フォームに入力されたタグからデータを検索し、結果を表示する
+# 検索フォームに入力されたタグをタグ履歴に登録する
+# ##########################################################################################
 class TagsController < ApplicationController
 
   #タグ検索フォーム、履歴検索フォーム用
@@ -29,7 +34,11 @@ class TagsController < ApplicationController
   private
   #タグ検索フォームの情報を取得する
   def inputtag_params
-    params.require(:inputtag).permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7, :tag8, :tag9, :tag10)
+    if params.has_key?(:inputtag) then
+      params.require(:inputtag).permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7, :tag8, :tag9, :tag10)
+    else
+      params.permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7, :tag8, :tag9, :tag10)
+    end
   end
 
 

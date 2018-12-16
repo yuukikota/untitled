@@ -2,7 +2,8 @@
 <h2>募集表示窓</h2>
 
 <table>
-  <% @recruitments.where("re_id = '募集'").order("updated_at DESC").each do |recruitment| %>
+  <% @recruitments.each do |recruitment| %>
+    <% if recruitment.re_id == '募集'%>
       <div class="box">
         <div>
           <%= recruitment.title %>
@@ -30,5 +31,6 @@
       </div>
       <br>
     <% end %>
+  <%end %>
 </table>
 

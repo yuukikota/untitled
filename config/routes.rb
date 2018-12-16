@@ -11,8 +11,13 @@ Rails.application.routes.draw do
 #  get "b_inform/toukou" => "b_inform"
 
   devise_for :accounts, :controllers =>{
-      :registrations => :registrations
+      :registrations => 'accounts/registrations'
   }
+
+  devise_scope :account do
+    post '/accounts/sign_up/confirm', to: 'accounts/registrations#confirm'
+  end
+
   resources :recruitments, only: [ :edit, :update, :create, :destroy ]
   post '/recruitments/:id', to: 'recruitments#update', constraints: {id: /[0-9]+/ }
   # 返信追加読み込み
@@ -35,11 +40,13 @@ Rails.application.routes.draw do
   get 'home/:acc_id', to: 'home#show', as: :account_show
   get '/home/button/:id', to: 'home#button', as: 'home_button'
 
-  post '/'=> 'tags#update'#タグ検索フォーム
-  post '/'=> 'tags#update'#履歴検索フォーム
+  post '/' => 'tags#update'#タグ検索フォーム
 
   get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
   get '/mains/index/add/:size', to: 'mains#add_index', as: :mains_add, constraints: { size: /[0-9]+/ }
   get '/members', to: 'members#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '/univtag/list', to: 'univtag#list'
+
 end
