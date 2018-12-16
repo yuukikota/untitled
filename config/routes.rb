@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/members', to: 'members#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/univtag/list', to: 'univtag#list'
+  get '/univtag/list', to: 'univtag#list' #タグ取得用
 
+  get '/verify/recruit', to: 'verify#recruit' #検証用
 end
