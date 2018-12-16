@@ -1,4 +1,5 @@
-
+<%= stylesheet_link_tag "button.css", :media => "all" %>
+<span class="button_style1"><span class="form_style1">
 <table width="100%" border="3" rules="none">
   <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
     <tr><td height="4"></td><td></td></tr>
@@ -6,7 +7,7 @@
 
       <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
       <datalist id="school-name">
-        <% Univinfo.where(stat: '0').order(tag_id: :desc).each do |tag1| %>
+        <% Univinfo.where(stat: '0').distinct.order(tag_id: :desc).each do |tag1| %>
           <option value=<%= tag1.name %>>
         <% end %>
       </datalist>
@@ -19,7 +20,7 @@
             <option value=<%= tag2.name %>>
           <% end %>
         <% else %>
-          <% Univinfo.where(stat: '1').order(tag_id: :desc).each do |tag2| %>
+          <% Univinfo.where(stat: '1').distinct.order(tag_id: :desc).each do |tag2| %>
             <option value=<%= tag2.name %>>
           <% end %>
         <%end %>
@@ -36,12 +37,12 @@
               <option value=<%= tag3.name %>>
             <% end %>
           <% else %>
-            <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
+            <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
               <option value=<%= tag3.name %>>
             <% end %>
           <% end %>
         <% else %>
-          <% Univinfo.where(stat: '2').order(tag_id: :desc).each do |tag3| %>
+          <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
             <option value=<%= tag3.name %>>
           <% end %>
         <% end %>
@@ -70,13 +71,12 @@
 
         <input type="button" value="ー" onclick="remove()" id="tagformremove">
         <input type="button" value="＋" onclick="add()" id="tagformadd">
-
       </td>
 
       <td valign="bottom" align="right">
         <div class="actions">
           <input type="hidden" name="type" value="input">
-          <input name="commit" type="submit" value="検索" style="width:150px; height:23px">
+          <input name="commit" type="submit" value="検索">
         </div>
       </td>
     </tr>
@@ -93,7 +93,7 @@
     </tr>
   <% end %>
 </table>
-
+</span></span>
 <script>
   var tagformcnt = document.getElementById("freetagnum").value;
   if(tagformcnt >= 10){
