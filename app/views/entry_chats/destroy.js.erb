@@ -1,4 +1,4 @@
 $('<%= escape_javascript(".result_" + @new_entry_chat.acc_id) %>').html(
     "<%= escape_javascript(render partial: 'entry_chats/select', locals: {entry_chat: @new_entry_chat, recruitment_id: @new_entry_chat.chat_id, result_acc_id: @new_entry_chat.acc_id }) %>"
 );
-$('[type="submit"]').prop('disabled',false);//ボタンを有効化する
+$('[type="submit"].all_disable').prop('disabled',false);//ボタンを有効化する

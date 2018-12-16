@@ -3971,3 +3971,6 @@ Univinfo.create(infoid: 2415, p_id: 2414, stat: 2, name: '経営学科', tag_id:
 Univinfo.create(infoid: 2416, p_id: 2414, stat: 2, name: '商学科', tag_id: 1553)
 Univinfo.create(infoid: 2417, p_id: 2409, stat: 1, name: '法学部', tag_id: 67)
 Univinfo.create(infoid: 2418, p_id: 2417, stat: 2, name: '法律学科', tag_id: 510)
+
+Account.new(acc_id: 'administrator', name: '管理者', grade: '-', university: '-', faculty: '-', department: '-',
+               email: Settings.administrator[:email], password: Settings.administrator[:password]).save!

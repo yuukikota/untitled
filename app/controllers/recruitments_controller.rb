@@ -31,6 +31,9 @@ class RecruitmentsController < ApplicationController
 
   #ajaxで動的に表示項目を追加する
   def add_result
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
     @comments = Comment.where(p_com_id: params[:id]).limit(20).offset(params[:size])
   end
 
