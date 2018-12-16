@@ -6,4 +6,4 @@ $('#request_add_results').html(
     (params[:size].to_i+@comments.size).to_s), method: :get, data: { disable_with: "処理中..." },
      remote: true, class:"all_disable") %>"
 );
-$('[type="submit"]').prop('disabled',false);//ボタンを有効化する
+$('[type="submit"].all_disable').prop('disabled',false);//ボタンを有効化する

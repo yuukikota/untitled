@@ -21,6 +21,9 @@ class EntryChatsController < ApplicationController
 
   # ajaxで動的に表示項目を追加する
   def add_result
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
     @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20).offset(params[:size])  #返信20件を取得
     @entry_chat = EntryChat.new
   end
@@ -32,17 +35,32 @@ class EntryChatsController < ApplicationController
   # POST /entry_chats
   # POST /entry_chats.json
   def create
-    @entry_chat = EntryChat.new(entry_chat_params)
-    @entry_chat.save
-    #respond_to do |format|
-    #  if @entry_chat.save
-    #    format.html { redirect_to @entry_chat, notice: 'Entry chat was successfully created.' }
-    #    format.json { render :show, status: :created, location: @entry_chat }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @entry_chat.errors, status: :unprocessable_entity }
-    #  end
-    #end
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    if (recruitment = Recruitment.find(entry_chat_params[:chat_id])).nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '募集が存在しません' }
+        format.json { head :no_content }
+      end
+    elsif recruitment.acc_id == entry_chat_params[:acc_id]
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '募集者自身を選択することはできません' }
+        format.json { head :no_content }
+      end
+    else
+      @entry_chat = EntryChat.new(entry_chat_params)
+      @entry_chat.save
+      #respond_to do |format|
+      #  if @entry_chat.save
+      #    format.html { redirect_to @entry_chat, notice: 'Entry chat was successfully created.' }
+      #    format.json { render :show, status: :created, location: @entry_chat }
+      #  else
+      #    format.html { render :new }
+      #    format.json { render json: @entry_chat.errors, status: :unprocessable_entity }
+      #  end
+      #end
+    end
   end
 
   # PATCH/PUT /entry_chats/1
@@ -62,6 +80,9 @@ class EntryChatsController < ApplicationController
   # DELETE /entry_chats/1
   # DELETE /entry_chats/1.json
   def destroy
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
     @new_entry_chat = EntryChat.new
     @new_entry_chat.chat_id = @entry_chat.chat_id
     @new_entry_chat.acc_id = @entry_chat.acc_id

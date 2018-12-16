@@ -15,7 +15,11 @@ class CommentsController < ApplicationController
     end
   end
 
+  # 表示する返信の追加
   def add_index
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
     @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20).offset(params[:size])
     @form = params[:form]
     # @size = params[:size] + @comments.size
