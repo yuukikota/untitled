@@ -95,6 +95,9 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.string "tag5", limit: 30
     t.string "tag6", limit: 30
     t.string "tag7", limit: 30
+    t.string "tag8", limit: 30
+    t.string "tag9", limit: 30
+    t.string "tag10", limit: 30
     t.string "display", limit: 300
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -115,7 +118,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "univinfos", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "univinfos", primary_key: "infoid", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "p_id"
     t.integer "stat", null: false
     t.string "name", null: false

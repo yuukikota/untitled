@@ -37,11 +37,12 @@ class RecruitmentsController < ApplicationController
   # POST /recruitments
   # POST /recruitments.json
   def create
-    @recruitments = Recruitment.all
-    @inputtag = Inputtag.new
+
+    @inputtag = Inputtag.new(inputtag_params)
+    @inputtag.count_freetag
+    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)
     if account_signed_in? then
       @taghistoryid = Taghistoryid.new
-      @inputtag.setuniv school: current_account.university, faculty: current_account.faculty, department: current_account.department
     end
 
     @recruitment = Recruitment.new(recruitment_params)
@@ -61,9 +62,8 @@ class RecruitmentsController < ApplicationController
 
     respond_to do |format|
       if @recruitment.save
-        tagarry=[params[:school], params[:faculty], params[:department], params[:tag1], params[:tag2], params[:tag3], params[:tag4], params[:tag5], params[:tag6], params[:tag7]]
-        Tagmap.associate(@recruitment.id, tagarry)
-        format.html { redirect_to root_path, notice: '送信しました' }
+        Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
+        format.html { redirect_to request_url(@inputtag.tag_to_arry), notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
         format.html { render :template => "mains/index" }
@@ -72,6 +72,7 @@ class RecruitmentsController < ApplicationController
     end
 
   end
+
 
   # PATCH/PUT /entry_chats/1
   # PATCH/PUT /entry_chats/1.json
@@ -139,7 +140,39 @@ class RecruitmentsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+
     def recruitment_params
       params.require(:recruitment).permit(:acc_id, :chat_id, :resolved, :detail, :title, :answer, :file_id, :chat)
+    end
+
+    def inputtag_params
+      params.permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7)
+    end
+    def arry_tag_params
+      [params[:school],params[:faculty],params[:department],params[:tag1],params[:tag2],params[:tag3],params[:tag4],params[:tag5],params[:tag6],params[:tag7]]
+    end
+
+    def request_url(tag)
+      tag_url = "/mains/button/"+$view_com_num.to_s+"?school="
+
+      if tag[0].present? then
+        tag_url = tag_url + tag[0]
+      end
+      tag_url = tag_url + "&faculty="
+      if tag[1].present? then
+        tag_url = tag_url + tag[1]
+      end
+      tag_url = tag_url + "&department="
+      if tag[2].present? then
+        tag_url = tag_url + tag[2]
+      end
+
+      for i in 1..10 do
+        tag_url = tag_url + "&tag" + i.to_s + "="
+        if tag[2 + i].present? then
+          tag_url = tag_url + tag[2 + i]
+        end
+      end
+      tag_url
     end
 end
