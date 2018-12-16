@@ -11,8 +11,13 @@ Rails.application.routes.draw do
 #  get "b_inform/toukou" => "b_inform"
 
   devise_for :accounts, :controllers =>{
-      :registrations => :registrations
+      :registrations => 'accounts/registrations'
   }
+
+  devise_scope :account do
+    post '/accounts/sign_up/confirm', to: 'accounts/registrations#confirm'
+  end
+
   resources :recruitments, only: [ :edit, :update, :create, :destroy ]
   post '/recruitments/:id', to: 'recruitments#update', constraints: {id: /[0-9]+/ }
   # 返信追加読み込み
