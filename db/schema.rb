@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.string "tag8", limit: 30
     t.string "tag9", limit: 30
     t.string "tag10", limit: 30
-    t.string "display", limit: 300
+    t.string "display", limit: 391
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

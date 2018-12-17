@@ -16,7 +16,7 @@ class CreateTaghistories < ActiveRecord::Migration[5.2]
       t.string  :tag8, limit: 30
       t.string  :tag9, limit: 30
       t.string  :tag10, limit: 30
-      t.string  :display, limit: 300
+      t.string  :display, limit: 391
       t.timestamps
     end
   end

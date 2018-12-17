@@ -3,7 +3,7 @@
 }
 .button_style1 input[type=submit] {
     background-color: #FFF;
-    border: 2px solid #444;
+    border: 1.5px solid #444;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -14,7 +14,7 @@
     -o-transition: 0.2s ease-in-out;
     -moz-transition: 0.2s ease-in-out;
     -webkit-transition: 0.2s ease-in-out;
-    height: 27px;
+    height: 28px;
     width: 150px;
 }
 .button_style1 input[type=submit]:hover {
@@ -23,9 +23,16 @@
     color: orange;
     /*opacity: 0.5;*/
 }
+.button_style1 input[type=submit]:focus {
+    outline: 0;
+    border-color: orange;
+    color: orange;
+    /*opacity: 0.5;*/
+}
+
 .button_style1 input[disabled=disabled] {
     background-color: #FFF;
-    border: 2px solid #7E7E7E;
+    border: 1.5px solid #7E7E7E;
     color: #7E7E7E;
     cursor: default;
 }
@@ -34,11 +41,11 @@
 }
 .button_style1 input[type=button] {
     background-color: #FFF;
-    border: 2px solid #444;
+    border: 1.5px solid #333;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    color: #444;
+    color: #333;
     cursor: pointer;
     font-size: 14px;
     transition: 0.2s ease-in-out;
@@ -54,7 +61,12 @@
     color: orange;
     /*opacity: 0.5;*/
 }
-
+.button_style1 input[type=button]:focus {
+    outline: 0;
+    border-color: orange;
+    color: orange;
+    /*opacity: 0.5;*/
+}
 
 /*================================================*/
 
@@ -68,11 +80,12 @@
     padding-bottom: 5px;
 }
 .form_style1 input[type=text] {
-    border: 2px solid #444;
+    background-color: #FFF;
+    border: 1.5px solid #333;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    color: #444;
+    color: #333;
     font-size: 13px;
     padding: 10px;
     height: 28px;
@@ -84,6 +97,39 @@
     /*opacity: 0.5;*/
 }
 .form_style1 input[type=text]:hover {
+    border-color: orange;
+    /*opacity: 0.5;/**/
+}
+
+/*====================================================*/
+
+.select_style1 {
+    padding-bottom: 20px;
+    width: 460px;
+}
+.select_style1  label {
+    display: block;
+    font-size: 14px;
+    padding-bottom: 5px;
+}
+.select_style1 select {
+    background-color: #FFF;
+    border: 1.5px solid #333;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #333;
+    font-size: 13px;
+    padding: 2px;
+    height: 28px;
+    width: 240px;
+}
+.select_style1 select:focus {
+    outline: 0;
+    border-color: orange;
+    /*opacity: 0.5;*/
+}
+.select_style1 select:hover {
     border-color: orange;
     /*opacity: 0.5;/**/
 }
