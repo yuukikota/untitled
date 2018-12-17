@@ -3,9 +3,7 @@ class MainsController < ApplicationController
   def index
     $view_num = '1'
     $view_com_num = '5'
-    @comments = Comment.all
-    @comment = Comment.new
-
+    @bookmark = Bookmark.new
     @recruitment = Recruitment.new
 
     if account_signed_in? then #ログインしている
@@ -36,8 +34,7 @@ class MainsController < ApplicationController
   def add_index
     $view_num = '1'
     $view_com_num = '5'
-    @comments = Comment.all
-    @comment = Comment.new
+    @bookmark = Bookmark.new
     @recruitments = Recruitment.all.limit(20).offset(params[:size])
 
     @recruitment = Recruitment.new
@@ -68,8 +65,7 @@ class MainsController < ApplicationController
 
   def button
     @comments = Comment.all
-    @comment = Comment.new
-
+    @bookmark = Bookmark.new
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new(inputtag_params)#入力されているタグを取得
 

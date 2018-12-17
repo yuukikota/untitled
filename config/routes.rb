@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :bookmarks, only: [:create, :destroy]
 #  get "/inform" => "inform#gamen_sentaku"
 #  get "inform/hatsugen_inf"
 #  get "inform/hatsugen_inf/:ht11" => "inform#toukou"

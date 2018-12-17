@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_085852) do
+ActiveRecord::Schema.define(version: 2018_12_17_023714) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
+  create_table "bookmarks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "recruitment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_bookmarks_on_account_id"
+    t.index ["recruitment_id"], name: "index_bookmarks_on_recruitment_id"
+  end
+
   create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
@@ -56,7 +65,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "acc_id", limit: 20, null: false
     t.bigint "recruitment_id", null: false
     t.bigint "account_id", null: false
     t.string "message", limit: 1000, null: false
