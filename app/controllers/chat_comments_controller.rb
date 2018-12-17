@@ -41,7 +41,8 @@ class ChatCommentsController < ApplicationController
     @chat_comment = ChatComment.new(chat_comment_params)
     @chat_comment.chat_id = $chat_id  #チャットID
     @chat_comment.acc_id = current_account.acc_id #アカウントID
-
+    @chat_comment.recruitment_id = $chat_id
+    @chat_comment.account_id = current_account.id
     respond_to do |format|
       if @chat_comment.save
         format.html { redirect_to index, notice: '発言が送信されました' }

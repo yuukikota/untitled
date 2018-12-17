@@ -2,8 +2,8 @@
 <div class="comment">
   <table border="2">
     <tr>
-      <td><%= link_to account_show_path(comment.acc_id) do %>
-          <%= comment.acc_id %>
+      <td><%= link_to account_show_path(comment.account.acc_id) do %>
+          <%= comment.account.name %>
         <% end %>
       </td>
       <td><%= comment.created_at %></td>

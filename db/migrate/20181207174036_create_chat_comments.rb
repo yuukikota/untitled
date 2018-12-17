@@ -6,6 +6,8 @@ class CreateChatComments < ActiveRecord::Migration[5.2]
       t.date :time
       t.string :comment
       t.integer :file_id
+      t.bigint :account_id, null: false , index: true
+      t.bigint :recruitment_id, null: false , index: true
 
       t.timestamps
     end

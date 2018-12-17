@@ -1,5 +1,8 @@
 class Recruitment < ApplicationRecord
-
+  belongs_to :account
+  has_many :comments, dependent: :destroy
+  has_many :entry_chats, dependent: :destroy
+  has_many :chat_comments, dependent: :destroy
   validates :detail, presence: true
   validates :title, presence: true
 
