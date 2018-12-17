@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   # 返信追加読み込み
   get '/entry_chats/new/add/:p_com_id/:size/', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
 
+  resources :pictures
+
   root 'mains#index'
 
   get 'home/:acc_id', to: 'home#show', as: :account_show
