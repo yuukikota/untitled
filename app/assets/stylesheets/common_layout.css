@@ -1,5 +1,8 @@
+
 /*inputのスタイル===============================================-*/
 .common_style input {
+    margin-bottom : 4px;
+    margin-left: 0px;
     background-color: #FFF;
     border: 1.5px solid #333;
     box-sizing: border-box;
@@ -43,6 +46,9 @@
 }
 .common_style input[type=submit]:hover {
     color: orange;
+}
+.common_style input[type=submit][disabled=disabled]:hover {
+    color: #333;
 }
 
 .common_style input[type=text]:hover {
