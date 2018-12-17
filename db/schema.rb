@@ -134,13 +134,15 @@ ActiveRecord::Schema.define(version: 2018_12_17_023714) do
   end
 
   create_table "tagmaps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "com_id"
-    t.integer "tag_id"
+    t.bigint "recruitment_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["recruitment_id"], name: "index_tagmaps_on_recruitment_id"
+    t.index ["tag_id"], name: "index_tagmaps_on_tag_id"
   end
 
-  create_table "tags", primary_key: "tag_id", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.boolean "tag_type", null: false
     t.string "tag_name", limit: 30, null: false
     t.integer "com_count", null: false
@@ -148,7 +150,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_023714) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "univinfos", primary_key: "infoid", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "univinfos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "p_id"
     t.integer "stat", null: false
     t.string "name", null: false
