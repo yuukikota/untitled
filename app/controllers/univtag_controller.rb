@@ -55,5 +55,4 @@ class UnivtagController < ApplicationController
     end
     render json: list
   end
-
 end

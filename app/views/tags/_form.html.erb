@@ -243,6 +243,9 @@
           document.getElementById('faculty_tag').value = "";
           recreate_list(document.getElementById('faculty_tag').list, s);//学部リストの更新
       });
+      faculty_request.addEventListener("error", (event) => {//ネットワークエラー時
+          alert("ネットワークエラー：大学情報を取得できませんでした。通信状況を確認してください。")
+      })
       faculty_request.send();
   }
 
@@ -261,6 +264,9 @@
           document.getElementById('department_tag').value = "";
           recreate_list(document.getElementById('department_tag').list, s);//学科リストの更新
       });
+      department_request.addEventListener("error", (event) => {//ネットワークエラー時
+          alert("ネットワークエラー：大学情報を取得できませんでした。通信状況を確認してください。")
+      })
       department_request.send();
   }
 

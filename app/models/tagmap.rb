@@ -1,6 +1,8 @@
 class Tagmap < ApplicationRecord
-  # コメントに履歴からタグをつける
+
+  # コメントにタグをつける
   # 引数：コメントID
+  # 　　　タグ配列
   def self.associate(comid, tagarry)
     if tagarry.present? then
       for i in 0..9 do

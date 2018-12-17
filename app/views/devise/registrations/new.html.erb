@@ -14,22 +14,7 @@
     <%= f.label :name, "アカウント名" %><br />
     <%= f.text_field :name %>
   </div>
-<!--
-  <div class="field">
-    <%= f.label :university, "大学名" %><br />
-    <%= f.text_field :university %>
-  </div>
 
-  <div class="field">
-    <%= f.label :faculty, "学部名"%><br />
-    <%= f.text_field :faculty %>
-  </div>
-
-  <div class="field">
-    <%= f.label :department, "学科名" %><br />
-    <%= f.text_field :department %>
-  </div>
--->
   <!--============================================================================================-->
   <div class="field">
     <%= f.label :university, "大学名" %><br />
@@ -111,8 +96,11 @@
                 recreate_list(document.getElementById('faculty'), s);//学部リストの更新
                 get_department_tag();
             });
+            faculty_request.addEventListener("error", (event) => {//ネットワークエラー時
+                alert("ネットワークエラー：大学情報を取得できませんでした。通信状況を確認してください。")
+            })
             faculty_request.send();
-        }else{
+        }else{//大学入力欄に存在しない大学が入っている場合、学部学科をリセットする
             remove_list(document.getElementById('faculty'));
             remove_list(document.getElementById('department'));
         }
@@ -128,6 +116,9 @@
             document.getElementById('department').value = "";
             recreate_list(document.getElementById('department'), s);//学部リストの更新
         });
+        department_request.addEventListener("error", (event) => {//ネットワークエラー時
+            alert("ネットワークエラー：大学情報を取得できませんでした。通信状況を確認してください。")
+        })
         department_request.send();
     }
 
@@ -139,17 +130,25 @@
         }
     }
 
-    //datalistのデータリストを削除して、新たなリストを作成する
+    //selectのデータリストを削除して、新たなリストを作成する
     function recreate_list(select, array){
         remove_list(select);
         for(var i = 0; i < array.length; i++){
             add_list(select, array[i]);
         }
     }
-    //datalistのデータリストに要素を追加する
+    //selectのデータリストに要素を追加する
     function add_list(select, name){
         var elem = document.createElement("option");
         elem.setAttribute("value", name);
+        elem.innerHTML = name;
+        select.appendChild(elem);
+    }
+
+    //selectのデータリストに選択不可要素を追加する
+    function add_disabled(select, name){
+        var elem = document.createElement("option");
+        elem.setAttribute("disabled selected value", "");
         elem.innerHTML = name;
         select.appendChild(elem);
     }
