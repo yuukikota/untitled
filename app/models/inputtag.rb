@@ -2,12 +2,14 @@ class Inputtag
   include ActiveModel::Model
   attr_accessor :school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7, :tag8, :tag9, :tag10, :freetagnum
 
+  #大学、学部、学科タグを登録する
   def setuniv(school:, faculty:, department:)
     self.school = school
     self.faculty = faculty
     self.department = department
   end
 
+  #自由タグを数える。空白と重複は数えない
   def count_freetag
     tmp = []
 
@@ -82,11 +84,13 @@ class Inputtag
     i
   end
 
+  #タグを配列にして返す
   def tag_to_arry
     [self.school,self.faculty,self.department,self.tag1,self.tag2,self.tag3,self.tag4,self.tag5,self.tag6,self.tag7,self.tag8,self.tag9,self.tag10]
   end
 
   private
+  #strが空文字やnilでなく、「"」「'」を含んでいないことをチェックする
   def check(str)
     if str == nil || str==""  || str.include?("\"") || str.include?("'") || str.include?("`") || str.length > 30 then
       false
