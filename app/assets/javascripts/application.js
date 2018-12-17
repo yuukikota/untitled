@@ -15,3 +15,9 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+    document.body.addEventListener('ajax:send', function(event) {
+        $('[type="submit"].all_disable').prop('disabled',true);//ボタンを無効化する
+    });
+});

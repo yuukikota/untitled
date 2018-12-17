@@ -1,0 +1,61 @@
+<!-- 16t4032n 田中裕隆 -->
+<h2>結果選択</h2>
+
+<%= form_tag(action: :update, method: :patch) do %>
+
+  <table>
+    <tr>
+      <td>
+        <div class="box">
+          <div>
+            --募集--
+          </div>
+          <% if @recruitment.re_id == '募集'%>
+            <div><%= @recruitment.title %></div>
+          <% end %>
+          <span><%= @recruitment.created_at %></span>
+          <span><%= link_to account_show_path(@recruitment.acc_id) do %>
+              <%= @recruitment.acc_id %>
+            <% end %>
+         </span>
+          <div><%= @recruitment.detail %></div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div style="height:60vh; overflow-y:scroll;">
+          <table>
+            <tr>
+              <td>
+                <div id="add_results">
+
+                  <%= render partial: "result", collection: @comments %>
+
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div id="request_add_results">
+          <%= link_to "さらに読み込む", results_add_path(params[:id], @comments.size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true %>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="form">
+          <%= submit_tag "結果決定" %>
+        </div>
+      </td>
+    </tr>
+
+  </table>
+<% end %>

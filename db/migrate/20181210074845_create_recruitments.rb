@@ -1,7 +1,6 @@
 class CreateRecruitments < ActiveRecord::Migration[5.2]
   def change
     create_table :recruitments do |t|
-      t.datetime :update_time        #更新日時
       t.string :acc_id, :limit=>20   #アカウントID
       t.string :re_id                #発言/募集
       t.string :chat_id              #チャットID
@@ -11,6 +10,9 @@ class CreateRecruitments < ActiveRecord::Migration[5.2]
       t.string :ans_com_id           #結果返信ID
       t.string :answer, :limit=>1000 #結果本文
       t.string :file_id              #ファイルID
+      t.string :chat                 #チャットの有無
+
+      t.bigint :account_id, null: false , index: true
 
       t.timestamps
     end

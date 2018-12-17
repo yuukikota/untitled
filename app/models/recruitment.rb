@@ -1,5 +1,11 @@
 class Recruitment < ApplicationRecord
-
+  belongs_to :account
+  has_many :comments, dependent: :destroy
+  has_many :entry_chats, dependent: :destroy
+  has_many :chat_comments, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  validates :detail, presence: true
+  validates :title, presence: true
 
   # タグIDの配列からそのタグをすべて含む発言を取得する
   def self.tagidsearch(tagid)
@@ -32,7 +38,8 @@ class Recruitment < ApplicationRecord
   def self.tagnamesearch(tagname)
     query = "SELECT recruitments.* FROM recruitments"
     if tagname.blank? then
-      Recruitment.all
+      tmp = Recruitment.all
+      tmp.order(updated_at: "DESC")
     else
       cnt = 0
       for i in 0..(tagname.length)
@@ -49,7 +56,7 @@ class Recruitment < ApplicationRecord
         end
       end
       if cnt != 0 then
-        query = query + " ORDER BY recruitments.updated_at ASC"
+        query = query + " ORDER BY recruitments.updated_at DESC"
         com = Recruitment.find_by_sql([query])
         if com.blank? then
           Recruitment.none
@@ -57,7 +64,8 @@ class Recruitment < ApplicationRecord
           com
         end
       else
-        Recruitment.none
+        tmp = Recruitment.all
+        tmp.order(updated_at: "DESC")
       end
     end
   end

@@ -60,3 +60,10 @@ gem 'railroady'
 
 #jQuery
 gem 'jquery-rails'
+
+# 日本語化設定時のエラーの日本語化のため
+gem 'rails-i18n'
+
+# 外部キー補助　
+# 参照データが消えたとき、それを外部キーとするデータを自動で消すため
+# gem 'foreigner'

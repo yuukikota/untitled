@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_085852) do
+ActiveRecord::Schema.define(version: 2018_12_17_023714) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,42 +41,52 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
   end
 
+  create_table "bookmarks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "recruitment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_bookmarks_on_account_id"
+    t.index ["recruitment_id"], name: "index_bookmarks_on_recruitment_id"
+  end
+
   create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
     t.date "time"
     t.string "comment"
     t.integer "file_id"
+    t.bigint "account_id", null: false
+    t.bigint "recruitment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "com_id"
-    t.integer "capacity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_chat_comments_on_account_id"
+    t.index ["recruitment_id"], name: "index_chat_comments_on_recruitment_id"
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "acc_id", limit: 20, null: false
-    t.integer "p_com_id", null: false
+    t.bigint "recruitment_id", null: false
+    t.bigint "account_id", null: false
     t.string "message", limit: 1000, null: false
     t.integer "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["p_com_id"], name: "index_comments_on_p_com_id"
+    t.index ["account_id"], name: "index_comments_on_account_id"
+    t.index ["recruitment_id"], name: "index_comments_on_recruitment_id"
   end
 
   create_table "entry_chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "chat_id"
     t.string "acc_id"
+    t.bigint "account_id", null: false
+    t.bigint "recruitment_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_entry_chats_on_account_id"
+    t.index ["recruitment_id"], name: "index_entry_chats_on_recruitment_id"
   end
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "update_time"
     t.string "acc_id", limit: 20
     t.string "re_id"
     t.string "chat_id"
@@ -86,8 +96,11 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.string "ans_com_id"
     t.string "answer", limit: 1000
     t.string "file_id"
+    t.string "chat"
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_recruitments_on_account_id"
   end
 
   create_table "taghistories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -102,7 +115,10 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.string "tag5", limit: 30
     t.string "tag6", limit: 30
     t.string "tag7", limit: 30
-    t.string "display", limit: 300
+    t.string "tag8", limit: 30
+    t.string "tag9", limit: 30
+    t.string "tag10", limit: 30
+    t.string "display", limit: 391
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -122,7 +138,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "univinfos", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "univinfos", primary_key: "infoid", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "p_id"
     t.integer "stat", null: false
     t.string "name", null: false

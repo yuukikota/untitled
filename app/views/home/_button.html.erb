@@ -1,0 +1,14 @@
+<table class="button" align="left" >
+  <% if $home_button == '1' %>
+    <%= button_to '自身のコメント', home_button_path(1), method: :get, disabled: :disabled %>
+  <% else %>
+    <%= button_to '自身のコメント', home_button_path(1), method: :get %>
+  <% end %>
+</table>
+<table class="button" align="left">
+  <% if $home_button == '2' %>
+    <%= button_to '参加中のチャット', home_button_path(2), method: :get, disabled: :disabled %>
+  <% else %>
+    <%= button_to '参加中のチャット', home_button_path(2), method: :get %>
+  <% end %>
+</table>

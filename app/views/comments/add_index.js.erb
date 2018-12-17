@@ -2,5 +2,6 @@ $('#add_comments').append(
     "<%= escape_javascript(render partial: :comment, collection: @comments) %>"
 );
 $('#request_add_comments').html(
-    "<%= escape_javascript(button_to "最新を読み込む", comments_add_path(params[:p_com_id],  (params[:size].to_i+@comments.size).to_s), method: :get, remote: true) %>"
+    "<%= escape_javascript(button_to "さらに読み込む", comments_add_path(params[:recruitment_id], (params[:size].to_i+@comments.size).to_s), method: :get, remote: true) %>"
 );
+$('[type="submit"]').prop('disabled',false);//ボタンを有効化する

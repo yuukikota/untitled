@@ -3,7 +3,7 @@
 <%= form_with(model: recruitment, local: true) do |form| %>
   <% if recruitment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(recruitment.errors.count, "error") %> prohibited this recruitment from being saved:</h2>
+      <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
 
       <ul>
         <% recruitment.errors.full_messages.each do |message| %>
@@ -25,6 +25,21 @@
   </td>
     <td>
       <div class="actions">
+        <!--====================タグ検索情報====================-->
+        <input type="hidden" name="school" value="<%=@inputtag.school %>">
+        <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">
+        <input type="hidden" name="department" value="<%=@inputtag.department %>">
+        <input type="hidden" name="tag1" value="<%=@inputtag.tag1 %>">
+        <input type="hidden" name="tag2" value="<%=@inputtag.tag2 %>">
+        <input type="hidden" name="tag3" value="<%=@inputtag.tag3 %>">
+        <input type="hidden" name="tag4" value="<%=@inputtag.tag4 %>">
+        <input type="hidden" name="tag5" value="<%=@inputtag.tag5 %>">
+        <input type="hidden" name="tag6" value="<%=@inputtag.tag6 %>">
+        <input type="hidden" name="tag7" value="<%=@inputtag.tag7 %>">
+        <input type="hidden" name="tag8" value="<%=@inputtag.tag8 %>">
+        <input type="hidden" name="tag9" value="<%=@inputtag.tag9 %>">
+        <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
+        <!--====================タグ検索情報====================-->
         <%= form.submit"送信📤" %>
       </div>
     </td>

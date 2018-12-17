@@ -31,7 +31,7 @@ class Tag < ApplicationRecord
     tagid = Tag.getid(tagname)
     if tagid.nil? then
       tagid = Tag.maximum(:tag_id) + 1
-      tag = Tag.new(tag_id: tagid, tag_type: false ,tag_name: tag_name,com_count: '1')
+      tag = Tag.new(tag_id: tagid, tag_type: false ,tag_name: tagname,com_count: '1')
     else
       tag = Tag.find(tagid)
       tag.com_count += 1

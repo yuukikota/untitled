@@ -1,0 +1,60 @@
+<!-- 16t4032n 田中裕隆 -->
+<h2>結果選択</h2>
+
+<table>
+  <tr>
+    <td>
+      <div class="box">
+        <div>
+          --募集--
+        </div>
+        <% if @recruitment.re_id == '募集'%>
+          <div><%= @recruitment.title %></div>
+        <% end %>
+        <span><%= @recruitment.created_at %></span>
+        <span><%= link_to account_show_path(@recruitment.acc_id) do %>
+              <%= @recruitment.acc_id %>
+            <% end %>
+         </span>
+        <div><%= @recruitment.detail %></div>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div style="height:60vh; overflow-y:scroll;">
+        <table>
+          <tr>
+            <td>
+              <div id="add_results">
+
+                <%= render partial: "result", collection: @comments, locals: {entry_chat: @entry_chat} %>
+
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div id="request_add_results">
+        <%= button_to "さらに読み込む", results_chat_add_path(params[:p_com_id], @comments.size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true , class:"all_disable"%>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="form">
+        <%= form_with model: @recruitment, local: true do |f| %>
+          <%= f.submit "結果決定" , class:"all_disable"%>
+        <% end %>
+      </div>
+    </td>
+  </tr>
+
+</table>

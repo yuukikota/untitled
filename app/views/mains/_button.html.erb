@@ -3,27 +3,28 @@
   <% if $view_num == '1' %>
       <%= button_to 'タイムライン', mains_button_path(1), method: :get, disabled: :disabled %>
     <% else %>
-    <%= button_to 'タイムライン', mains_button_path(1), method: :get %>
+    <%= button_to 'タイムライン', mains_button_path(1), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10} %>
+
   <% end %>
 </table>
 <table class="button" align="left">
   <% if $view_num == '2' %>
   <%= button_to '発言', mains_button_path(2), method: :get, disabled: :disabled %>
   <% else %>
-    <%= button_to '発言', mains_button_path(2), method: :get %>
+    <%= button_to '発言', mains_button_path(2), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10} %>
   <% end %>
     </table>
 <table class="button" align="left">
   <% if $view_num == '3' %>
   <%= button_to '募集', mains_button_path(3), method: :get, disabled: :disabled %>
   <% else %>
-    <%= button_to '募集', mains_button_path(3), method: :get %>
+    <%= button_to '募集', mains_button_path(3), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10} %>
   <% end %>
 </table>
 <table class="button" align="left">
   <% if $view_num == '4' %>
   <%= button_to '募集解決済み', mains_button_path(4), method: :get, disabled: :disabled %>
   <% else %>
-    <%= button_to '募集解決済み', mains_button_path(4), method: :get %>
+    <%= button_to '募集解決済み', mains_button_path(4), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10} %>
   <% end %>
 </table>

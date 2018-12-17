@@ -1,8 +1,22 @@
 class Tagmap < ApplicationRecord
-  # コメントに履歴からタグをつける
+
+  # コメントにタグをつける
   # 引数：コメントID
-  def self.associate(comid)
-    history = Taghistory.where(acc_id: current_account.acc_id).order(updated_at:"DESC").first
+  # 　　　タグ配列
+  def self.associate(comid, tagarry)
+    if tagarry.present? then
+      for i in 0..9 do
+        if tagarry[i] != nil && tagarry[i] != "" then
+          tagid = Tag.increment(tagarry[i])
+          newmap = Tagmap.new(com_id: comid,tag_id: tagid)
+          newmap.save
+        end
+      end
+    end
+  end
+
+  def self.associate2(comid, accid)
+    history = Taghistory.where(acc_id: accid).order(updated_at:"DESC").first
     if history.present? then
       if history[:univtag].present? then
         tagid = Tag.increment(history[:univtag])
@@ -61,7 +75,7 @@ class Tagmap < ApplicationRecord
   def self.delrelated(comid)
     deltagmap = Tagmap.where(com_id: comid)
     deltagmap.each do |t|
-      Tag.decrement(t.com_id)
+      Tag.decrement(t.tag_id)
     end
     deltagmap.destroy_all
   end

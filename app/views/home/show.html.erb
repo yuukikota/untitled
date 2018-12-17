@@ -12,3 +12,12 @@
 
   <%= link_to "アカウント情報更新", edit_account_registration_path %>
 <% end %>
+<br>
+<%= render 'button' %>
+
+<% if $home_button == '1' %>
+<%= render 'view', recruitment: @recruitment %>
+<% end %>
+<% if $home_button == '2' %>
+<%= render 'view_c',entry_chats: @entry_chats %>
+<% end %>

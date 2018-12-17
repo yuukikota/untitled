@@ -1,0 +1,17 @@
+
+<div class="result">
+  <table border="2">
+    <tr>
+      <td>
+          <%= result.account.name %>
+      </td>
+      <td><%= result.created_at %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= simple_format(result.message) %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= radio_button_tag :answer, result.message %></td>
+    </tr>
+  </table>
+</div>

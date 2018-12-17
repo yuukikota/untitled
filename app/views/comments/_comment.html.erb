@@ -1,17 +1,18 @@
 
 <div class="comment">
-  <table>
+  <table border="2">
     <tr>
-      <td><%= comment.id %></td>
-      <td><%= link_to account_show_path(comment.acc_id) do %>
-          <%= comment.acc_id %>
+      <td><%= link_to account_show_path(comment.account.acc_id) do %>
+          <%= comment.account.name %>
         <% end %>
       </td>
       <td><%= comment.created_at %></td>
-      <td><%= simple_format(comment.message) %></td>
-      <td><%= comment.file_id %></td>
-      <td><%= link_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= simple_format(comment.message) %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= button_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
     </tr>
   </table>
 </div>
-

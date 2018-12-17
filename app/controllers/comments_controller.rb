@@ -4,12 +4,24 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20)
-    @comment = Comment.new(p_com_id: params[:p_com_id])
+    @comments = Comment.where(recruitment_id: params[:recruitment_id]).limit(20)  #20件を取得
+    @comment = Comment.new(recruitment_id: params[:recruitment_id])
+    @recruitment = Recruitment.find(params[:recruitment_id])
+    if @recruitment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.json { head :no_content }
+      end
+    end
   end
 
+  # 表示する返信の追加
   def add_index
-    @comments = Comment.where(p_com_id: params[:p_com_id]).limit(20).offset(params[:size])
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @comments = Comment.where(recruitment_id: params[:recruitment_id]).limit(20).offset(params[:size])
+    @form = params[:form]
     # @size = params[:size] + @comments.size
     # render :partial => "comment", :collection => @comments
 
@@ -19,22 +31,30 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-    if account_signed_in? #発言権限を確認
-      @comment.acc_id = current_account.acc_id #アカウントID
-      respond_to do |format|
-        if @comment.save
-          format.html { redirect_to comments_index_path(@comment.p_com_id), notice: '発言を投稿しました' }
-          format.json { render :index, status: :created, location: @comment }
-        else
-          format.html { render :index }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
-        end
-      end
-    else
+    parent = Recruitment.find(@comment.recruitment_id)
+    if !account_signed_in? #発言権限はあるか
       respond_to do |format|
         format.html { redirect_to root_path, notice: '発言するには、ログインしてください' }
         format.json { head :no_content }
       end
+    elsif parent.nil? # 返信先は存在するか
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.json { head :no_content }
+      end
+    else
+      @comment.account_id = current_account.id # アカウントの主キーのID
+        respond_to do |format|
+          if @comment.save
+            parent.touch
+            parent.save
+            format.html { redirect_to comments_index_path(@comment.recruitment_id), notice: '発言を投稿しました' }
+            format.json { render :index, status: :created, location: @comment }
+          else
+            format.html { render :index }
+            format.json { render json: @comment.errors, status: :unprocessable_entity }
+          end
+        end
     end
   end
 
@@ -46,17 +66,17 @@ class CommentsController < ApplicationController
         format.html { redirect_to root_path, notice: '削除すべき発言はありませんでした' }
         format.json { head :no_content }
       end
-    elsif !(account_signed_in? and @comment.acc_id == current_account.acc_id) #削除権限があるか
-      p_com_id = @comment.p_com_id
+    elsif !(account_signed_in? and @comment.account.id == current_account.id) #削除権限があるか
+      recruitment_id = @comment.recruitment_id
       respond_to do |format|
-        format.html { redirect_to comments_index_path(p_com_id), notice: '削除権限がありません' }
+        format.html { redirect_to comments_index_path(recruitment_id), notice: '削除権限がありません' }
         format.json { head :no_content }
       end
     else
-      p_com_id = @comment.p_com_id
+      recruitment_id = @comment.recruitment_id
       @comment.destroy
       respond_to do |format|
-        format.html { redirect_to comments_index_path(p_com_id), notice: '発言を削除しました' }
+        format.html { redirect_to comments_index_path(recruitment_id), notice: '発言を削除しました' }
         format.json { head :no_content }
       end
     end
@@ -70,6 +90,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:p_com_id, :message, :file_id)
+      params.require(:comment).permit(:recruitment_id, :message, :file_id)
     end
 end

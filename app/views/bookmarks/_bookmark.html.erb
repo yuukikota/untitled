@@ -1,0 +1,9 @@
+<div id=<%= "bookmark_" + recruitment_id.to_s %>>
+  <% if account_signed_in? %>
+    <% if (find_bookmark = Bookmark.find_by(account_id: current_account.id, recruitment_id: recruitment_id)).nil? %>
+      <%= render partial: 'bookmarks/select', locals: {bookmark: @bookmark, recruitment_id: recruitment_id } %>
+    <% else %>
+      <%= render partial: 'bookmarks/selected', locals: {bookmark: find_bookmark} %>
+    <% end %>
+  <% end %>
+</div>
