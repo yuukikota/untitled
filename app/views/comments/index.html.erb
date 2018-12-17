@@ -11,8 +11,8 @@
           <div><%= @recruitment.title %></div>
         <% end %>
         <span><%= @recruitment.created_at %></span>
-        <span><%= link_to account_show_path(@recruitment.acc_id) do %>
-              <%= @recruitment.acc_id %>
+        <span><%= link_to account_show_path(@recruitment.account.acc_id) do %>
+              <%= @recruitment.account.name %>
             <% end %>
          </span>
         <div><%= @recruitment.detail %></div>
@@ -41,7 +41,7 @@
   <tr>
     <td>
       <div id="request_add_comments">
-        <%= button_to "さらに読み込む", comments_add_path(params[:p_com_id], @comments.size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true %>
+        <%= button_to "さらに読み込む", comments_add_path(params[:recruitment_id], @comments.size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true %>
       </div>
     </td>
   </tr>

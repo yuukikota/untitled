@@ -12,6 +12,8 @@ class CreateRecruitments < ActiveRecord::Migration[5.2]
       t.string :file_id              #ファイルID
       t.string :chat                 #チャットの有無
 
+      t.bigint :account_id, null: false , index: true
+
       t.timestamps
     end
   end

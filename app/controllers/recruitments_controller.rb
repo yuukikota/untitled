@@ -26,7 +26,7 @@ class RecruitmentsController < ApplicationController
       end
       return
     end
-    @comments = Comment.where(p_com_id: params[:id]).limit(20)  #20件を取得
+    @comments = Comment.where(recruitment_id: params[:id]).limit(20)  #20件を取得
   end
 
   #ajaxで動的に表示項目を追加する
@@ -34,7 +34,7 @@ class RecruitmentsController < ApplicationController
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
 
-    @comments = Comment.where(p_com_id: params[:id]).limit(20).offset(params[:size])
+    @comments = Comment.where(recruitment_id: params[:id]).limit(20).offset(params[:size])
   end
 
   # POST /recruitments
@@ -50,6 +50,7 @@ class RecruitmentsController < ApplicationController
 
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
+    @recruitment.account_id = current_account.id # アカウントの主キーのID 自動削除のため
     if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
       @recruitment.detail = nil
     end
