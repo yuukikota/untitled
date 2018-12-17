@@ -3,9 +3,11 @@ class Recruitment < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :entry_chats, dependent: :destroy
   has_many :chat_comments, dependent: :destroy
+  has_many :tagmap, dependent: :destroy
   validates :detail, presence: true
   validates :title, presence: true
 
+=begin
   # タグIDの配列からそのタグをすべて含む発言を取得する
   def self.tagidsearch(tagid)
     query = "SELECT  recruitments.* FROM recruitments"
@@ -32,6 +34,7 @@ class Recruitment < ApplicationRecord
 
     end
   end
+=end
 
   # タグ名の配列からそのタグをすべて含む発言を取得する
   def self.tagnamesearch(tagname)
@@ -45,9 +48,9 @@ class Recruitment < ApplicationRecord
         if tagname[i] != "" && tagname[i] != nil then
           tagquery = "SELECT  tags.* FROM tags WHERE tags.tag_name = \"" + tagname[i].encode("cp932", :invalid => :replace, :undef => :replace) + "\" LIMIT 1"
           tagid = Tag.find_by_sql([tagquery])
-          joinand = " INNER JOIN tagmaps AS tag"+(i+1).to_s+" ON tag"+(i+1).to_s+".com_id = recruitments.id AND tag"+(i+1).to_s+".tag_id = "
+          joinand = " INNER JOIN tagmaps AS tag"+(i+1).to_s+" ON tag"+(i+1).to_s+".recruitment_id = recruitments.id AND tag"+(i+1).to_s+".tag_id = "
           if tagid.present? then
-            query = query + joinand + tagid[0][:tag_id].to_s
+            query = query + joinand + tagid[0][:id].to_s
           else
             query = query + joinand + "NULL"
           end
