@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :bookmarks, only: [:create, :destroy]
 #  get "/inform" => "inform#gamen_sentaku"
 #  get "inform/hatsugen_inf"
 #  get "inform/hatsugen_inf/:ht11" => "inform#toukou"
@@ -27,13 +28,15 @@ Rails.application.routes.draw do
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:recruitment_id', to: 'comments#index', as: :comments_index, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/comments/index/add/:recruitment_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/, size: /[0-9]+/ }
+  get '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
   resources :chat_comments
   resources :entry_chats, only: [:create, :destroy]
   # チャット有り結果選択
   get '/entry_chats/new/:p_com_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { p_com_id: /[0-9]+/ }
   # 返信追加読み込み
   get '/entry_chats/new/add/:p_com_id/:size/', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
+
+  resources :pictures
 
   root 'mains#index'
 

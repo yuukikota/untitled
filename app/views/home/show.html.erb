@@ -1,5 +1,5 @@
 
-<h2> アカウント詳細 </h2>
+<h2> アカウント情報 </h2>
 
 <% if account_signed_in? %>
   アカウントID：<%= current_account.acc_id %><br />
@@ -8,7 +8,7 @@
   学部名：<%= current_account.faculty %><br />
   学科名：<%= current_account.department %><br />
   学年：<%= current_account.grade %><br />
-  紹介文：<%= current_account.introduction %><br />
+  紹介文：<%= simple_format(current_account.introduction) %><br />
 
   <%= link_to "アカウント情報更新", edit_account_registration_path %>
 <% end %>

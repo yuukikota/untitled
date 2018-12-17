@@ -4,9 +4,9 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.where(recruitment_id: params[:recruitment_id]).limit(20)  #20件を取得
     @comment = Comment.new(recruitment_id: params[:recruitment_id])
     @recruitment = Recruitment.find(params[:recruitment_id])
+    @comments = @recruitment.comments.limit(20) #20件を取得
     if @recruitment.nil?
       respond_to do |format|
         format.html { redirect_to root_path, notice: '返信先がありません' }
@@ -19,8 +19,8 @@ class CommentsController < ApplicationController
   def add_index
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
-
-    @comments = Comment.where(recruitment_id: params[:recruitment_id]).limit(20).offset(params[:size])
+    @recruitment = Recruitment.find(params[:recruitment_id])
+    @comments = @recruitment.comments.where('updated_at > ?', Time.zone.parse(params[:offset_time])).limit(20)
     @form = params[:form]
     # @size = params[:size] + @comments.size
     # render :partial => "comment", :collection => @comments

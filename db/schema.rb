@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_085852) do
+ActiveRecord::Schema.define(version: 2018_12_17_023714) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.index ["acc_id"], name: "index_accounts_on_acc_id", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
     t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
+  end
+
+  create_table "bookmarks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "recruitment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_bookmarks_on_account_id"
+    t.index ["recruitment_id"], name: "index_bookmarks_on_recruitment_id"
   end
 
   create_table "chat_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -75,6 +84,16 @@ ActiveRecord::Schema.define(version: 2018_12_12_085852) do
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_entry_chats_on_account_id"
     t.index ["recruitment_id"], name: "index_entry_chats_on_recruitment_id"
+  end
+
+  create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "photo_file_name"
+    t.string "photo_content_type"
+    t.bigint "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

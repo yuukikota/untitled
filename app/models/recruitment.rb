@@ -4,6 +4,8 @@ class Recruitment < ApplicationRecord
   has_many :entry_chats, dependent: :destroy
   has_many :chat_comments, dependent: :destroy
   has_many :tagmap, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+
   validates :detail, presence: true
   validates :title, presence: true
 
