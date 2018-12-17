@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :photos
+  resources :pictures
   get "/inform" => "inform#gamen_sentaku"
   get "inform/hatsugen_inf"
   get "inform/hatsugen_inf/:ht11" => "inform#toukou"
@@ -8,7 +10,7 @@ Rails.application.routes.draw do
   get "/b_inform/bosyuu_inf"
   get "b_inform/:ht22" => "b_inform#toukou"
   get "b_inform/:re_id" => "b_inform#toukou"
-  get "b_inform/toukou" => "b_inform"
+  get "b_inform/toukou" => "inform"
 
   devise_for :accounts, :controllers =>{
       :registrations => :registrations

@@ -12,8 +12,8 @@ class InformController < ApplicationController
       hatsugen_= nil
     end
 
-   Recruitment.create(detail:hatsugen_,re_id:re_id_,acc_id:"kari")
-    Recruitment.where(detail:nil,re_id:nil).destroy_all
+   Comment.create(message:hatsugen_,re_id:re_id_,acc_id:"kari")
+    Comment.where(message:nil,re_id:nil).destroy_all
 
   end
   def nakenashi

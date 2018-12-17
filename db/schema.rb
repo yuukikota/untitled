@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_132427) do
+ActiveRecord::Schema.define(version: 2018_12_16_205852) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -59,13 +59,11 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time"
-    t.datetime "update_time"
-    t.string "acc_id"
-    t.integer "p_com_id"
-    t.integer "p_com_type"
-    t.text "message"
-    t.integer "file_id"
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id", limit: 20
+    t.string "message", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,18 +75,27 @@ ActiveRecord::Schema.define(version: 2018_12_10_132427) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pictures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "photo_file_name"
+    t.string "photo_content_type"
+    t.bigint "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
   create_table "recruitments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "post_time"
-    t.datetime "update_time"
-    t.string "acc_id"
-    t.integer "chat_id"
-    t.boolean "resolved"
-    t.string "title"
-    t.text "detail"
+    t.string "com_id"
+    t.string "acc_id", limit: 20
+    t.string "re_id"
+    t.string "chat_id"
+    t.string "resolved"
+    t.string "title", limit: 100
+    t.string "detail", limit: 1000
     t.string "ans_com_id"
-    t.string "integer"
-    t.text "answer"
-    t.integer "file_id"
+    t.string "answer", limit: 1000
+    t.string "file_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
