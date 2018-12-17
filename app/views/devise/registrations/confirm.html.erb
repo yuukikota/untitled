@@ -3,6 +3,8 @@
 
   <!--  ↓追加分↓-->
 
+  <h2>登録確認</h2>
+
   <div class="field">
     <table border="2">
       <tr>
@@ -76,6 +78,7 @@
   <div class="actions">
     <%= f.submit "登録" %>
   </div>
-<% end %>
 
+<% end %>
+<%= button_to "戻る", new_account_registration_path %>
 <%= render "devise/shared/links" %>

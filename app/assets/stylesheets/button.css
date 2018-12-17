@@ -17,6 +17,22 @@
     height: 28px;
     width: 150px;
 }
+.button_style1 input.read_button {
+    background-color: #FFF;
+    border: 1.5px solid #444;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #444;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    height: 28px;
+    width: 100%;
+}
 .button_style1 input[type=submit]:hover {
     outline: 0;
     border-color: orange;
