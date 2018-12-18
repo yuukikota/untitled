@@ -19,8 +19,9 @@ class TagsController < ApplicationController
         @inputtag = Inputtag.new
       end
     end
+    @view_num = '1'
+    @view_com_num = '5'
     @inputtag.freetagnum = @inputtag.count_freetag #タグの数をかうんと
-    @comment = Comment.new
     @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0) #入力タグで検索
     @recruitment = Recruitment.new
     @taghistoryid = Taghistoryid.new
