@@ -13,20 +13,20 @@ class MainsController < ApplicationController
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力されているタグで検索
       else #パラメータを受け取っていない
         @inputtag = Inputtag.new
         @inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
-        @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0)
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)
       end
     else #ログインしていない
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力されているタグで検索
       else
         @inputtag = Inputtag.new
-        @recruitments = Recruitment.tagnamesearch2([],10,0)
+        @recruitments = Recruitment.tagnamesearch([])
         #@recruitments = @recruitments.order(updated_at: "DESC")#データをすべて取得してソート
       end
     end
