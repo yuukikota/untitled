@@ -1,7 +1,7 @@
-<table width="100%" border="3" rules="none">
+<table width="100%" border="3" rules="none" style="margin-bottom : 10px; padding :0px;"><!---->
   <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
     <tr><td height="4"></td><td></td></tr>
-    <tr valign="center"><td>
+    <tr ><td valign="center">
 
       <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
       <datalist id="school-name">
@@ -48,7 +48,7 @@
 
     </td><td></td></tr>
     <tr>
-      <td>
+      <td valign="bottom">
         <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
         <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
         <datalist id="freetaglist">
@@ -74,20 +74,24 @@
       <td valign="bottom" align="right">
         <div class="actions">
           <input type="hidden" name="type" value="input">
-          <input name="commit" type="submit" value="検索">
+          <input name="commit" type="submit" value="検索" style="margin : 0px; padding : 0px;">
         </div>
       </td>
     </tr>
   <% end %>
-  <% if account_signed_in? %>
-    <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
-      <td colspan="2"><!--.where.not(display: nil)-->
-        <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴", :style => "width:80%"%>
-        <input type="hidden" name="type" value="history">
-        <input name="commit" type="submit" value="履歴で検索" ><!--style="width:150px; height:23px"-->
-      </td>
-    <% end %>
-  <% end %>
+    <tr>
+      <% if account_signed_in? %>
+        <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
+          <td colspan="2"><!--.where.not(display: nil)-->
+            <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴", :style => "width:80%"%>
+            <input type="hidden" name="type" value="history">
+            <input name="commit" type="submit" value="履歴で検索" ><!--style="width:150px; height:23px"-->
+          </td>
+        <% end %>
+      <% else %>
+          <td colspan="2"></td>
+      <% end %>
+    </tr>
 </table>
 
 
@@ -155,9 +159,21 @@
       //文字数超過チェック
       if(school_length < 31 && faculty_length <31 && department_length < 31 && tag_length[0] <31 && tag_length[1] <31 && tag_length[2] <31 && tag_length[3] <31 && tag_length[4] <31 && tag_length[5] <31 && tag_length[6] <31 && tag_length[7] <31 && tag_length[8] <31 && tag_length[9] <31) {
           inputname = document.getElementById('school_tag').value;
-          school_stat = check_data('school_tag');//入力大学名の存在チェック
-          faculty_stat = check_data('faculty_tag');//入力学部の存在チェック
-          department_stat = check_data('department_tag');//入力学科の存在チェック
+          if(document.getElementById('school_tag').value != "") {
+              school_stat = check_data('school_tag');//入力大学名の存在チェック
+          }else{
+              school_stat = true
+          }
+          if(document.getElementById('faculty_tag').value != "") {
+              faculty_stat = check_data('faculty_tag');//入力学部の存在チェック
+          }else{
+              faculty_stat = true
+          }
+          if(document.getElementById('department_tag').value != "") {
+              department_stat = check_data('department_tag');//入力学科の存在チェック
+          }else{
+              department_stat = true
+          }
 
           if (!school_stat || !faculty_stat || !department_stat) {
               if (!school_stat) {
