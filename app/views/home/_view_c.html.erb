@@ -1,5 +1,4 @@
-
-<h2>自身の参加チャット一覧</h2>
+<%= stylesheet_link_tag "box.css", :media => "all" %>
 <p id="notice"><%= notice %></p>
 <table>
 
@@ -7,11 +6,15 @@
   <tbody>
   <% entry_chats.each do |entry_chat| %>
     <tr>
-      <% recruitment = Recruitment.find(id: entry_chat.chat_id) %>
-
-      <td><%= recruitment.detail  %></td>
-      <td><%= button_to entry_chat.chat_id, chat_comments_path(entry_chat.chat_id), method: :get %></td>
+      <% recruitment = Recruitment.find(entry_chat.chat_id) %>
+      <td><%= recruitment.title  %></td>
+      <div class="button1">
+        <div class="on">
+      <td><%= button_to entry_chat.chat_id, chat_comments_index_path(entry_chat.chat_id), method: :get %></td>
+        </div>
+      </div>
     </tr>
+    <td><%= recruitment.detail  %></td>
   <% end %>
   </tbody>
 </table>

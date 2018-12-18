@@ -1,7 +1,8 @@
-<%= form_with(model: chat_comment, local: true) do |form| %>
+<%= stylesheet_link_tag "box.css", :media => "all" %>
+<%= form_with(model: chat_comment, url: chat_comments_create_path(chat_num),action: :create, local: true) do |form| %>
   <% if chat_comment.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(chat_comment.errors.count, "error") %> prohibited this chat_comment from being saved:</h2>
+      <h2><%= chat_comment.errors.count %>個のエラーがあります:</h2>
 
       <ul>
       <% chat_comment.errors.full_messages.each do |message| %>
@@ -22,6 +23,10 @@
   </div>
 
   <div class="actions">
-    <%= form.submit"送信"%>
+    <div class="button1">
+      <div class="on">
+    <%= form.submit"送信📤" %>
+      </div>
+    </div>
   </div>
 <% end %>

@@ -1,50 +1,65 @@
-
-<h2>タイムライン表示窓</h2>
+<%= stylesheet_link_tag "box.css", :media => "all" %>
+<span class="view">
 
 <table>
-  <% @recruitments.each do |recruitment| %>
-    <% if recruitment.re_id == '募集'%>
-      <div class="box">
-      <div><%= recruitment.title %></div>
-    <% end %>
-    <%= link_to account_show_path(recruitment.account.acc_id) do %>
-    <span>
-      <%= recruitment.account.name %>
-    </span>
-    <% end %>
-    <span><%= recruitment.acc_id %></span>
-    <span><%= recruitment.created_at %></span>
 
-    <span>
-      <% if account_signed_in? %>
-        <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
+  <% recruitments.each do |recruitment| %>
+    <div class="box">
+
+      <%= link_to account_show_path(recruitment.acc_id) do %>
+        <span>
+          <%= Account.find_by(acc_id: recruitment.acc_id).name %>👤
+        </span>
       <% end %>
-    </span>
-    <span>
-      <%= render partial: 'bookmarks/bookmark', locals: { recruitment_id: recruitment.id} %>
-    </span>
-    <span>
-      <% if account_signed_in? %>
-        <% if current_account.acc_id == recruitment.acc_id %>
-          <% if recruitment.re_id == '募集'%>
-            <% if  recruitment.resolved == '未解決' %>
-              <% if recruitment.chat == "有" %>
-                <%= link_to '募集結果選択', new_entry_chats_path(recruitment.id), method: :get  %>
-              <% elsif recruitment.chat == "無" %>
-                <%= link_to '募集結果選択', edit_recruitment_path(recruitment.id), method: :get  %>
-              <% end %>
-            <% elsif recruitment.resolved == '解決' && recruitment.chat == "有" && (current_account.acc_id == recruitment.acc_id || EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present?) %>
-              <span>
-                <%= link_to 'チャット', root_path(recruitment.id), method: :get  %>
-              </span>
-            <% end %>
-          <%end %>
-          <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
-        <%end %>
+      <span><%= recruitment.acc_id %></span>
+      <span><%= recruitment.created_at %></span>
+      <br>
+      <% if recruitment.re_id == '募集'%>
+        <div><%= recruitment.title %></div>
+        <div>(チャット<%= recruitment.chat %>)</div>
       <% end %>
-      </span>
       <div><%= recruitment.detail %></div>
+      <% if recruitment.resolved == '解決' %>
+      <div><%= recruitment.answer %></div>
+        <% end %>
+      <span>
+       <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
+      </span>
+      <span>
+        <% if account_signed_in? %>
+          <% if current_account.acc_id == recruitment.acc_id %>
+            <% if recruitment.re_id == '募集'%>
+              <% if  recruitment.resolved == '未解決' %>
+                <% if recruitment.chat == "有" %>
+                  <%= link_to '募集結果選択☝', new_entry_chats_path(recruitment.id), method: :get  %>
+                <% elsif recruitment.chat == "無" %>
+                  <%= link_to '募集結果選択☝', edit_recruitment_path(recruitment.id), method: :get  %>
+                <% end %>
+              <% elsif recruitment.resolved == '解決' && recruitment.chat == "有" %>
+                <span>
+                  <%= link_to 'チャット💭', chat_comments_index_path(recruitment.id), method: :get  %>
+                </span>
+
+              <% end %>
+            <%end %>
+            <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+          <% elsif current_account.acc_id == 'administrator' %>
+            <% if recruitment.resolved == '解決' && recruitment.chat == "有" %>
+                <span>
+                  <%= link_to 'チャット💭', chat_comments_index_path(recruitment.id), method: :get  %>
+                </span>
+            <% end %>
+            <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+          <% elsif  EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present? %>
+            <span>
+              <%= link_to 'チャット💭', chat_comments_index_path(recruitment.id), method: :get  %>
+            </span>
+          <%end %>
+        <% end %>
+        </span>
+      <br>
       <br>
     </div>
   <% end %>
 </table>
+</span>
