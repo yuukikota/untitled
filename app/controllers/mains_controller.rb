@@ -2,8 +2,8 @@ class MainsController < ApplicationController
 
   def index
 
-    $view_num = '1'
-    $view_com_num = '5'
+    @view_num = '1'
+    @view_com_num = '5'
     @bookmark = Bookmark.new
 
     @recruitment = Recruitment.new
@@ -36,8 +36,8 @@ class MainsController < ApplicationController
 
   def add_index
 
-    $view_num = '1'
-    $view_com_num = '5'
+    @view_num = '1'
+    @view_com_num = '5'
     @bookmark = Bookmark.new
 
     @recruitments = Recruitment.all.limit(20).offset(params[:size])
@@ -83,7 +83,7 @@ class MainsController < ApplicationController
     elsif @view_num == '3'
       @recruitments = Recruitment.all.where(re_id: '募集')       #募集
     elsif @view_num == '4'
-      @recruitments = Recruitment.all.where(resolved_id: '解決') #解決済み募集
+      @recruitments = Recruitment.all.where(resolved: '解決') #解決済み募集
     end
   end
 

@@ -23,7 +23,10 @@
       <div><%= recruitment.answer %></div>
         <% end %>
       <span>
-       <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
+        <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
+      </span>
+      <span>
+        <%= render partial: 'bookmarks/bookmark', locals: { recruitment_id: recruitment.id} %>
       </span>
       <span>
         <% if account_signed_in? %>
