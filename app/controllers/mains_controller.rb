@@ -54,7 +54,9 @@ class MainsController < ApplicationController
         @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力されているタグで検索
         else #パラメータを受け取っていない
         @inputtag = Inputtag.new
-        @inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
+        if current_account.acc_id != "administrato" then
+          @inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
+        end
         @inputtag.freetagnum = @inputtag.count_freetag
         @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)
         @recruitments = @recruitments.order(updated_at: "DESC")#データをすべて取得してソート

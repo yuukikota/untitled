@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <title>学生向けコミュニティシステム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <%= link_to "メイン画面", root_path %>
     <%= stylesheet_link_tag "common_layout.css", :media => "all" %>
-    <span class="common_style">
-      <%= yield %>
-    </span>
+    <header><!------ヘッダー------>
+      <p class="header_title"><%= link_to "学生向けコミュニティシステム", root_path %></p>
+      <nav>
+        <ul class="header_menu">
+          <li><%= render 'devise/shared/accounts_accessor' %></li>
+        </ul>
+      </nav>
+    </header><!--ヘッダーここまで-->
+
+    <div class="container">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+
+
+      <span class="common_style">
+        <%= yield %>
+      </span>
+    </div>
+
+    <footer><!-------フッダー-- ---->
+    </footer><!---フッダーここまで--->
   </body>
 </html>
