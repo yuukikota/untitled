@@ -41,7 +41,7 @@
   <tr>
     <td>
       <div id="request_add_comments">
-        <%= button_to "さらに読み込む", comments_add_path(params[:p_com_id], @comments.size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true %>
+        <%= button_to "さらに読み込む", comments_add_path(params[:p_com_id],@comments .size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true %>
       </div>
     </td>
   </tr>

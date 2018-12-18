@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     post '/accounts/sign_up/confirm', to: 'accounts/registrations#confirm'
   end
 
-  resources :recruitments, only: [ :edit, :update, :create, :destroy ]
+  resources :recruitments, only: [ :edit, :update, :destroy ]
+  post '/recruitments/create/:id', to: 'recruitments#create', as: :recruitments_create
   post '/recruitments/:id', to: 'recruitments#update', constraints: {id: /[0-9]+/ }
   # 返信追加読み込み
   get '/recruitments/edit/add/:id/:size/', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/, size: /[0-9]+/ }
@@ -28,7 +29,10 @@ Rails.application.routes.draw do
   get '/comments/index/:p_com_id', to: 'comments#index', as: :comments_index, constraints: { p_com_id: /[0-9]+/ }
   # 返信追加読み込み
   get '/comments/index/add/:p_com_id/:size', to: 'comments#add_index', as: :comments_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
-  resources :chat_comments
+  resources :chat_comments, only: [:destroy]
+  get '/chat_comments/:chat_id', to: 'chat_comments#index', as: :chat_comments_index
+  post '/chat_comments/create/:chat_id', to: 'chat_comments#create', as: :chat_comments_create
+
   resources :entry_chats, only: [:create, :destroy]
   # チャット有り結果選択
   get '/entry_chats/new/:p_com_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { p_com_id: /[0-9]+/ }
@@ -42,9 +46,11 @@ Rails.application.routes.draw do
 
   post '/' => 'tags#update'#タグ検索フォーム
 
-  get '/mains/button/:id', to: 'mains#button', as: 'mains_button'
+  get '/mains/button_view/:id', to: 'mains#button_view', as: :mains_button_view
+  get '/mains/button_form/:id', to: 'mains#button_form', as: :mains_button_form
   get '/mains/index/add/:size', to: 'mains#add_index', as: :mains_add, constraints: { size: /[0-9]+/ }
-  get '/members', to: 'members#index'
+
+  get '/members/:chat_id', to: 'members#index', as: 'members'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   get '/univtag/list', to: 'univtag#list'

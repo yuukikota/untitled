@@ -1,6 +1,6 @@
-<h2>発言入力フォーム</h2>
+<%= stylesheet_link_tag "box.css", :media => "all" %>
 
-<%= form_with(model: recruitment, local: true) do |form| %>
+<%= form_with(model: recruitment, url: recruitments_create_path(view_com_num), local: true) do |form| %>
   <% if recruitment.errors.any? %>
     <div id="error_explanation">
       <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
@@ -12,17 +12,17 @@
       </ul>
     </div>
   <% end %>
-  <table class="form" align="left">
-  <td>
-    <%= form.label :発言 %>
-    <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
-    <div class="field">
-      <!--
-      <%= form.label :添付 %>
-      <%= form.number_field :file_id %>
-      -->
-    </div>
-  </td>
+  <table class="form">
+    <td>
+      <%= form.label :発言 %>
+      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
+      <div class="field">
+        <!--
+            <%= form.label :添付 %>
+            <%= form.number_field :file_id %>
+         -->
+      </div>
+    </td>
     <td>
       <div class="actions">
         <!--====================タグ検索情報====================-->
@@ -40,10 +40,12 @@
         <input type="hidden" name="tag9" value="<%=@inputtag.tag9 %>">
         <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
         <!--====================タグ検索情報====================-->
+        <div class="button1">
+          <div class="on">
         <%= form.submit"送信📤" %>
+          </div>
+        </div>
       </div>
     </td>
-
   </table>
-
 <% end %>
