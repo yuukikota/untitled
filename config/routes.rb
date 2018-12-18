@@ -53,4 +53,5 @@ Rails.application.routes.draw do
   get '/univtag/list', to: 'univtag#list' #タグ取得用
 
   get '/verify/recruit', to: 'verify#recruit' #検証用
+  get '/verify/recruit2', to: 'verify#recruit2'
 end

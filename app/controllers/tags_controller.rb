@@ -21,11 +21,10 @@ class TagsController < ApplicationController
     end
     @inputtag.freetagnum = @inputtag.count_freetag #タグの数をかうんと
     @comment = Comment.new
-    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力タグで検索
+    @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0) #入力タグで検索
     @recruitment = Recruitment.new
     @taghistoryid = Taghistoryid.new
     if account_signed_in? && params[:type] == "input" then
-
       add_taghistory(inputtag_params)
     end
     render template: 'mains/index'
