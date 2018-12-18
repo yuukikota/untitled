@@ -14,11 +14,11 @@
         <span><%= recruitment.created_at %></span>
   
         <span>
-          <%= link_to '返信', comments_index_path(recruitment.id), method: :get %>
+          <%= link_to '返信', comments_index_path(recruitment.id), method: :get%>
         </span>
         <span>
           <% if current_account.acc_id == recruitment.acc_id %>
-            <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>
+            <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' }%>
           <%end %>
         </span>
         <span><%= recruitment.created_at %></span>
