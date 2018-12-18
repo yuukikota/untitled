@@ -61,4 +61,7 @@ gem 'railroady'
 #jQuery
 gem 'jquery-rails'
 
+# 日本語化設定時のエラーの日本語化のため
 gem 'rails-i18n'
+
+gem 'paperclip'

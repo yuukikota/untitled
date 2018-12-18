@@ -1,23 +1,25 @@
 
-<h2> アカウント詳細 </h2>
+<h2> アカウント情報 </h2>
 
-<% if account_signed_in? %>
-  アカウントID：<%= current_account.acc_id %><br />
-  アカウント名：<%= current_account.name %><br />
-  大学名：<%= current_account.university %><br />
-  学部名：<%= current_account.faculty %><br />
-  学科名：<%= current_account.department %><br />
-  学年：<%= current_account.grade %><br />
-  紹介文：<%= current_account.introduction %><br />
+アカウントID：<%= @account.acc_id %><br />
+アカウント名：<%= @account.name %><br />
+大学名：<%= @account.university %><br />
+学部名：<%= @account.faculty %><br />
+学科名：<%= @account.department %><br />
+学年：<%= @account.grade %><br />
+紹介文：<%= simple_format(@account.introduction) %><br />
 
-  <%= link_to "アカウント情報更新", edit_account_registration_path %>
+<%= link_to "アカウント情報更新", edit_account_registration_path %>
+<% if account_signed_in? and current_account.id == @account.id %>
+  <%= link_to "アカウント削除", account_delete_path(current_account.acc_id) %>
 <% end %>
+
 <br>
-<%= render 'button' %>
+<%= render 'button', acc_id: @account.acc_id %>
 
 <% if $home_button == '1' %>
-<%= render 'view', recruitment: @recruitment %>
+  <%= render 'view', recruitment: @recruitment %>
 <% end %>
 <% if $home_button == '2' %>
-<%= render 'view_c',entry_chats: @entry_chats %>
+  <%= render 'view_c',entry_chats: @entry_chats %>
 <% end %>

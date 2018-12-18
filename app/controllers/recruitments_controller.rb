@@ -26,12 +26,15 @@ class RecruitmentsController < ApplicationController
       end
       return
     end
-    @comments = Comment.where(p_com_id: params[:id]).limit(20)  #20件を取得
+    @comments = Comment.where(recruitment_id: params[:id]).limit(20)  #20件を取得
   end
 
   #ajaxで動的に表示項目を追加する
   def add_result
-    @comments = Comment.where(p_com_id: params[:id]).limit(20).offset(params[:size])
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @comments = Comment.where(recruitment_id: params[:id]).limit(20).offset(params[:size])
   end
 
   # POST /recruitments
@@ -48,6 +51,7 @@ class RecruitmentsController < ApplicationController
 
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
+    @recruitment.account_id = current_account.id # アカウントの主キーのID 自動削除のため
     if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
       @recruitment.detail = nil
     end
@@ -113,7 +117,7 @@ class RecruitmentsController < ApplicationController
   # DELETE /recruitments/1.json
   def destroy
     @recruitment.destroy
-    Tagmap.delrelated(@recruitment.id)
+    #Tagmap.delrelated(@recruitment.id)
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
       format.json { head :no_content }
@@ -149,10 +153,10 @@ class RecruitmentsController < ApplicationController
     end
 
     def inputtag_params
-      params.permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7)
+      params.permit(:school, :faculty, :department, :tag1, :tag2, :tag3, :tag4, :tag5, :tag6, :tag7, :tag8, :tag9, :tag10)
     end
     def arry_tag_params
-      [params[:school],params[:faculty],params[:department],params[:tag1],params[:tag2],params[:tag3],params[:tag4],params[:tag5],params[:tag6],params[:tag7]]
+      [params[:school],params[:faculty],params[:department],params[:tag1],params[:tag2],params[:tag3],params[:tag4],params[:tag5],params[:tag6],params[:tag7],params[:tag8],params[:tag9],params[:tag10]]
     end
 
     def request_url(tag)

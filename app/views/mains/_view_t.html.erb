@@ -2,6 +2,7 @@
 <span class="view">
 
 <table>
+
   <% recruitments.each do |recruitment| %>
     <div class="box">
 
@@ -38,6 +39,7 @@
                 <span>
                   <%= link_to 'チャット💭', chat_comments_index_path(recruitment.id), method: :get  %>
                 </span>
+
               <% end %>
             <%end %>
             <%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %>

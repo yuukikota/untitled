@@ -1,9 +1,7 @@
-<%= stylesheet_link_tag "button.css", :media => "all" %>
-<span class="button_style1"><span class="form_style1">
-<table width="100%" border="3" rules="none">
+<table width="100%" border="3" rules="none" style="margin-bottom : 10px; padding :0px;"><!---->
   <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
     <tr><td height="4"></td><td></td></tr>
-    <tr valign="center"><td>
+    <tr ><td valign="center">
 
       <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
       <datalist id="school-name">
@@ -50,11 +48,11 @@
 
     </td><td></td></tr>
     <tr>
-      <td>
+      <td valign="bottom">
         <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
         <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
         <datalist id="freetaglist">
-          <% Tag.where(tag_type: false).order(tag_id: :desc).each do |tag1| %>
+          <% Tag.where(tag_type: false).order(id: :desc).each do |tag1| %>
             <option value=<%= tag1.tag_name %>>
           <% end %>
         </datalist>
@@ -76,24 +74,30 @@
       <td valign="bottom" align="right">
         <div class="actions">
           <input type="hidden" name="type" value="input">
-          <input name="commit" type="submit" value="検索">
+          <input name="commit" type="submit" value="検索" style="margin : 0px; padding : 0px;">
         </div>
       </td>
     </tr>
   <% end %>
-  <% if account_signed_in? %>
     <tr>
-      <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
-        <td colspan="2"><!--.where.not(display: nil)-->
-          <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴"%>
-          <input type="hidden" name="type" value="history">
-          <input name="commit" type="submit" value="履歴で検索" style="width:150px; height:23px" >
-        </td>
+      <% if account_signed_in? %>
+        <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
+          <td colspan="2"><!--.where.not(display: nil)-->
+            <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴", :style => "width:80%"%>
+            <input type="hidden" name="type" value="history">
+            <input name="commit" type="submit" value="履歴で検索" ><!--style="width:150px; height:23px"-->
+          </td>
+        <% end %>
+      <% else %>
+          <td colspan="2"></td>
       <% end %>
     </tr>
-  <% end %>
 </table>
-</span></span>
+
+
+<!--======================================================================================================================-->
+
+
 <script>
   var tagformcnt = document.getElementById("freetagnum").value;
   if(tagformcnt >= 10){
@@ -103,8 +107,7 @@
       document.getElementById("tagformremove").style.display = "none";
       tagformcnt = 1;
   }
-
-  for ( var i = 0  ; i < tagformcnt ; i++){
+  for ( var i = 0  ; i < tagformcnt ; i++){//使っていないタグ入力欄を閉じる
       var formname = "inputtag_tag" + (i+1);
       document.getElementById(formname).style.display = "";
   }
@@ -156,39 +159,20 @@
       //文字数超過チェック
       if(school_length < 31 && faculty_length <31 && department_length < 31 && tag_length[0] <31 && tag_length[1] <31 && tag_length[2] <31 && tag_length[3] <31 && tag_length[4] <31 && tag_length[5] <31 && tag_length[6] <31 && tag_length[7] <31 && tag_length[8] <31 && tag_length[9] <31) {
           inputname = document.getElementById('school_tag').value;
-          if (inputname == "") {
-              school_stat = true;
-          } else {//入力が空でなければ大学名が存在するかチェック
-              for(i = 0 ; i < document.getElementById('school_tag').list.options.length; i++) {
-                  if (inputname == document.getElementById('school_tag').list.options[i].getAttribute('value')){
-                      school_stat = true;
-                      break;
-                  }
-              }
+          if(document.getElementById('school_tag').value != "") {
+              school_stat = check_data('school_tag');//入力大学名の存在チェック
+          }else{
+              school_stat = true
           }
-          inputname = document.getElementById('faculty_tag').value;
-          if (inputname == "") {
-              faculty_stat = true;
-          } else {//入力が空でなければ学部名が存在するかチェック
-              for(i = 0 ; i < document.getElementById('faculty_tag').list.options.length; i++) {
-                  if (inputname == document.getElementById('faculty_tag').list.options[i].getAttribute('value')){
-                      faculty_stat = true;
-                      break;
-                  }
-
-              }
+          if(document.getElementById('faculty_tag').value != "") {
+              faculty_stat = check_data('faculty_tag');//入力学部の存在チェック
+          }else{
+              faculty_stat = true
           }
-          inputname = document.getElementById('department_tag').value;
-          if (inputname == "") {
-              department_stat = true;
-          } else {//入力が空でなければ学科名が存在するかチェック
-              i=0;
-              for(i = 0 ; i < document.getElementById('department_tag').list.options.length; i++) {
-                  if (inputname == document.getElementById('department_tag').list.options[i].getAttribute('value')) {
-                      department_stat = true;
-                      break;
-                  }
-              }
+          if(document.getElementById('department_tag').value != "") {
+              department_stat = check_data('department_tag');//入力学科の存在チェック
+          }else{
+              department_stat = true
           }
 
           if (!school_stat || !faculty_stat || !department_stat) {
@@ -241,46 +225,63 @@
       return false;
   }
 
-  const faculty_request = new XMLHttpRequest();
-  faculty_request.addEventListener("load", (event) => {//学部情報取得時の処理
-      var s = JSON.parse(event.target.responseText)
-
-      document.getElementById('faculty_tag').value = "";
-      recreate_list(document.getElementById('faculty_tag').list, s);//学部リストの更新
-  });
-  const department_request = new XMLHttpRequest();
-  department_request.addEventListener("load", (event) => {//学科情報取得時の処理
-      var s = JSON.parse(event.target.responseText)
-
-      document.getElementById('department_tag').value = "";
-      recreate_list(document.getElementById('department_tag').list, s);//学科リストの更新
-  });
-
   $("#school_tag").on({//
       "input" : function() {//大学タグ入力欄に変更があった場合、学部情報を取得する
-          if(document.getElementById('school_tag').value != "") {
-              var param = "faculty=&school="+ document.getElementById('school_tag').value + "&type=1";
-              faculty_request.open("GET", `/univtag/list?`+ param);
-              //alert(param);
-          }else{
-              faculty_request.open("GET", `/univtag/list?faculty=&school=&type=1`);
-          }
-          faculty_request.send();
+          get_faculty_tag();
       }
   });
 
   $("#faculty_tag").on({//学部タグ入力欄に変更があった場合、学科情報を取得する
       "input" : function() {
-          if(document.getElementById('faculty_tag').value != "") {
-              var param = "school="+ document.getElementById('school_tag').value +"&faculty=" +document.getElementById('faculty_tag').value + "&type=2";
-              department_request.open("GET", `/univtag/list?`+ param);
-              //alert(param);
-          }else{
-              department_request.open("GET", `/univtag/list?faculty=&school=&type=2`);
-          }
-          department_request.send();
+          get_department_tag();
       }
   });
+
+  function get_faculty_tag() {//学部タグのリストを取得して、データリストに追加する
+      var faculty_request = new XMLHttpRequest();
+      if(document.getElementById('school_tag').value != "") {
+          if(check_data('school_tag')) {
+              var param = "faculty=&school=" + document.getElementById('school_tag').value + "&type=1";
+              faculty_request.open("GET", `/univtag/list?` + param);
+              //alert(param);
+          }else{
+              return;
+          }
+      }else{
+          faculty_request.open("GET", `/univtag/list?faculty=&school=&type=1`);
+      }
+      faculty_request.addEventListener("load", (event) => {//学部情報取得時の処理
+          var s = JSON.parse(event.target.responseText)
+
+          document.getElementById('faculty_tag').value = "";
+          recreate_list(document.getElementById('faculty_tag').list, s);//学部リストの更新
+      });
+      faculty_request.addEventListener("error", (event) => {//ネットワークエラー時
+          alert("ネットワークエラー：大学情報を取得できませんでした。通信状況を確認してください。")
+      })
+      faculty_request.send();
+  }
+
+  function get_department_tag() {//学科タグのリストを取得して、データリストに追加する
+      var department_request = new XMLHttpRequest();
+      if(document.getElementById('faculty_tag').value != "") {
+          var param = "school="+ document.getElementById('school_tag').value +"&faculty=" +document.getElementById('faculty_tag').value + "&type=2";
+          department_request.open("GET", `/univtag/list?`+ param);
+          //alert(param);
+      }else{
+          department_request.open("GET", `/univtag/list?faculty=&school=&type=2`);
+      }
+      department_request.addEventListener("load", (event) => {//学科情報取得時の処理
+          var s = JSON.parse(event.target.responseText)
+
+          document.getElementById('department_tag').value = "";
+          recreate_list(document.getElementById('department_tag').list, s);//学科リストの更新
+      });
+      department_request.addEventListener("error", (event) => {//ネットワークエラー時
+          alert("ネットワークエラー：大学情報を取得できませんでした。通信状況を確認してください。")
+      })
+      department_request.send();
+  }
 
   //datalistのデータリストを削除する
   function remove_list(datalist){
@@ -295,7 +296,6 @@
       remove_list(datalist);
       for(var i = 0; i < array.length; i++){
           add_list(datalist, array[i]);
-
       }
   }
   //datalistのデータリストに要素を追加する
@@ -303,6 +303,19 @@
       var elem = document.createElement("option");
       elem.setAttribute("value", name);
       datalist.appendChild(elem);
+  }
+
+  function check_data(id) {//入力が内容がデータリストに存在するかチェック
+      var inputname = document.getElementById(id).value;
+      if (inputname == "") {
+          return false;
+      } else {//入力が空でなければ入力がリストに存在するかチェック
+          for(var i = 0 ; i < document.getElementById(id).list.options.length; i++) {
+              if (inputname == document.getElementById(id).list.options[i].getAttribute('value')){
+                  return true;
+              }
+          }
+      }
   }
 
 </script>

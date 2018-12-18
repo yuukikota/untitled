@@ -3,7 +3,7 @@
   <table border="2">
     <tr>
       <td>
-        <%= result.acc_id %>
+        <%= result.account.name %>
       </td>
       <td><%= result.created_at %></td>
     </tr>
@@ -12,9 +12,11 @@
     </tr>
     <tr>
       <td colspan="2">
-        <div class=<%= "result_" + result.acc_id%>>
-          <% if (find = EntryChat.find_by(chat_id: recruitment_id, acc_id: result.acc_id)).nil? %>
-            <%= render partial: "select", locals: {entry_chat: entry_chat, recruitment_id: recruitment_id, result_acc_id: result.acc_id } %>
+        <div class=<%= "result_" + result.account.id.to_s%>>
+          <% if result.account.id == current_account.id %>
+            <%= button_tag '募集者', disabled: true %>
+          <% elsif (find = EntryChat.find_by(chat_id: result.recruitment.id, acc_id: result.account.acc_id)).nil? %>
+            <%= render partial: "select", locals: {entry_chat: entry_chat, recruitment_id: result.recruitment.id, result_acc_id: result.account.acc_id, result_account_id: result.account.id } %>
           <% else %>
             <%= render partial: "selected", locals: {entry_chat: find } %>
           <% end %>

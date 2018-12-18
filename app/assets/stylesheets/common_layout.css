@@ -1,0 +1,143 @@
+
+/*inputのスタイル===============================================-*/
+.common_style input {
+    margin-bottom : 4px;
+    margin-left: 0px;
+    background-color: #FFF;
+    border: 1.5px solid #333;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    height: 28px;
+}
+.common_style input:hover {
+    outline: 0;
+    border-color: orange;
+}
+.common_style input:focus {
+    outline: 0;
+    border-color: orange;
+}
+
+.common_style input[disabled=disabled] {
+    opacity: 0.5;
+}
+.common_style input[disabled=disabled]:hover {
+    opacity: 0.5;
+    outline: 0;
+    background-color: #FFF;
+    border: 1.5px solid #333;
+    color: #333;
+}
+
+.common_style input[type=submit] {
+    width: 150px;
+}
+
+.common_style input[type=submit]:focus {
+    color: orange;
+}
+.common_style input[type=submit]:hover {
+    color: orange;
+}
+.common_style input[type=button]:focus {
+    color: orange;
+}
+.common_style input[type=button]:hover {
+    color: orange;
+}
+.common_style input[type=submit][disabled=disabled]:hover {
+    color: #333;
+}
+
+.common_style input[type=text]:hover {
+    background-color: #FFFFEE;
+}
+.common_style input[type=text]:focus {
+    background-color: #FFFFCC;
+}
+
+.common_style input[type=password]:hover {
+    background-color: #FFFFEE;
+}
+.common_style input[type=password]:focus {
+    background-color: #FFFFCC;
+}
+
+/*textareaのスタイル=======================================*/
+/*スクロールバー全体*/
+.common_style::-webkit-scrollbar {
+    width: 10px;
+}
+
+/*スクロールバーの軌道*/
+.common_style::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+}
+
+/*スクロールバーの動く部分*/
+.common_style::-webkit-scrollbar-thumb {
+    background-color: orange;
+    /*border-radius: 10px;*/
+    box-shadow:0 0 0 1px rgba(255, 255, 255, .3);
+}
+
+.common_style textarea {
+    resize: none;
+    background-color: #FFF;
+    border: 1.5px solid #333;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    overflow-y: hidden;
+}
+
+.common_style textarea:hover {
+    outline: 0;
+    border-color: orange;
+    background-color: #FFFFEE;
+    overflow-y: scroll;
+}
+.common_style textarea:focus {
+    outline: 0;
+    border-color: orange;
+    background-color: #FFFFCC;
+}
+
+/*selectのスタイル=====================================*/
+.common_style select {
+    background-color: #FFF;
+    border: 1.5px solid #333;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #333;
+    font-size: 13px;
+    padding: 2px;
+    height: 28px;
+    width: 240px;
+}
+.common_style select:focus {
+    outline: 0;
+    border-color: orange;
+    /*opacity: 0.5;*/
+}
+.common_style select:hover {
+    border-color: orange;
+    /*opacity: 0.5;/**/
+}

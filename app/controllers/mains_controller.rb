@@ -1,10 +1,10 @@
 class MainsController < ApplicationController
 
   def index
-    @view_num = '1'
-    @view_com_num = '5'
-    @comments = Comment.all
-    @comment = Comment.new
+
+    $view_num = '1'
+    $view_com_num = '5'
+    @bookmark = Bookmark.new
 
     @recruitment = Recruitment.new
 
@@ -13,21 +13,21 @@ class MainsController < ApplicationController
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0) #入力されているタグで検索
       else #パラメータを受け取っていない
         @inputtag = Inputtag.new
         @inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)
+        @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0)
       end
     else #ログインしていない
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch2(@inputtag.tag_to_arry,10,0) #入力されているタグで検索
       else
         @inputtag = Inputtag.new
-        @recruitments = Recruitment.all
-        @recruitments = @recruitments.order(updated_at: "DESC")#データをすべて取得してソート
+        @recruitments = Recruitment.tagnamesearch2([],10,0)
+        #@recruitments = @recruitments.order(updated_at: "DESC")#データをすべて取得してソート
       end
     end
 
@@ -35,10 +35,11 @@ class MainsController < ApplicationController
   end
 
   def add_index
-    @view_num = '1'
-    @view_com_num = '5'
-    @comments = Comment.all
-    @comment = Comment.new
+
+    $view_num = '1'
+    $view_com_num = '5'
+    @bookmark = Bookmark.new
+
     @recruitments = Recruitment.all.limit(20).offset(params[:size])
 
     @recruitment = Recruitment.new
@@ -87,6 +88,8 @@ class MainsController < ApplicationController
   end
 
   def button_form
+
+    @bookmark = Bookmark.new
 
     @recruitment = Recruitment.new
     @inputtag = Inputtag.new(inputtag_params)#入力されているタグを取得

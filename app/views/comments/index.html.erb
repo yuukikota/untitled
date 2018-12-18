@@ -1,6 +1,8 @@
 <!-- 16t4032n 田中裕隆 -->
+<%= stylesheet_link_tag "button.css", :media => "all" %>
+<span class="button_style1"><span class="form_style1">
 <h2>返信一覧</h2>
-<table>
+<table width="100%">
   <tr>
     <td>
       <div class="box">
@@ -10,11 +12,17 @@
         <% if @recruitment.re_id == '募集'%>
           <div><%= @recruitment.title %></div>
         <% end %>
-        <span><%= @recruitment.created_at %></span>
-        <span><%= link_to account_show_path(@recruitment.acc_id) do %>
-              <%= @recruitment.acc_id %>
-            <% end %>
-         </span>
+        <span>
+          <%= link_to account_show_path(@recruitment.account.acc_id) do %>
+            <%= @recruitment.account.name %>
+          <% end %>
+        </span>
+        <span>
+          <%= @recruitment.account.acc_id %>
+        </span>
+        <span>
+          <%= @recruitment.created_at %>
+        </span>
         <div><%= @recruitment.detail %></div>
       </div>
     </td>
@@ -22,8 +30,8 @@
 
   <tr>
     <td>
-      <div style="height:60vh; overflow-y:scroll;">
-        <table>
+      <div style="height:50vh; overflow-y:scroll;">
+        <table width="100%">
           <tr>
             <td>
               <div id="add_comments">
@@ -31,6 +39,15 @@
                 <%= render partial: "comment", collection: @comments %>
 
               </div>
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div id="request_add_comments">
+                      <%= render partial: 'comments/read_button', locals: {recruitment_id: params[:recruitment_id], last_comment: @comments.last, offset_time: nil } %>
+                    </div>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>
@@ -40,9 +57,7 @@
 
   <tr>
     <td>
-      <div id="request_add_comments">
-        <%= button_to "さらに読み込む", comments_add_path(params[:p_com_id],@comments .size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true %>
-      </div>
+
     </td>
   </tr>
 
@@ -53,3 +68,4 @@
   </tr>
 
 </table>
+</span></span>
