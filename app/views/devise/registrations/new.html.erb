@@ -28,12 +28,12 @@
 
   <div class="field">
     <%= f.label :faculty, "学部名"%><br />
-    <%= f.select :faculty, [], {},{style:'width:160.8px;', id: 'faculty'}%>
+    <%= f.select :faculty, [], {},{id: 'faculty'}%>
   </div>
 
   <div class="field">
     <%= f.label :department, "学科名" %><br />
-    <%= f.select :department, [],{}, {style:'width:160.8px;', id:'department'}%>
+    <%= f.select :department, [],{}, {id:'department'}%>
   </div>
   <!--============================================================================================-->
 
@@ -71,6 +71,8 @@
 <%= render "devise/shared/links" %>
 
 <script>
+    setTimeout('get_faculty_tag()',100);
+
     $("#university").on({
         "input" : function() {//大学タグ入力欄に変更があった場合、学部情報を取得する
             //alert("");

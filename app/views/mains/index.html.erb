@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
-<%= render 'devise/shared/accounts_accessor' %>
+<!--<%= render 'devise/shared/accounts_accessor' %>-->
 
 <div>
   <%= render :partial =>'tags/form' , inputtag: @inputtag , taghistoryid: @taghistoryid%>
@@ -12,9 +12,9 @@
   <br>
   <div id = "button_f2">
     <% if @view_com_num == '5' %>
-        <%= render partial: 'mains/form', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num}%>
+      <%= render partial: 'mains/form', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num}%>
     <% elsif @view_com_num == '6' %>
-    <%= render partial: 'mains/form_r', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num}%>
+      <%= render partial: 'mains/form_r', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num}%>
     <% end %>
   </div>
 <% end %>

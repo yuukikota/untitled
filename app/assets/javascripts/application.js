@@ -18,6 +18,6 @@
 
 $(function() {
     document.body.addEventListener('ajax:send', function(event) {
-        $('[type="submit"].all_disable').prop('disabled',true);//ボタンを無効化する
+        $('[type="submit"].all_disable').attr('disabled', true);//ボタンを無効化する
     });
 });

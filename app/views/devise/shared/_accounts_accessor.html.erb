@@ -4,9 +4,11 @@
   ログインユーザ：
   <%= link_to account_show_path(current_account.acc_id) do %>
     <%= current_account.acc_id %>
-  <% end %>&nbsp;
+  <% end %>
+  <span>&ensp;&ensp;</span>
   <%= link_to "ログアウト", destroy_account_session_path, method: :delete %>
 <% else %>
   <%= link_to "新規登録", new_account_registration_path %>
+  <span>&ensp;&ensp;</span>
   <%= link_to "ログイン", new_account_session_path %>
 <% end %>
