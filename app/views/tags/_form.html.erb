@@ -1,3 +1,11 @@
+<!-- 折り畳み展開ポインタ -->
+<div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
+  <a style="cursor:pointer;">▼ クリックで展開</a>
+</div>
+<!--// 折り畳み展開ポインタ -->
+
+<!-- 折り畳まれ部分 -->
+<div id="open" style="display:none;clear:both;">
 <table width="100%" border="3" rules="none" style="margin-bottom : 10px; padding :0px;"><!---->
   <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
     <tr><td height="4"></td><td></td></tr>
@@ -93,12 +101,20 @@
       <% end %>
     </tr>
 </table>
-
+</div>
+<!--// 折り畳まれ部分 -->
 
 <!--======================================================================================================================-->
 
 
 <script>
+/*
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+*/
   var tagformcnt = document.getElementById("freetagnum").value;
   if(tagformcnt >= 10){
       document.getElementById("tagformadd").style.display = "none";
