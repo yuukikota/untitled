@@ -4,6 +4,8 @@ class HomeController < ApplicationController
 
   # アカウント情報画面
   def show
+
+  
     $home_button = 1
     @account = Account.find_by(acc_id: params[:acc_id])
     if @account.nil?
@@ -16,6 +18,7 @@ class HomeController < ApplicationController
       @entry_chats = @account.entry_chats
     end
   end
+
 
   # アカウント削除画面
   def delete

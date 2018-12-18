@@ -1,48 +1,46 @@
-
-<% if !account_signed_in? %>
-  <h1> 閲覧画面(ログイン前) </h1>
-<% else %>
-  <h1> 閲覧画面(ログイン後) </h1>
-<% end %>
+<%= stylesheet_link_tag "box.css", :media => "all" %>
 <%= render 'devise/shared/accounts_accessor' %>
 
 <div>
   <%= render :partial =>'tags/form' , inputtag: @inputtag , taghistoryid: @taghistoryid%>
 </div>
-
 <br>
-<table class="button">
-  <%= button_to '最新を読み込む🔁', root_path, method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10,type:"input"} %>
-</table>
-<%= render 'mains/button' %>
-<table class="view">
-  <% if $view_num == '1'%>
-      <%= render 'mains/view_t', recruitment: @recruitments %>
-  <% end %>
-  <% if $view_num == '2'%>
-    <%= render 'mains/view', recruitment: @recruitments %>
-  <% end %>
-  <% if $view_num == '3'%>
-    <%= render 'mains/view_r', recruitment: @recruitments %>
-  <% end %>
-  <% if $view_num == '4'%>
-      <%= render 'mains/view_s', recruitment: @recruitments %>
-  <% end %>
-</table>
-<%= button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, remote: true %>
-
 <% if account_signed_in? %>
-  <%= render 'mains/button_f', recruitment: @recruitment%>
-  <table align="left">
-    <% if $view_com_num == '5' %>
-    <td>
-<%= render 'mains/form', recruitment: @recruitment, inputtag: @inputtag %>
-    </td>
-      <% end %>
-    <% if $view_com_num == '6' %>
-    <td>
-    <%= render 'mains/form_r', recruitment: @recruitment, inputtag: @inputtag %>
-    </td>
+  <div id = "button_f">
+  <%= render 'mains/button_f', recruitment: @recruitment, view_com_num: @view_com_num %>
+  </div>
+  <br>
+  <div id = "button_f2">
+    <% if @view_com_num == '5' %>
+        <%= render partial: 'mains/form', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num}%>
+    <% elsif @view_com_num == '6' %>
+    <%= render partial: 'mains/form_r', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num}%>
     <% end %>
-  </table>
+  </div>
 <% end %>
+<div class="button1">
+  <div class="on">
+<div id="button_v">
+  <%= button_to '最新を読み込む', mains_button_view_path(@view_num), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10,type:"input"}, remote: true %>
+</div>
+  </div>
+</div>
+<br>
+
+<div id="button_v2">
+  <%= render 'mains/button_v', view_num: @view_num %>
+</div>
+<br>
+<br>
+<div id="button_v3">
+  <%= render 'mains/view_t', recruitments: @recruitments %>
+</div>
+
+<div class="button1">
+  <div class="on">
+<div id="button_v4">
+  <%= button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, remote: true %>
+</div>
+  </div>
+</div>
+</span>

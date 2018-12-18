@@ -33,8 +33,10 @@ class Tag < ApplicationRecord
   def self.increment(tagname)
     tagid = Tag.getid(tagname)
     if tagid.nil? then
+
       tagid = Tag.maximum(:id) + 1
       tag = Tag.new(id: tagid, tag_type: false ,tag_name: tagname,com_count: '1')
+
     else
       tag = Tag.find(tagid)
       tag.com_count += 1
