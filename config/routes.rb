@@ -41,7 +41,8 @@ Rails.application.routes.draw do
   root 'mains#index'
 
   get 'home/:acc_id', to: 'home#show', as: :account_show
-  get '/home/button/:id', to: 'home#button', as: 'home_button'
+  get '/home/button/:acc_id/:id', to: 'home#button', as: 'home_button'
+  get 'home/delete/:acc_id', to: 'home#delete', as: :account_delete
 
   post '/' => 'tags#update'#タグ検索フォーム
 
