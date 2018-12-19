@@ -12,22 +12,16 @@
   <br>
 </table>
 <table>
-
-  <tbody>
     <% @chat_comments.each do |chat_comment| %>
-      <tr>
-        <td><%= chat_comment.id %></td>
-        <td><%= chat_comment.chat_id %></td>
-        <td><%= chat_comment.acc_id %></td>
-        <td><%= chat_comment.time %></td>
-        <td><%= chat_comment.comment %></td>
-        <td><%= chat_comment.file_id %></td>
+      <div class="box_comment">
+        <span class="box_comment2"><%= chat_comment.acc_id %></span>
+        <span class="box_comment2"><%= chat_comment.time %></span>
+        <div class="box_comment2"><%= chat_comment.comment %></div>
         <% if current_account.acc_id == chat_comment.acc_id  || current_account.acc_id == 'administrator' %>
-          <td><%= link_to '削除', chat_comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
+          <div class="box_comment2"><%= link_to '削除', chat_comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></div>
         <%end %>
-      </tr>
+      </div>
     <% end %>
-  </tbody>
 </table>
 
 <br>
