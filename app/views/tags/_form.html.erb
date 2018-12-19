@@ -1,104 +1,120 @@
-<table width="100%" border="3" rules="none" style="margin-bottom : 10px; padding :0px;"><!---->
-  <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
-    <tr><td height="4"></td><td></td></tr>
-    <tr ><td valign="center">
+<!-- 折り畳み展開ポインタ -->
+<div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
+  <a style="cursor:pointer;">▼ クリックで展開</a>
+</div>
+<!--// 折り畳み展開ポインタ -->
 
-      <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
-      <datalist id="school-name">
-        <% Univinfo.where(stat: '0').distinct.order(tag_id: :desc).each do |tag1| %>
-          <option value=<%= tag1.name %>>
-        <% end %>
-      </datalist>
+<!-- 折り畳まれ部分 -->
+<div id="open" style="display:none;clear:both;">
+  <table width="100%" border="3" rules="none" style="margin-bottom : 10px; padding :0px;"><!---->
+    <tr><td>
+      <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
+        <table width="100%" style="margin-top : 10px;">
+          <tr><td valign="center">
 
-      <%= f.text_field :faculty, id: 'faculty_tag', list: 'faculty-name' ,placeholder: "学部名を入力して下さい" ,:size=>"22" %>
-      <datalist id="faculty-name">
-        <% univ = Univinfo.find_by(name: @inputtag.school)%>
-        <% if univ.present? %>
-          <% Univinfo.where(p_id: univ.id).order(tag_id: :desc).each do |tag2| %>
-            <option value=<%= tag2.name %>>
-          <% end %>
-        <% else %>
-          <% Univinfo.where(stat: '1').distinct.order(tag_id: :desc).each do |tag2| %>
-            <option value=<%= tag2.name %>>
-          <% end %>
-        <%end %>
-      </datalist>
+            <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
+            <datalist id="school-name">
+              <% Univinfo.where(stat: '0').distinct.order(tag_id: :desc).each do |tag1| %>
+                <option value=<%= tag1.name %>>
+              <% end %>
+            </datalist>
+
+            <%= f.text_field :faculty, id: 'faculty_tag', list: 'faculty-name' ,placeholder: "学部名を入力して下さい" ,:size=>"22" %>
+            <datalist id="faculty-name">
+              <% univ = Univinfo.find_by(name: @inputtag.school)%>
+              <% if univ.present? %>
+                <% Univinfo.where(p_id: univ.id).order(tag_id: :desc).each do |tag2| %>
+                  <option value=<%= tag2.name %>>
+                <% end %>
+              <% else %>
+                <% Univinfo.where(stat: '1').distinct.order(tag_id: :desc).each do |tag2| %>
+                  <option value=<%= tag2.name %>>
+                <% end %>
+              <%end %>
+            </datalist>
+
+            <%= f.text_field :department, id: 'department_tag', list: 'department-name' ,placeholder: "学科名を入力して下さい" ,:size=>"22" %>
+            <datalist id="department-name">
+              <% if univ.present? then %>
+                <% dpt = Univinfo.find_by(p_id: univ.id, name: @inputtag.faculty) %>
+                <% if dpt.present? %>
+                  <% Univinfo.where(p_id: dpt.id).order(tag_id: :desc).each do |tag3| %>
+                    <option value=<%= tag3.name %>>
+                  <% end %>
+                <% else %>
+                  <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
+                    <option value=<%= tag3.name %>>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
+                  <option value=<%= tag3.name %>>
+                <% end %>
+              <% end %>
+            </datalist>
+          </td><td></td></tr>
 
 
+          <tr>
+            <td valign="bottom">
+              <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
+              <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
+              <datalist id="freetaglist">
+                <% Tag.where(tag_type: false).order(id: :desc).each do |tag1| %>
+                  <option value=<%= tag1.tag_name %>>
+                <% end %>
+              </datalist>
 
-      <%= f.text_field :department, id: 'department_tag', list: 'department-name' ,placeholder: "学科名を入力して下さい" ,:size=>"22" %>
-      <datalist id="department-name">
-        <% if univ.present? then %>
-          <% dpt = Univinfo.find_by(p_id: univ.id, name: @inputtag.faculty) %>
-          <% if dpt.present? %>
-            <% Univinfo.where(p_id: dpt.id).order(tag_id: :desc).each do |tag3| %>
-              <option value=<%= tag3.name %>>
-            <% end %>
-          <% else %>
-            <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
-              <option value=<%= tag3.name %>>
-            <% end %>
-          <% end %>
-        <% else %>
-          <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
-            <option value=<%= tag3.name %>>
-          <% end %>
-        <% end %>
-      </datalist>
+              <%= f.text_field :tag2, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag2', style: 'display:none' %>
+              <%= f.text_field :tag3, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag3', style: 'display:none' %>
+              <%= f.text_field :tag4, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag4', style: 'display:none' %>
+              <%= f.text_field :tag5, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag5', style: 'display:none' %>
+              <%= f.text_field :tag6, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag6', style: 'display:none' %>
+              <%= f.text_field :tag7, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag7', style: 'display:none' %>
+              <%= f.text_field :tag8, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag8', style: 'display:none' %>
+              <%= f.text_field :tag9, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag9', style: 'display:none' %>
+              <%= f.text_field :tag10, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag10', style: 'display:none' %>
 
-    </td><td></td></tr>
-    <tr>
-      <td valign="bottom">
-        <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
-        <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
-        <datalist id="freetaglist">
-          <% Tag.where(tag_type: false).order(id: :desc).each do |tag1| %>
-            <option value=<%= tag1.tag_name %>>
-          <% end %>
-        </datalist>
+              <input type="button" value="ー" onclick="remove()" id="tagformremove">
+              <input type="button" value="＋" onclick="add()" id="tagformadd">
+            </td>
 
-        <%= f.text_field :tag2, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag2', style: 'display:none' %>
-        <%= f.text_field :tag3, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag3', style: 'display:none' %>
-        <%= f.text_field :tag4, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag4', style: 'display:none' %>
-        <%= f.text_field :tag5, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag5', style: 'display:none' %>
-        <%= f.text_field :tag6, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag6', style: 'display:none' %>
-        <%= f.text_field :tag7, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag7', style: 'display:none' %>
-        <%= f.text_field :tag8, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag8', style: 'display:none' %>
-        <%= f.text_field :tag9, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag9', style: 'display:none' %>
-        <%= f.text_field :tag10, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22" , id: 'inputtag_tag10', style: 'display:none' %>
-
-        <input type="button" value="ー" onclick="remove()" id="tagformremove">
-        <input type="button" value="＋" onclick="add()" id="tagformadd">
-      </td>
-
-      <td valign="bottom" align="right">
-        <div class="actions">
-          <input type="hidden" name="type" value="input">
-          <input name="commit" type="submit" value="検索" style="margin : 0px; padding : 0px;">
-        </div>
-      </td>
-    </tr>
-  <% end %>
+            <td valign="bottom" align="right">
+              <div class="actions">
+                <input type="hidden" name="type" value="input">
+                <input name="commit" type="submit" value="検索" style="margin : 0px; padding : 0px;">
+              </div>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+    </td></tr>
     <tr>
       <% if account_signed_in? %>
-        <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"} do |f| %>
-          <td colspan="2"><!--.where.not(display: nil)-->
+        <td><!--.where.not(display: nil)-->
+          <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"}, html: {:style=>"margin-left : 7px;"} do |f| %>
             <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴", :style => "width:80%"%>
             <input type="hidden" name="type" value="history">
             <input name="commit" type="submit" value="履歴で検索" ><!--style="width:150px; height:23px"-->
-          </td>
-        <% end %>
+          <% end %>
+        </td>
       <% else %>
-          <td colspan="2"></td>
+        <td></td>
       <% end %>
     </tr>
-</table>
-
+  </table>
+</div>
+<!--// 折り畳まれ部分 -->
 
 <!--======================================================================================================================-->
 
 
 <script>
+    window.addEventListener('popstate', function (e) {
+        get_faculty_tag();
+        get_department_tag();
+    });
+
   var tagformcnt = document.getElementById("freetagnum").value;
   if(tagformcnt >= 10){
       document.getElementById("tagformadd").style.display = "none";
@@ -134,6 +150,7 @@
 
 
   function _submit() {
+      alert("submit");
       var target = document.getElementById("tag_form");
       var i = 0;
       var inputname = "";
