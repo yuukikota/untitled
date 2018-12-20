@@ -1,12 +1,6 @@
-<!-- 折り畳み展開ポインタ -->
-<div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
-  <a style="cursor:pointer;">▼ クリックで展開</a>
-</div>
-<!--// 折り畳み展開ポインタ -->
 
-<!-- 折り畳まれ部分 -->
-<div id="open" style="display:none;clear:both;">
-  <table width="100%" border="3" rules="none" style="margin-bottom : 10px; padding :0px;"><!---->
+<div id="open" style="clear:both;">
+  <table width="100%" border="3" rules="none" style="margin-bottom : 0px; padding :0px;"><!---->
     <tr><td>
       <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
         <table width="100%" style="margin-top : 10px;">
@@ -14,7 +8,7 @@
 
             <%= f.text_field :school, id: 'school_tag',list: 'school-name' ,placeholder: "大学名を入力して下さい" ,:size=>"22"%>
             <datalist id="school-name">
-              <% Univinfo.where(stat: '0').distinct.order(tag_id: :desc).each do |tag1| %>
+              <% Univinfo.select(:name).where(stat: '0').distinct.order(tag_id: :desc).each do |tag1| %>
                 <option value=<%= tag1.name %>>
               <% end %>
             </datalist>
@@ -23,11 +17,11 @@
             <datalist id="faculty-name">
               <% univ = Univinfo.find_by(name: @inputtag.school)%>
               <% if univ.present? %>
-                <% Univinfo.where(p_id: univ.id).order(tag_id: :desc).each do |tag2| %>
+                <% Univinfo.select(:name).where(p_id: univ.id).distinct.order(tag_id: :desc).each do |tag2| %>
                   <option value=<%= tag2.name %>>
                 <% end %>
               <% else %>
-                <% Univinfo.where(stat: '1').distinct.order(tag_id: :desc).each do |tag2| %>
+                <% Univinfo.select(:name).where(stat: '1').distinct.order(tag_id: :desc).each do |tag2| %>
                   <option value=<%= tag2.name %>>
                 <% end %>
               <%end %>
@@ -38,25 +32,28 @@
               <% if univ.present? then %>
                 <% dpt = Univinfo.find_by(p_id: univ.id, name: @inputtag.faculty) %>
                 <% if dpt.present? %>
-                  <% Univinfo.where(p_id: dpt.id).order(tag_id: :desc).each do |tag3| %>
+                  <% Univinfo.select(:name).where(p_id: dpt.id).order(tag_id: :desc).each do |tag3| %>
                     <option value=<%= tag3.name %>>
                   <% end %>
                 <% else %>
-                  <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
+                  <% Univinfo.select(:name).where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
                     <option value=<%= tag3.name %>>
                   <% end %>
                 <% end %>
               <% else %>
-                <% Univinfo.where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
+                <% Univinfo.select(:name).where(stat: '2').distinct.order(tag_id: :desc).each do |tag3| %>
                   <option value=<%= tag3.name %>>
                 <% end %>
               <% end %>
             </datalist>
           </td><td></td></tr>
+          <!-- 折り畳まれ部分 -->
 
 
           <tr>
+
             <td valign="bottom">
+
               <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
               <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
               <datalist id="freetaglist">
@@ -82,10 +79,13 @@
             <td valign="bottom" align="right">
               <div class="actions">
                 <input type="hidden" name="type" value="input">
+                <input type="hidden" name="view_num" value=<%= @view_num %>>
                 <input name="commit" type="submit" value="検索" style="margin : 0px; padding : 0px;">
               </div>
             </td>
           </tr>
+
+          <!--// 折り畳まれ部分 -->
         </table>
       <% end %>
     </td></tr>
@@ -95,6 +95,7 @@
           <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"}, html: {:style=>"margin-left : 7px;"} do |f| %>
             <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴", :style => "width:80%"%>
             <input type="hidden" name="type" value="history">
+            <input type="hidden" name="view_num" value=<%= @view_num %>>
             <input name="commit" type="submit" value="履歴で検索" ><!--style="width:150px; height:23px"-->
           <% end %>
         </td>
@@ -104,7 +105,11 @@
     </tr>
   </table>
 </div>
-<!--// 折り畳まれ部分 -->
+<!-- 折り畳み展開ポインタ -->
+<div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
+  <a style="text-aline:right;">▼ クリックで展開</a>
+</div>
+<!--// 折り畳み展開ポインタ -->
 
 <!--======================================================================================================================-->
 
@@ -150,7 +155,6 @@
 
 
   function _submit() {
-      alert("submit");
       var target = document.getElementById("tag_form");
       var i = 0;
       var inputname = "";

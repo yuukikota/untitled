@@ -44,10 +44,6 @@ class RecruitmentsController < ApplicationController
     view_com_num = params[:id]
     @inputtag = Inputtag.new(inputtag_params)
     @inputtag.count_freetag
-    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)
-    if account_signed_in? then
-      @taghistoryid = Taghistoryid.new
-    end
 
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID

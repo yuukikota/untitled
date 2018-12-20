@@ -24,7 +24,6 @@ class CommentsController < ApplicationController
     @form = params[:form]
     # @size = params[:size] + @comments.size
     # render :partial => "comment", :collection => @comments
-
   end
 
   # POST /comments
