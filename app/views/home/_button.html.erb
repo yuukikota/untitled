@@ -1,22 +1,22 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
 <div class="button1">
-<table class="button" align="left" >
-  <% if $home_button == '1' %>
- <div class="on">
-    <%= button_to '自身のコメント', home_button_path(acc_id, 1), method: :get, disabled: :disabled %>
-</div>
-  <% else %>
-    <%= button_to '自身のコメント', home_button_path(acc_id, 1), method: :get %>
-  <% end %>
-</table>
-<table class="button" align="left">
-  <% if $home_button == '2' %>
-  <div class="on">
-    <%= button_to '参加中のチャット', home_button_path(acc_id, 2), method: :get, disabled: :disabled %>
-    </div>
-  <% else %>
-    <%= button_to '参加中のチャット', home_button_path(acc_id, 2), method: :get %>
-  <% end %>
-</table>
+  <table class="button" align="left" ><tr><td>
+    <% if $home_button == '1' %>
+      <div class="on">
+        <%= button_to '自身のコメント', home_button_path(acc_id, 1), method: :get, disabled: :disabled %>
+      </div>
+    <% else %>
+      <%= button_to '自身のコメント', home_button_path(acc_id, 1), method: :get %>
+    <% end %>
+  </td></tr></table>
+  <table class="button" align="left"><tr><td>
+    <% if $home_button == '2' %>
+      <div class="on">
+        <%= button_to '参加中のチャット', home_button_path(acc_id, 2), method: :get, disabled: :disabled %>
+      </div>
+    <% else %>
+      <%= button_to '参加中のチャット', home_button_path(acc_id, 2), method: :get %>
+    <% end %>
+  </td></tr></table>
 </div>
 <br>
