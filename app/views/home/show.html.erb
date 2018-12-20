@@ -15,13 +15,20 @@
 <% end %>
 
 <br>
-<%= render 'button', acc_id: @account.acc_id %>
-<div class="box3" id="button_v3">
-  <% if @home_button == '1' %>
-    <%= render 'view', recruitments: @recruitments %>  <!--個人の発言-->
-  <% elsif @home_button == '2' %>
-    <%= render 'view_c',entry_chats: @entry_chats %> <!--ブックマーク-->
-  <% elsif @home_button == '3' %>
-    <%= render 'view_c',entry_chats: @entry_chats %> <!--チャット一覧-->
-  <% end %>
-</div>
+  <div>
+    <%= render 'button', acc_id: @account.acc_id %>
+  </div>
+<br>
+<br>
+<% if @home_button == '1' %>
+    <div id="button_v2">
+      <%= render 'home/button_v', view_num: @view_num, acc_id: @account.acc_id %>
+    </div>
+  <div class="box3" id="button_v3">
+    <%= render 'mains/view_t', recruitments: @recruitments %>  <!--個人の発言-->
+  </div>
+<% elsif @home_button == '2' %>
+  <%= render 'view_c',entry_chats: @entry_chats %> <!--ブックマーク-->
+<% elsif @home_button == '3' %>
+  <%= render 'view_c',entry_chats: @entry_chats %> <!--チャット一覧-->
+<% end %>
