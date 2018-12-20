@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
-
-<%= form_with(model: recruitment, url: recruitments_create_path(view_com_num), local: true) do |form| %>
+<!--======================発言フォーム==========================-->
+<%= form_with(model: recruitment, url: recruitments_create_path(5), local: true) do |form| %>
   <% if recruitment.errors.any? %>
     <div id="error_explanation">
       <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
