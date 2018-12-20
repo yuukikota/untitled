@@ -1,19 +1,19 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
 <p id="notice"><%= notice %></p>
 <table>
-
   <tbody>
   <% entry_chats.each do |entry_chat| %>
     <tr>
-      <% recruitment = Recruitment.find(entry_chat.chat_id) %>
-      <td><%= recruitment.title  %></td>
-      <div class="button1">
-        <div class="on">
-      <td><%= button_to 'チャットへ', chat_comments_index_path(entry_chat.chat_id), method: :get %></td>
+      <td><%= entry_chat.recruitment.title %></td>
+      <td>
+        <div class="button1">
+          <div class="on">
+            <%= button_to 'チャットへ', chat_comments_index_path(entry_chat.recruitment.id), method: :get %>
+          </div>
         </div>
-      </div>
+      </td>
     </tr>
-    <td><%= recruitment.detail  %></td>
+    <td><%= entry_chat.recruitment.detail  %></td>
   <% end %>
   </tbody>
 </table>

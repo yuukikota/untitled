@@ -69,9 +69,9 @@
 
 .view{
     width: 100px;
-    hight: 100px;
+    height: 100px;
     background-color: orange;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .box1{
@@ -90,7 +90,7 @@
     box-sizing: border-box;
     text-align: left;
     line-height: 15px;
-    overflow: scroll;
+    overflow-y: scroll;
     font-size: 15px;
 }
 

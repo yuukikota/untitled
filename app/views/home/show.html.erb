@@ -10,8 +10,10 @@
 紹介文：<%= simple_format(@account.introduction) %><br />
 
 <%= link_to "アカウント情報更新", edit_account_registration_path %>
-<% if account_signed_in? and current_account.id == @account.id %>
-  <%= link_to "アカウント削除", account_delete_path(current_account.acc_id) %>
+<% if account_signed_in? %>
+  <% if current_account.id == @account.id or current_account.acc_id == 'administrator' %>
+    <%= link_to "アカウント削除", account_delete_path(current_account.acc_id) %>
+  <% end %>
 <% end %>
 
 <br>
