@@ -71,10 +71,6 @@ class RecruitmentsController < ApplicationController
     view_com_num = params[:id]
     @inputtag = Inputtag.new(inputtag_params)
     @inputtag.count_freetag
-    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry)
-    if account_signed_in? then
-      @taghistoryid = Taghistoryid.new
-    end
 
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
@@ -95,7 +91,7 @@ class RecruitmentsController < ApplicationController
     respond_to do |format|
       if @recruitment.save
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
-        format.html { redirect_to request_url(@inputtag.tag_to_arry), notice: '送信しました' }
+        format.html { redirect_to request_url(@inputtag.tag_to_arry, params[:view_num]), notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
         @view_num = '1'
@@ -179,7 +175,7 @@ class RecruitmentsController < ApplicationController
       [params[:school],params[:faculty],params[:department],params[:tag1],params[:tag2],params[:tag3],params[:tag4],params[:tag5],params[:tag6],params[:tag7],params[:tag8],params[:tag9],params[:tag10]]
     end
 
-    def request_url(tag)
+    def request_url(tag,view_num)
       tag_url = "/?school="
 
       if tag[0].present? then
@@ -200,6 +196,7 @@ class RecruitmentsController < ApplicationController
           tag_url = tag_url + tag[2 + i]
         end
       end
+      tag_url = tag_url + "&view_num="+view_num.to_s
       tag_url
     end
 end
