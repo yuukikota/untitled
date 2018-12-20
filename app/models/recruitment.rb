@@ -57,7 +57,7 @@ class Recruitment < ApplicationRecord
       when 2 then #発言
         com = Recruitment.where('updated_at < ?', time).where(re_id: '発言').order(updated_at: "DESC").limit(limit)
       when 3 then #募集
-        com = Recruitment.where('updated_at < ?', time).where(re_id: '募集').order(updated_at: "DESC").limit(limit)
+        com = Recruitment.where('updated_at < ?', time).where(re_id: '募集').where(resolved: '未解決').order(updated_at: "DESC").limit(limit)
       when 4 then #解決済み
         com = Recruitment.where('updated_at < ?', time).where(resolved: '解決').order(updated_at: "DESC").limit(limit)
       else
@@ -86,7 +86,7 @@ class Recruitment < ApplicationRecord
         when 2 then #発言
           query = query + " WHERE recruitments.updated_at < \""+time.to_s+"\" AND recruitments.re_id = '発言' ORDER BY recruitments.updated_at DESC LIMIT " + limit.to_s
         when 3 then #募集
-          query = query + " WHERE recruitments.updated_at < \""+time.to_s+"\" AND recruitments.re_id = '募集' ORDER BY recruitments.updated_at DESC LIMIT " + limit.to_s
+          query = query + " WHERE recruitments.updated_at < \""+time.to_s+"\" AND recruitments.re_id = '募集' AND recruitments.resolved = '未解決' ORDER BY recruitments.updated_at DESC LIMIT " + limit.to_s
         when 4 then #解決済み
           query = query + " WHERE recruitments.updated_at < \""+time.to_s+"\" AND recruitments.resolved = '解決' ORDER BY recruitments.updated_at DESC LIMIT " + limit.to_s
         else
@@ -105,7 +105,7 @@ class Recruitment < ApplicationRecord
         when 2 then #発言
           com = Recruitment.where('updated_at < ?', time).where(re_id: '発言').order(updated_at: "DESC").limit(limit)
         when 3 then #募集
-          com = Recruitment.where('updated_at < ?', time).where(re_id: '募集').order(updated_at: "DESC").limit(limit)
+          com = Recruitment.where('updated_at < ?', time).where(re_id: '募集').where(resolved: '未解決').order(updated_at: "DESC").limit(limit)
         when 4 then #解決済み
           com = Recruitment.where('updated_at < ?', time).where(resolved: '解決').order(updated_at: "DESC").limit(limit)
         else

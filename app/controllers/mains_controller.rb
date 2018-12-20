@@ -29,11 +29,10 @@ class MainsController < ApplicationController
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,20, DateTime.ntomorrow, @view_num) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,20, DateTime.tomorrow, @view_num) #入力されているタグで検索
       else
         @inputtag = Inputtag.new
-        @recruitments = Recruitment.tagnamesearch([],2, DateTime.tomorrow, @view_num)
-        #@recruitments = @recruitments.order(updated_at: "DESC")#データをすべて取得してソート
+        @recruitments = Recruitment.tagnamesearch([],2, DateTime.tomorrow, 1)
       end
     end
 
