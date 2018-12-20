@@ -1,5 +1,5 @@
 class RecruitmentsController < ApplicationController
-  before_action :set_recruitment, only: [ :edit, :destroy]
+  before_action :set_recruitment, only: [ :edit, :add_result, :select, :destroy]
   before_action :add_answer, only: [:update]
 
   # GET /recruitments
@@ -26,7 +26,7 @@ class RecruitmentsController < ApplicationController
       end
       return
     end
-    @comments = Comment.where(recruitment_id: params[:id]).limit(20)  #20件を取得
+    @comments = @recruitment.comments.limit(20) #20件を取得
   end
 
   #ajaxで動的に表示項目を追加する
@@ -34,7 +34,34 @@ class RecruitmentsController < ApplicationController
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
 
-    @comments = Comment.where(recruitment_id: params[:id]).limit(20).offset(params[:size])
+    @comments = @recruitment.comments.where('updated_at > ?', Time.zone.parse(params[:offset_time])).limit(20)
+  end
+
+  #ajaxで動的に選択
+  def select
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @comment = Comment.find_by(id: params[:comment_id])
+    if @comment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信がありません' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  def selected
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @comment = Comment.find_by(id: params[:comment_id])
+    if @comment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信がありません' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /recruitments
@@ -132,15 +159,8 @@ class RecruitmentsController < ApplicationController
 
     def add_answer
       @recruitment = Recruitment.find(params[:id])
-      @recruitment_params = { "id":@recruitment.id,
-                              "acc_id":@recruitment.acc_id,
-                              "chat_id":@recruitment.chat_id,
-                              "resolved":"解決",
-                              "detail":@recruitment.detail,
-                              "title":@recruitment.title,
-                              "answer":params[:answer],
-                              "file_id":@recruitment.file_id,
-                              "chat":@recruitment.chat}
+      @recruitment_params = recruitment_params
+      @recruitment_params[:resolved] = "解決"
       if @recruitment_params[:chat] == "有"
         @recruitment_params[:answer] = "募集は終了しました"
       end

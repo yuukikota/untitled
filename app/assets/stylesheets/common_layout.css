@@ -41,6 +41,10 @@
     width: 150px;
 }
 
+.common_style input[type=submit].read_button {
+    width: 100%;
+}
+
 .common_style input[type=submit]:focus {
     color: orange;
 }

@@ -15,7 +15,11 @@
       <td colspan="3"><%= simple_format(comment.message) %></td>
     </tr>
     <tr>
-      <td colspan="3"><%= button_to '削除', comment, method: :delete, data: { confirm: '本当に削除しますか?' } %></td>
+      <td colspan="3">
+        <% if comment.account.id == current_account.id %>
+          <%= button_to '削除', comment, method: :delete, data: { confirm: '返信を本当に削除しますか?' } %>
+        <% end %>
+      </td>
     </tr>
   </table>
 </div>
