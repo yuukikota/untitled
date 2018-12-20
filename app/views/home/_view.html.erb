@@ -1,8 +1,8 @@
-
+<%= stylesheet_link_tag "box.css", :media => "all" %>
 
 <table>
-  <% @recruitments.order("updated_at DESC").each do |recruitment| %>
-    <div class="box">
+  <% recruitments.each do |recruitment| %>
+    <div class="box_comment">
       <% if recruitment.re_id == '募集'%>
         <div><%= recruitment.title %></div>
       <% end %>

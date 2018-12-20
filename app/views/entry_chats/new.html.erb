@@ -1,39 +1,48 @@
 <!-- 16t4032n 田中裕隆 -->
 <h2>結果選択</h2>
 
-<table>
+<table width="100%">
   <tr>
     <td>
       <div class="box">
-        <div>
-          --募集--
-        </div>
-        <% if @recruitment.re_id == '募集'%>
-          <div><%= @recruitment.title %></div>
-        <% end %>
-        <span><%= @recruitment.created_at %></span>
-        <span><%= link_to account_show_path(@recruitment.acc_id) do %>
-              <%= @recruitment.acc_id %>
-            <% end %>
-         </span>
-        <div><%= @recruitment.detail %></div>
-      </div>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      <div style="height:60vh; overflow-y:scroll;">
-        <table>
+        <table width="100%" border="3" rules="none">
           <tr>
-            <td>
-              <div id="add_results">
-
-                <%= render partial: "result", collection: @comments, locals: {entry_chat: @entry_chat} %>
-
-              </div>
+            <td colspan="3">
+              --返信先--
             </td>
           </tr>
+          <tr>
+            <td>
+              <%= link_to account_show_path(@recruitment.account.acc_id) do %>
+                <%= @recruitment.account.name %>👤
+              <% end %>
+            </td>
+            <td>
+              <%= @recruitment.acc_id %>
+            </td>
+            <td>
+              <%= @recruitment.created_at %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <% if @recruitment.re_id == '募集'%>
+                <div><%= @recruitment.title %></div>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <%= simple_format(@recruitment.detail) %>
+            </td>
+          </tr>
+          <% if @recruitment.resolved == '解決' %>
+            <tr>
+              <td colspan="3">
+                <%= simple_format(@recruitment.answer) %>
+              </td>
+            </tr>
+          <% end %>
         </table>
       </div>
     </td>
@@ -41,9 +50,34 @@
 
   <tr>
     <td>
-      <div id="request_add_results">
-        <%= button_to "さらに読み込む", results_chat_add_path(params[:p_com_id], @comments.size.to_s), method: :get, data: { disable_with: "処理中..." }, remote: true , class:"all_disable"%>
-      </div>
+      <table width="100%" border="3" rules="none">
+        <tr>
+          <td>
+            <div style="height:50vh; overflow-y:scroll;">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div id="add_results">
+
+                      <%= render partial: "result", collection: @comments, locals: {entry_chat: @entry_chat} %>
+
+                    </div>
+                    <table width="100%">
+                      <tr>
+                        <td>
+                          <div id="request_add_results">
+                            <%= render partial: 'entry_chats/read_button', locals: {recruitment_id: params[:recruitment_id], last_comment: @comments.last, offset_time: nil } %>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
 

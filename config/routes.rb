@@ -23,14 +23,15 @@ Rails.application.routes.draw do
   post '/recruitments/create/:id', to: 'recruitments#create', as: :recruitments_create
   post '/recruitments/:id', to: 'recruitments#update', constraints: {id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/recruitments/edit/add/:id/:size/', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/, size: /[0-9]+/ }
+  get '/recruitments/edit/add/:id/:offset_time', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/ }
+  post '/recruitments/select/:id/:comment_id', to: 'recruitments#select', as: :select_result, constraints: { id:/[0-9]+/, comment_id:/[0-9]+/ }
+  post '/recruitments/selected/:id/:comment_id', to: 'recruitments#selected', as: :selected_result, constraints: { id:/[0-9]+/, comment_id:/[0-9]+/ }
 
-  # 返信生成削除
+# 返信生成削除
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:recruitment_id', to: 'comments#index', as: :comments_index, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
-
-    get '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
+  get '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
   
   resources :chat_comments, only: [:destroy]
   get '/chat_comments/:chat_id', to: 'chat_comments#index', as: :chat_comments_index
@@ -38,9 +39,9 @@ Rails.application.routes.draw do
 
   resources :entry_chats, only: [:create, :destroy]
   # チャット有り結果選択
-  get '/entry_chats/new/:p_com_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { p_com_id: /[0-9]+/ }
+  get '/entry_chats/new/:recruitment_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/entry_chats/new/add/:p_com_id/:size/', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { p_com_id:/[0-9]+/, size: /[0-9]+/ }
+  get '/entry_chats/new/add/:recruitment_id/:offset_time', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { recruitment_id:/[0-9]+/ }
 
   resources :pictures
 

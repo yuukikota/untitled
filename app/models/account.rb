@@ -11,7 +11,7 @@ class Account < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :entry_chats, dependent: :destroy
   has_many :chat_comments, dependent: :destroy
-  has_many :bookmarks, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy, through: :recruitments
 
   before_save { self.acc_id = acc_id.downcase }
   validates :acc_id       , presence: true, length: { maximum: 20}, format:{with: /\A[a-z0-9]+\z/i}, uniqueness: { case_sensitive: false }

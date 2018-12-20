@@ -18,11 +18,13 @@
         <div class="box-title"><%= recruitment.title %></div>
         <span class="box_comment2">(チャット<%= recruitment.chat %>)</span>
       <% end %>
-      <div class="box_comment3"><%= recruitment.detail %></div>
+      <div class="box_comment3">
+        <%= simple_format(recruitment.detail) %>
+      </div>
       <% if recruitment.resolved == '解決' %>
       <div class="box_comment4">
         <div class="box-title">回答🔍</div>
-        <%= recruitment.answer %>
+        <%= simple_format(recruitment.answer) %>
       </div>
         <% end %>
       <span class="box_comment2">

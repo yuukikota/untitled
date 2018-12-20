@@ -1,17 +1,26 @@
 
 <div class="result">
-  <table border="2">
+  <table width="100%" border="3" rules="none">
     <tr>
       <td>
           <%= result.account.name %>
       </td>
-      <td><%= result.created_at %></td>
+      <td>
+        <%= result.account.acc_id %>
+      </td>
+      <td>
+        <%= result.created_at %>
+      </td>
     </tr>
     <tr>
-      <td colspan="2"><%= simple_format(result.message) %></td>
+      <td colspan="3"><%= simple_format(result.message) %></td>
     </tr>
     <tr>
-      <td colspan="2"><%= radio_button_tag :answer, result.message %></td>
+      <td colspan="3">
+        <div id=<%= result.id.to_s %> class="select">
+          <%= render partial: 'recruitments/select', locals: {comment: result} %>
+        </div>
+      </td>
     </tr>
   </table>
 </div>
