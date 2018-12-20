@@ -12,26 +12,34 @@ class EntryChatsController < ApplicationController
   def show
   end
 
-  # GET /entry_chats/new/:p_com_id
+  # GET /entry_chats/new/:recruitment_id
   def new
-    @recruitment = Recruitment.find(params[:p_com_id]) # 元の募集を取得
-    @comments = @recruitment.comments.limit(20)  #返信20件を取得
-    @entry_chat = EntryChat.new
-
+    @recruitment = Recruitment.find_by(id: params[:recruitment_id]) # 元の募集を取得
     if @recruitment.nil?
       respond_to do |format|
         format.html { redirect_to root_path, notice: '募集が存在しません' }
         format.json { head :no_content }
       end
+      return
     end
+
+    @comments = @recruitment.comments.limit(20)  #返信20件を取得
+    @entry_chat = EntryChat.new
   end
 
   # ajaxで動的に表示項目を追加する
   def add_result
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
-
-    @comments = Comment.where(recruitment_id: params[:p_com_id]).limit(20).offset(params[:size])  #返信20件を取得
+    @recruitment = Recruitment.find_by(id: params[:recruitment_id]) # 元の募集を取得
+    if @recruitment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.json { head :no_content }
+      end
+      return
+    end
+    @comments = @recruitment.comments.where('updated_at > ?', Time.zone.parse(params[:offset_time])).limit(20)
     @entry_chat = EntryChat.new
   end
 
@@ -45,18 +53,20 @@ class EntryChatsController < ApplicationController
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
 
-    if (recruitment = Recruitment.find(entry_chat_params[:chat_id])).nil?
+    if (recruitment = Recruitment.find_by(id: entry_chat_params[:recruitment_id])).nil?
       respond_to do |format|
         format.html { redirect_to root_path, notice: '募集が存在しません' }
         format.json { head :no_content }
       end
-    elsif recruitment.acc_id == entry_chat_params[:acc_id]
+    elsif recruitment.account.id == entry_chat_params[:account_id]
       respond_to do |format|
         format.html { redirect_to root_path, notice: '募集者自身を選択することはできません' }
         format.json { head :no_content }
       end
     else
       @entry_chat = EntryChat.new(entry_chat_params)
+      @entry_chat.acc_id = @entry_chat.account.acc_id
+      @entry_chat.chat_id = @entry_chat.recruitment.id
       @entry_chat.save
       #respond_to do |format|
       #  if @entry_chat.save
@@ -110,6 +120,6 @@ class EntryChatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_chat_params
-      params.require(:entry_chat).permit(:chat_id, :acc_id, :recruitment_id, :account_id)
+      params.require(:entry_chat).permit(:recruitment_id, :account_id)
     end
 end

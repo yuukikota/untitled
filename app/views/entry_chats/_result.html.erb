@@ -1,22 +1,27 @@
 
 <div class="result">
-  <table border="2">
+  <table width="100%" border="3" rules="none">
     <tr>
       <td>
         <%= result.account.name %>
       </td>
+      <td>
+        <%= result.account.acc_id %>
+      </td>
       <td><%= result.created_at %></td>
     </tr>
     <tr>
-      <td colspan="2"><%= simple_format(result.message) %></td>
+      <td colspan="3">
+        <%= simple_format(result.message) %>
+      </td>
     </tr>
     <tr>
-      <td colspan="2">
+      <td colspan="3">
         <div class=<%= "result_" + result.account.id.to_s%>>
           <% if result.account.id == current_account.id %>
             <%= button_tag '募集者', disabled: true %>
           <% elsif (find = EntryChat.find_by(chat_id: result.recruitment.id, acc_id: result.account.acc_id)).nil? %>
-            <%= render partial: "select", locals: {entry_chat: entry_chat, recruitment_id: result.recruitment.id, result_acc_id: result.account.acc_id, result_account_id: result.account.id } %>
+            <%= render partial: "select", locals: {entry_chat: entry_chat, recruitment_id: result.recruitment.id, result_account_id: result.account.id } %>
           <% else %>
             <%= render partial: "selected", locals: {entry_chat: find } %>
           <% end %>

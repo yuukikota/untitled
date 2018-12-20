@@ -35,7 +35,7 @@ class UnivtagController < ApplicationController
           if params[:school] == "" && params[:faculty] == "" then #大学も学部もすべて空
             list = Univinfo.where(stat: 2).distinct.pluck(:name)#すべての学科
           elsif params[:school] == "" && params[:faculty] != "" then #学部には情報が入っている
-            faculty = Univinfo.where(name: params[:faculty]).pluck(:infoid) #学部名が同じ学部をすべて検索
+            faculty = Univinfo.where(name: params[:faculty]).pluck(:id) #学部名が同じ学部をすべて検索
             if faculty.present? then
               for i in 0..faculty.size-1 do # 検索した学部の持つすべての学科を取得
                 list = Univinfo.where(p_id: faculty[i]).pluck(:name) | list
@@ -43,7 +43,7 @@ class UnivtagController < ApplicationController
             end
           else #大学には情報が入っている
             univ = Univinfo.find_by(name: params[:school]).id
-            faculty = Univinfo.where(p_id: univ).pluck(:infoid) #大学のidを持つ学部をすべて検索
+            faculty = Univinfo.where(p_id: univ).pluck(:id) #大学のidを持つ学部をすべて検索
             if faculty.present? then
               for i in 0..faculty.size-1 do # 検索した学部の持つすべての学科を取得
                 list = Univinfo.where(p_id: faculty[i]).pluck(:name) | list

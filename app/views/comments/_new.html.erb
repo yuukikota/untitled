@@ -12,17 +12,17 @@
   <% end %>
 
   <table class="form" align="left">
-    <td>
-      <%= form.label :発言 %>
-      <%= form.text_area :message %>
-      <%= form.hidden_field :recruitment_id, value: comment.recruitment_id %>
-    </td>
-    <td>
-      <div class="actions">
-        <%= form.submit '送信' %>
-      </div>
-    </td>
-
+    <tr>
+      <td>
+        <%= form.text_area :message , placeholder: '返信を入力', rows:'3',cols:'100',maxlength:'1000'%>
+        <%= form.hidden_field :recruitment_id, value: comment.recruitment_id %>
+      </td>
+      <td>
+        <div class="actions">
+          <%= form.submit '送信' %>
+        </div>
+      </td>
+    </tr>
   </table>
 
 <% end %>
