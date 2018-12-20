@@ -1,10 +1,6 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
 <span class="view">
-
-<table width="100%">
-  <tr>
-    <td>
-      <% recruitments.each do |recruitment| %>
+  <% @recruitments.each do |recruitment| %>
     <div class="box_comment">
 
       <%= link_to account_show_path(recruitment.acc_id) do %>
@@ -67,7 +63,4 @@
       <br>
     </div>
   <% end %>
-    </td>
-  </tr>
-</table>
 </span>
