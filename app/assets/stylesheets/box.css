@@ -1,6 +1,41 @@
-.button1{
+.button{
     margin:0 0 10px;
 }
+
+.button input[type=submit] {
+    background-color: #FFF;
+    border: 2px solid #444;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #444;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease-in-out;
+    -o-transition: 0.2s ease-in-out;
+    -moz-transition: 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    height: 27px;
+    width: 180px;
+    float:left;
+    font-weight: bold;
+}
+.button on input[type=submit]:hover {
+    outline: 0;
+    border-color: orange;
+    color: orange;
+    /*opacity: 0.5;*/
+}
+.button input[disabled=disabled] {
+    background-color: #FFDFAA;
+    border: 2px solid orange;
+    color:  #444;
+    cursor: default;
+}
+
+.button1{
+     margin:0 0 10px;
+ }
 .button1 input[type=submit] {
     background-color: #FFF;
     border: 2px solid #444;
@@ -19,7 +54,7 @@
     float:left;
     font-weight: bold;
 }
-.on input[type=submit]:hover {
+.button1 on input[type=submit]:hover {
     outline: 0;
     border-color: orange;
     color: orange;
