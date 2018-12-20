@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'home/:acc_id', to: 'home#show', as: :account_show
   get '/home/button/:acc_id/:id', to: 'home#button', as: 'home_button'
   get 'home/delete/:acc_id', to: 'home#delete', as: :account_delete
+  get '/home/button_view/:acc_id/:id', to: 'home#button_view', as: :home_button_view
 
   post '/' => 'tags#update'#タグ検索フォーム
 

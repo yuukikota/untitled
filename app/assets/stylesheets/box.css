@@ -75,22 +75,11 @@
 }
 
 .box1{
-    border: solid 2px lightskyblue;
-    box-sizing: border-box;
-
-    text-align: center;
-    line-height: 10px;
-    font-weight: bold;
-    font-size: 10px;
+    display:block;
 }
 
 .box2{
-    border: none;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 15px;
-    font-weight: bold;
-    font-size: 60px;
+    float: left;
 }
 
 .box3{

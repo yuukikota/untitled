@@ -83,7 +83,7 @@ class MainsController < ApplicationController
     elsif @view_num == '2'
       @recruitments = Recruitment.all.where(re_id: '発言')       #発言
     elsif @view_num == '3'
-      @recruitments = Recruitment.all.where(re_id: '募集')       #募集
+      @recruitments = Recruitment.all.where(resolved: '未解決')  #募集
     elsif @view_num == '4'
       @recruitments = Recruitment.all.where(resolved: '解決') #解決済み募集
     end
