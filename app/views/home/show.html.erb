@@ -16,10 +16,12 @@
 
 <br>
 <%= render 'button', acc_id: @account.acc_id %>
-
-<% if $home_button == '1' %>
-  <%= render 'view', recruitment: @recruitment %>
-<% end %>
-<% if $home_button == '2' %>
-  <%= render 'view_c',entry_chats: @entry_chats %>
-<% end %>
+<div class="box3" id="button_v3">
+  <% if @home_button == '1' %>
+    <%= render 'view', recruitments: @recruitments %>  <!--個人の発言-->
+  <% elsif @home_button == '2' %>
+    <%= render 'view_c',entry_chats: @entry_chats %> <!--ブックマーク-->
+  <% elsif @home_button == '3' %>
+    <%= render 'view_c',entry_chats: @entry_chats %> <!--チャット一覧-->
+  <% end %>
+</div>
