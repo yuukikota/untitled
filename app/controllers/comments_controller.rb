@@ -18,6 +18,7 @@ class CommentsController < ApplicationController
 
   # 表示する返信の追加
   def add_index
+
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
 
