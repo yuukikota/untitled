@@ -50,7 +50,7 @@
               </datalist>
 
               <!--==========================================================折りたたみ部分====================================================================-->
-              <div id="open1" style="clear:both;">
+              <div id="open1" style="display:none;clear:both;">
                 <input type="hidden" name="freetagnum" id="freetagnum" value="<%=@inputtag.freetagnum %>">
                 <%= f.text_field :tag1, list: 'freetaglist' ,placeholder: "タグを入力して下さい" ,:size=>"22", id: 'inputtag_tag1', style: 'display:none' %>
                 <datalist id="freetaglist">
@@ -91,7 +91,7 @@
     <% if account_signed_in? %>
       <td><!--.where.not(display: nil)-->
         <!--==========================================================折りたたみ部分====================================================================-->
-        <div id="open2" style="clear:both;">
+        <div id="open2" style="display:none;clear:both;">
           <%= form_for @taghistoryid, :url => {:action=>"update", :controller=>"tags"}, html: {:style=>"margin-left : 7px;"} do |f| %>
             <%= f.collection_select :id,  Taghistory.where(acc_id: current_account.acc_id).where.not(display: nil).order(updated_at:"DESC").limit(10), :id, :display, :prompt => "タグ検索履歴", :style => "width:80%"%>
             <input type="hidden" name="type" value="history">

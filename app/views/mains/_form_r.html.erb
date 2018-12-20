@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <table class="form">
-    <td>
+    <td style="padding: 0px">
       <div class="field">
         <%= form.text_field :title, :placeholder => "タイトル"%>
         チャット
@@ -21,8 +21,7 @@
       </div>
 
       <div class="field"　>
-      <%= form.label :募集 %>
-        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
+        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい"%>
       </div>
     </td>
     <td>

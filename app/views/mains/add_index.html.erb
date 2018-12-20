@@ -4,7 +4,7 @@
 <div>
   <%= render :partial =>'tags/form' , inputtag: @inputtag , taghistoryid: @taghistoryid, view_num: @view_num%>
 </div>
-<br>
+
 <% if account_signed_in? %><!--入力フォーム-->
   <%= render partial: 'mains/form_change', recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num, view_num: @view_num%>
 <% end %>

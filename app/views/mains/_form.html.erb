@@ -13,9 +13,8 @@
     </div>
   <% end %>
   <table class="form">
-    <td>
-      <%= form.label :発言 %>
-      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
+    <td style="padding: 0px">
+      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい"%>
       <div class="field">
         <!--
             <%= form.label :添付 %>
