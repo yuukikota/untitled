@@ -47,7 +47,7 @@ class HomeController < ApplicationController
       if @home_button == '1'
       @recruitments = @account.recruitments.order(updated_at: "DESC")
       elsif @home_button == '2'
-        #@recruitments = current_account.
+        @recruitments = current_account.bookmark_recruitments
       elsif @home_button == '3'
         @entry_chats = @account.entry_chats
       end

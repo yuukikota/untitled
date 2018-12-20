@@ -1,14 +1,15 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
 <span class="view">
 
-<table>
-
-  <% recruitments.each do |recruitment| %>
+<table width="100%">
+  <tr>
+    <td>
+      <% recruitments.each do |recruitment| %>
     <div class="box_comment">
 
       <%= link_to account_show_path(recruitment.acc_id) do %>
         <span class="box_comment2">
-          <%= Account.find_by(acc_id: recruitment.acc_id).name %>👤
+          <%= recruitment.account.name %>👤
         </span>
       <% end %>
       <span class="box_comment2"><%= recruitment.acc_id %></span>
@@ -30,11 +31,12 @@
       <span class="box_comment2">
         <%= link_to '返信📨', comments_index_path(recruitment.id), method: :get  %>
       </span>
-      <span>
-        <%= render partial: 'bookmarks/bookmark', locals: { recruitment_id: recruitment.id} %>
-      </span>
+
       <span>
         <% if account_signed_in? %>
+          <span>
+            <%= render partial: 'bookmarks/bookmark', locals: { current_account_id: current_account.id, recruitment_id: recruitment.id} %>
+          </span>
           <% if current_account.acc_id == recruitment.acc_id %>
             <% if recruitment.re_id == '募集'%>
               <% if  recruitment.resolved == '未解決' %>
@@ -65,5 +67,7 @@
       <br>
     </div>
   <% end %>
+    </td>
+  </tr>
 </table>
 </span>

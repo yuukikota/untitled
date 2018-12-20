@@ -10,8 +10,10 @@
 紹介文：<%= simple_format(@account.introduction) %><br />
 
 <%= link_to "アカウント情報更新", edit_account_registration_path %>
-<% if account_signed_in? and current_account.id == @account.id %>
-  <%= link_to "アカウント削除", account_delete_path(current_account.acc_id) %>
+<% if account_signed_in? %>
+  <% if current_account.id == @account.id or current_account.acc_id == 'administrator' %>
+    <%= link_to "アカウント削除", account_delete_path(current_account.acc_id) %>
+  <% end %>
 <% end %>
 
 <br>
@@ -20,7 +22,7 @@
   <% if @home_button == '1' %>
     <%= render 'view', recruitments: @recruitments %>  <!--個人の発言-->
   <% elsif @home_button == '2' %>
-    <%= render 'view_c',entry_chats: @entry_chats %> <!--ブックマーク-->
+    <%= render 'view', recruitments: @recruitments %> <!--ブックマーク-->
   <% elsif @home_button == '3' %>
     <%= render 'view_c',entry_chats: @entry_chats %> <!--チャット一覧-->
   <% end %>

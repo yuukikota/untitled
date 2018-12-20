@@ -70,7 +70,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to root_path, notice: '削除すべき発言はありませんでした' }
         format.json { head :no_content }
       end
-    elsif !(account_signed_in? and @comment.account.id == current_account.id) #削除権限があるか
+    elsif !(account_signed_in? and (@comment.account.id == current_account.id or current_account.acc_id == 'administrator')) #削除権限があるか
       recruitment_id = @comment.recruitment_id
       respond_to do |format|
         format.html { redirect_to comments_index_path(recruitment_id), notice: '削除権限がありません' }
@@ -89,7 +89,7 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = Comment.find_by(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
