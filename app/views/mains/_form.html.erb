@@ -12,19 +12,19 @@
       </ul>
     </div>
   <% end %>
-
-  <table class="form">
-    <td style="padding: 0px">
-      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい"%>
+  <div class="form_layout">
+    <div style="padding: 0px" class="form_layout_item-textarea">
+      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
+<!--
       <div class="field">
-        <!--
             <%= form.label :添付 %>
             <%= form.number_field :file_id %>
-         -->
+
       </div>
-    </td>
-    <td>
-      <div class="actions">
+-->
+    </div>
+    <div class="form_layout_item-submit">
+      ,<!--<div class="actions">-->
         <!--====================タグ検索情報====================-->
         <input type="hidden" name="school" value="<%=@inputtag.school %>">
         <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">
@@ -41,12 +41,11 @@
         <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
         <input type="hidden" name="view_num" value="<%=@view_num %>">
         <!--====================タグ検索情報====================-->
-        <div class="button1">
-          <div class="on">
-        <%= form.submit"送信📤" %>
-          </div>
-        </div>
-      </div>
-    </td>
-  </table>
+        <!--<div class="button1">-->
+        <!--<div class="on">-->
+        <%= form.submit"送信📤", id: "talk_input_form_submit"%>
+
+      <!--</div>-->
+    </div>
+  </div>
 <% end %>

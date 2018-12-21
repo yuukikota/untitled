@@ -9,7 +9,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
 
   <body>
@@ -24,10 +23,12 @@
     </header><!--ヘッダーここまで-->
 
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-
-
+      <% if notice.present? %>
+        <div id="notice_panel"><p class="notice"><%= notice %></p></div>
+      <%end %>
+      <% if alert.present? %>
+        <div id="alert_panel"><p class="alert"><%= alert %></p></div>
+      <%end %>
       <span class="common_style">
         <%= yield %>
       </span>
