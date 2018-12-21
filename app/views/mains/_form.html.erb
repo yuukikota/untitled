@@ -1,20 +1,10 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
 <!--======================発言フォーム==========================-->
-<%= form_with(model: recruitment, url: recruitments_create_path(5), local: true) do |form| %>
-  <% if recruitment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
+<%= form_with(model: recruitment, url: recruitments_create_path(5)) do |form| %>
 
-      <ul>
-        <% recruitment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
-      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
+      <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
 <!--
       <div class="field">
             <%= form.label :添付 %>

@@ -6,6 +6,9 @@
 </div>
 
 <% if account_signed_in? %><!--入力フォーム-->
+  <div id="recruitment_error">
+
+  </div>
   <%= render partial: 'mains/form_change', recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num, view_num: @view_num%>
 <% end %>
 <div class="button1">

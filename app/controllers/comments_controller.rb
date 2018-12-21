@@ -49,15 +49,13 @@ class CommentsController < ApplicationController
       end
     else
       @comment.account_id = current_account.id # アカウントの主キーのID
-      respond_to do |format|
-        if @comment.save
-          @comment.recruitment.touch
-          @comment.recruitment.save
+      if @comment.save
+        @comment.recruitment.touch
+        @comment.recruitment.save
+        respond_to do |format|
+
           format.html { redirect_to comments_index_path(@comment.recruitment_id), notice: '発言を投稿しました' }
           format.json { render :index, status: :created, location: @comment }
-        else
-          format.html { render :index }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
         end
       end
     end
