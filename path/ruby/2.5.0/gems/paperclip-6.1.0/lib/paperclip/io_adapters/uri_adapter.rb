@@ -47,7 +47,7 @@ module Paperclip
     end
 
     def default_filename
-      "index.html"
+      "index.html.erb"
     end
 
     def download_content

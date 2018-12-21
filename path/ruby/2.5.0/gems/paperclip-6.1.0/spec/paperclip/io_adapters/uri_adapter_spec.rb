@@ -84,7 +84,7 @@ describe Paperclip::UriAdapter do
     end
 
     it "returns a file name" do
-      assert_equal "index.html", @subject.original_filename
+      assert_equal "index.html.erb", @subject.original_filename
     end
 
     it "returns a content type" do

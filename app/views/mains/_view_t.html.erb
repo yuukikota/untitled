@@ -54,7 +54,7 @@
                   <span class="box_comment2"><%= link_to 'チャット💭', chat_comments_index_path(recruitment.id), method: :get  %></span>
             <% end %>
             <span class="box_comment2"><%= link_to '削除🚮', recruitment, method: :delete, data: { confirm: '削除しますか?' } %></span>
-          <% elsif  EntryChat.where(chat: recruitment.id).find(acc_id: current_account.acc_id).present? %>
+          <% elsif  EntryChat.where(chat_id: recruitment.id).find_by(acc_id: current_account.acc_id).present? %>
               <span class="box_comment2"><%= link_to 'チャット💭', chat_comments_index_path(recruitment.id), method: :get  %></span>
           <%end %>
         <% end %>
