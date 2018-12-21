@@ -1,82 +1,27 @@
 <!-- 16t4032n 田中裕隆 -->
 <h2>返信</h2>
 
-<table width="100%">
+<table>
   <tr>
     <td>
-      <div class="box_comment">
-        <table width="100%">
-          <tr>
-            <td colspan="3">
-              --返信先--
-            </td>
-          </tr>
-          <tr>
-            <td class="box_comment2">
-              <%= link_to account_show_path(@recruitment.account.acc_id) do %>
-                <%= @recruitment.account.name %>👤
-              <% end %>
-            </td>
-            <td class="box_comment2">
-              <%= @recruitment.account.acc_id %>
-            </td>
-            <td class="box_comment2">
-              <%= @recruitment.created_at %>
-            </td>
-          </tr>
-          <% if @recruitment.re_id == '募集'%>
-            <tr>
-              <td class="box-title" colspan="2">
-                <%= @recruitment.title %>
-              </td>
-              <td class="box_comment2">
-                (チャット<%= @recruitment.chat %>)
-              </td>
-            </tr>
-          <% end %>
-          <tr>
-            <td class="box_comment3" colspan="3">
-              <%= simple_format(@recruitment.detail) %>
-            </td>
-          </tr>
-
-          <% if @recruitment.resolved == '解決' %>
-            <tr>
-              <td colspan="3">
-                <div class="box_comment4">
-                  <div class="box-title">
-                    回答🔍
-                  </div>
-                  <%= simple_format(@recruitment.answer) %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
+      <%= render partial: 'comments/recruitment', locals: {recruitment: @recruitment} %>
     </td>
   </tr>
 
   <tr>
     <td>
-      <table width="100%" border="3" rules="none" class="box3" >
+      <table class="box3">
         <tr>
           <td>
+            <div id="add_comments">
+              <%= render partial: "comment", collection: @comments %>
+            </div>
             <table width="100%">
               <tr>
                 <td>
-                  <div id="add_comments">
-                    <%= render partial: "comment", collection: @comments %>
+                  <div id="request_add_comments">
+                    <%= render partial: 'comments/read_button', locals: { recruitment_id: params[:recruitment_id], last_comment: @comments.last, offset_time: nil } %>
                   </div>
-                  <table width="100%">
-                    <tr>
-                      <td>
-                        <div id="request_add_comments">
-                          <%= render partial: 'comments/read_button', locals: {recruitment_id: params[:recruitment_id], last_comment: @comments.last, offset_time: nil } %>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
                 </td>
               </tr>
             </table>

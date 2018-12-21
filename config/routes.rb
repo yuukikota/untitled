@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
   
   resources :chat_comments, only: [:destroy]
-  get '/chat_comments/:chat_id', to: 'chat_comments#index', as: :chat_comments_index
+  get '/chat_comments/:recruitment_id', to: 'chat_comments#index', as: :chat_comments_index
   post '/chat_comments/create/:chat_id', to: 'chat_comments#create', as: :chat_comments_create
 
   resources :entry_chats, only: [:create, :destroy]

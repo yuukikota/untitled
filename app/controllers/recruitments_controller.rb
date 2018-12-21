@@ -75,6 +75,7 @@ class RecruitmentsController < ApplicationController
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
     @recruitment.account_id = current_account.id # アカウントの主キーのID 自動削除のため
+
     if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
       @recruitment.detail = nil
     end
@@ -91,6 +92,8 @@ class RecruitmentsController < ApplicationController
     respond_to do |format|
       if @recruitment.save
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
+        entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
+        entry_chat.save
         format.html { redirect_to request_url(@inputtag.tag_to_arry, params[:view_num]), notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       else
@@ -100,7 +103,6 @@ class RecruitmentsController < ApplicationController
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
 
@@ -109,7 +111,7 @@ class RecruitmentsController < ApplicationController
   # 結果選択時のみ使用
   def update
     if @recruitment_params[:chat] == "有"
-      if EntryChat.find_by(chat_id: @recruitment_params[:id]).nil?
+      if EntryChat.find_by(recruitment_id: @recruitment_params[:id]).nil?
         respond_to do |format|
           format.html { redirect_to new_entry_chats_path(@recruitment_params[:id]), notice: '結果を選択してください' }
           format.json { head :no_content }
@@ -140,9 +142,8 @@ class RecruitmentsController < ApplicationController
   # DELETE /recruitments/1.json
   def destroy
     @recruitment.destroy
-    #Tagmap.delrelated(@recruitment.id)
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: '削除されました' }
       format.json { head :no_content }
     end
   end
@@ -155,8 +156,15 @@ class RecruitmentsController < ApplicationController
 
     def add_answer
       @recruitment = Recruitment.find(params[:id])
-      @recruitment_params = recruitment_params
-      @recruitment_params[:resolved] = "解決"
+      @recruitment_params = { "id":@recruitment.id,
+                              "acc_id":@recruitment.acc_id,
+                              "chat_id":@recruitment.chat_id,
+                              "resolved":"解決",
+                              "detail":@recruitment.detail,
+                              "title":@recruitment.title,
+                              "answer":params[:answer],
+                              "file_id":@recruitment.file_id,
+                              "chat":@recruitment.chat}
       if @recruitment_params[:chat] == "有"
         @recruitment_params[:answer] = "募集は終了しました"
       end
@@ -165,7 +173,7 @@ class RecruitmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
 
     def recruitment_params
-      params.require(:recruitment).permit(:acc_id, :chat_id, :resolved, :detail, :title, :answer, :file_id, :chat)
+      params.require(:recruitment).permit(:acc_id, :resolved, :detail, :title, :answer, :file_id, :chat)
     end
 
     def inputtag_params
