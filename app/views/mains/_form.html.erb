@@ -4,11 +4,12 @@
 
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
-      <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
+      <div style="height: 80px"><%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%></div>
+      <div><label for="talk_input_file">ファイルを選択して下さい
+        <%= form.file_field :photo, id: "talk_input_file" %>
+      </label></div>
     </div>
-    <div>
-      <%= form.file_field :photo %>
-    </div>
+
     <div class="form_layout_item-submit">
        <!--<div class="actions">-->
         <!--====================タグ検索情報====================-->

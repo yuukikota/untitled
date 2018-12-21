@@ -69,3 +69,7 @@ gem 'rails-i18n'
 
 # ファイルアップロードのため
 gem 'paperclip'
+
+group :development do
+  gem 'rack-mini-profiler'#簡易プロファイラー
+end
