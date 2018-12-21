@@ -20,4 +20,13 @@ $(function() {
     document.body.addEventListener('ajax:send', function(event) {
         $('[type="submit"].all_disable').attr('disabled', true);//ボタンを無効化する
     });
+    document.body.addEventListener('ajax:send', function(event) {
+        console.log('ajax send');
+    });
+    document.body.addEventListener('ajax:success', function(event) {
+        console.log('ajax success');
+    });
+    document.body.addEventListener('ajax:error', function(event) {
+        console.log('ajax error');
+    });
 });

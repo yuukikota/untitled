@@ -5,16 +5,9 @@
     <div id="error_explanation">
       <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
 
-      <ul>
-        <% recruitment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="form_layout">
-    <div class="form_layout_item-textarea">
-      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
+    <div style="padding: 0px" class="form_layout_item-textarea">
+      <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
 <!--
       <div class="field">
             <%= form.label :添付 %>
@@ -24,7 +17,7 @@
 -->
     </div>
     <div class="form_layout_item-submit">
-       <!--<div class="actions">-->
+      ,<!--<div class="actions">-->
         <!--====================タグ検索情報====================-->
         <input type="hidden" name="school" value="<%=@inputtag.school %>">
         <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">
