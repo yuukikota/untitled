@@ -15,6 +15,13 @@
       <%= simple_format(comment.message) %>
     </td>
   </tr>
+  <%if comment.file_id != nil %>
+    <tr>
+      <td class="box_comment3" colspan="3">
+        <%= link_to 'ファイルを表示する', comment.file_id %>
+      </td>
+    </tr>
+  <%end %>
   <% if account_signed_in? %>
     <% if comment.account.id == current_account.id or current_account.acc_id == 'administrator' %>
       <tr>

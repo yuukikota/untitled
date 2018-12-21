@@ -90,7 +90,18 @@ class RecruitmentsController < ApplicationController
          end
     end
 
+    if @recruitment.photo_file_size != nil #ファイルがあった場合、file_idにurlを格納
+      max_id = Recruitment.maximum(:id)
+      if max_id.nil?
+        @recruitment.file_id= "/assets/arts/1/original/" +@recruitment.photo_file_name
+      else
+        @recruitment.file_id= "/assets/arts/"+(max_id+1).to_s+"/original/" +@recruitment.photo_file_name
+      end
+    end
+
     if @recruitment.save
+      #ファイル追加
+
       respond_to do |format|
 
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
@@ -169,7 +180,7 @@ class RecruitmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
 
     def recruitment_params
-      params.require(:recruitment).permit(:acc_id, :resolved, :detail, :title, :answer, :file_id, :chat)
+      params.require(:recruitment).permit(:acc_id, :resolved, :detail, :title, :answer, :file_id, :chat, :photo)
     end
 
     def inputtag_params

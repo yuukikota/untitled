@@ -3,6 +3,7 @@
 <table>
   <tbody>
   <% entry_chats.each do |entry_chat| %>
+    <% if entry_chat.recruitment.resolved == "解決" %>
     <tr>
       <td><%= entry_chat.recruitment.title %></td>
       <td>
@@ -14,6 +15,7 @@
       </td>
     </tr>
     <td><%= entry_chat.recruitment.detail  %></td>
+    <% end %>
   <% end %>
   </tbody>
 </table>

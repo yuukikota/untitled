@@ -49,7 +49,19 @@ class CommentsController < ApplicationController
       end
     else
       @comment.account_id = current_account.id # アカウントの主キーのID
+
+      #ファイル追加
+      if @comment.photo_file_size != nil #ファイルがあった場合、file_idにurlを格納
+        max_id = Comment.maximum(:id)
+        if max_id.nil?
+          @comment.file_id= "/assets/arts/1/original/" +@comment.photo_file_name
+        else
+          @comment.file_id= "/assets/arts/"+(max_id+1).to_s+"/original/" +@comment.photo_file_name
+        end
+      end
+
       if @comment.save
+
         @comment.recruitment.touch
         @comment.recruitment.save
         respond_to do |format|
@@ -93,6 +105,6 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:recruitment_id, :message, :file_id)
+      params.require(:comment).permit(:recruitment_id, :message, :file_id, :photo)
     end
 end
