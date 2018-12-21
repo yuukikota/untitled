@@ -103,7 +103,6 @@ class RecruitmentsController < ApplicationController
       #ファイル追加
 
       respond_to do |format|
-
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
         entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
         entry_chat.save
