@@ -255,7 +255,7 @@ header li {
 .header_menu a:hover {background-color : rgba(255,225,0,0.5); /*背景色*/}
 /*footerのスタイル============================================*/
 footer {
-    height: 70px; /*フッターの高さ*/
+    height: 40px; /*フッターの高さ*/
     width: 100%; /*フッターの横幅*/
     background-color: orange; /*フッターの背景色*/
     color: white; /*フッターの文字の色*/
@@ -281,5 +281,193 @@ footer li {
     margin-left: 30px; /*li間の幅を開くために左にマージンを取っている*/
     list-style: none; /*デフォルトでついているliの黒点をnoneにしている*/
 }
+/*=====================================================================*/
+.form_layout {
+    display: table;
+    width: 100%;
+    background: #FFF;
+    padding-left: 0px;
+    margin: 0px;
+}
+.form_layout_item-button {
+    display: table-cell;
+    text-align: left;
+    vertical-align: center;
+    padding: 0px;
+    width: 43px;
+}
+
+.form_layout_item-form {
+    display: table-cell;
+    text-align: left;
+    vertical-align: bottom;
+}
+.form_layout_item-textarea {
+    display: table-cell;
+    text-align: left;
+    vertical-align: bottom;
+}
+.form_layout_item-submit{
+    display: table-cell;
+    text-align: left;
+    width: 50px;
+    padding-bottom:20px;
+    vertical-align: bottom;
+}
+/*======通知パネル==============================================================================*/
+
+#notice_panel {
+    position: absolute;
+    z-index: 101;
+    top: 0px;
+    left: 0;
+    right: 0;
+    background: lightgreen;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+    font-weight: bold;
+}
+@-webkit-keyframes slideDown {
+    0%, 100% { -webkit-transform: translateY(-50px); }
+    10%, 90% { -webkit-transform: translateY(0px); }
+}
+@-moz-keyframes slideDown {
+    0%, 100% { -moz-transform: translateY(-50px); }
+    10%, 90% { -moz-transform: translateY(0px); }
+}
+
+#notice_panel {
+    -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 5.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 3.5s 1.0s 1 ease forwards;
+}
 
 
+#alert_panel {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: orangered;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+    color:white;
+    font-weight: bold;
+}
+
+#alert_panel {
+    -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 5.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 3.5s 1.0s 1 ease forwards;
+}
+/*======================================================================================*/
+.form_tab *, .form_tab *:before, .form_tab *:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form_tab {
+    margin: 1em auto;
+    position: relative;
+}
+.form_tab input[type='radio'] {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+.form_tab .form_tabpanel {
+    display: none;
+}
+.form_tab > input:first-child:checked ~ .form_tabpanels > .form_tabpanel:first-child,
+.form_tab > input:nth-child(3):checked ~ .form_tabpanels > .form_tabpanel:nth-child(2),
+.form_tab > input:nth-child(5):checked ~ .form_tabpanels > .form_tabpanel:nth-child(3),
+.form_tab > input:nth-child(7):checked ~ .form_tabpanels > .form_tabpanel:nth-child(4),
+.form_tab > input:nth-child(9):checked ~ .form_tabpanels > .form_tabpanel:nth-child(5),
+.form_tab > input:nth-child(11):checked ~ .form_tabpanels > .form_tabpanel:nth-child(6) {
+    display: block;
+}
+.form_tab .form_tabpanels {
+    position: absolute;
+    top:-10px;
+    left: 3em;
+    display: block;
+    height: 20px;
+}
+.form_tab > input + label {
+    position: relative;
+    z-index: 100;
+    top: -10px;
+    left: 2px;
+    display: block;
+    width: 3em;
+    margin-bottom: 0px;
+    padding: 7px;
+    padding-left: 10px;
+    cursor: pointer;
+    border: 2px solid lightgrey;
+    border-right: 2px solid black;
+    border-radius: 6px 0 0 6px;
+    background-color: lightgrey;
+}
+.form_tab > input + label:last-of-type {
+    margin-bottom: 0px;
+
+}
+.form_tab > label:hover,
+.form_tab > input:focus + label {
+    color: orange;
+    border-color: orange;
+}
+.form_tab > input:checked + label {
+    border-color: black;
+    border-right: 2px solid #ffffff;/*背景色と同じ*/
+    background-color: white;
+}
+.form_tab > input:checked:hover + label {
+    border-color: orange;
+    border-right: 2px solid #ffffff;/*背景色と同じ*/
+}
+
+
+.form_tab .form_tabpanel {
+    padding: 0.2em 1em;
+    border-left: 2px solid black;
+    min-height: 0px;
+}
+
+@media (max-width: 480px) {
+    .form_tab {
+        width: 100%;
+    }
+    .form_tab > input + label {
+        font-size: 0.7em;
+    }
+    .form_tab .form_tabpanels {
+        left: 7em;
+        min-width: 7em;
+    }
+}
+
+.form_tabpanel {
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    height: 120px;
+    width: 760px;
+}

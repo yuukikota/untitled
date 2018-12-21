@@ -102,7 +102,9 @@
         <!--==========================================================折りたたみ部分====================================================================-->
       </td>
     <% else %>
-      <td></td>
+      <td>
+        <div id="open2" style="display:none;clear:both;"></div>
+      </td>
     <% end %>
   </tr>
 </table>
@@ -350,7 +352,7 @@
       }else{//閉じる
           obj1.display = 'none';
           obj2.display = 'none';
-          document.getElementById('open-close-text').textContent = "▽クリックで開く";
+          document.getElementById('open-close-text').textContent = "▽自由タグを追加する";
       }
   }
 </script>
