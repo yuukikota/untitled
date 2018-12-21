@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <div class="form_layout">
-    <div style="padding: 0px" class="form_layout_item-textarea">
+    <div class="form_layout_item-textarea">
       <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
 <!--
       <div class="field">
@@ -24,7 +24,7 @@
 -->
     </div>
     <div class="form_layout_item-submit">
-      ,<!--<div class="actions">-->
+       <!--<div class="actions">-->
         <!--====================タグ検索情報====================-->
         <input type="hidden" name="school" value="<%=@inputtag.school %>">
         <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">

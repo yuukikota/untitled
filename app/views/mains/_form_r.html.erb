@@ -14,12 +14,12 @@
   <% end %>
   <div class="form_layout">
     <div class="form_layout_item-textarea">
-      <div style="border-bottom: 2px solid black;">
+      <div >
         <%= form.text_field :title, :placeholder => "タイトル", id:"recruit_input_title"%>
-        <a>チャット</a>
-        <%= form.select :chat, [["有","有"],["無","無"]],{},{style:"width: 41px;margin:0px"} %>
+        <a style="margin-left: 25px">チャット</a>
+        <%= form.select :chat, [["有","有"],["無","無"]],{},{style:"width: 42px;margin:0px"} %>
       </div><div>
-        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", id:"recruit_input_form"%>
+        <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id:"recruit_input_form"%>
       </div>
     </div>
     <div class="form_layout_item-submit">
@@ -39,9 +39,10 @@
       <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
       <input type="hidden" name="view_num" value="<%=@view_num %>">
     <!--====================タグ検索情報====================-->
+      <%= form.submit"送信📤" , id:"recruit_input_form_submit"%>
       <div><!--<div class="button1">-->
         <div><!--<div class="on">-->
-          <%= form.submit"送信📤" , id:"recruit_input_form_submit",style:"width:60px; height:58px;margin:0px;"%>
+
         </div>
       </div>
     </div>
