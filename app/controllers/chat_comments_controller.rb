@@ -38,7 +38,7 @@ class ChatCommentsController < ApplicationController
         format.html { redirect_to chat_comments_index_path(@chat_num), notice: '発言が送信されました' }
         format.json { render head :no_content }
       else
-        format.html { render :index }
+        format.html { render 'chat_comments/_form', locals: {chat_comment: @chat_comment, chat_num: @chat_num} }
         format.json { render json: @chat_comment.errors, status: :unprocessable_entity }
       end
     end

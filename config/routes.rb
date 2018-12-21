@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:recruitment_id', to: 'comments#index', as: :comments_index, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
+  post '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
   
   resources :chat_comments, only: [:destroy]
   get '/chat_comments/:recruitment_id', to: 'chat_comments#index', as: :chat_comments_index
