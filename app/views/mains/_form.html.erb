@@ -15,12 +15,13 @@
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
       <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
+<!--
       <div class="field">
-        <!--
             <%= form.label :添付 %>
             <%= form.number_field :file_id %>
-         -->
+
       </div>
+-->
     </div>
     <div class="form_layout_item-submit">
       <div class="actions">
@@ -42,7 +43,7 @@
         <!--====================タグ検索情報====================-->
         <div class="button1">
           <div class="on">
-            <%= form.submit"送信📤", style:"width:60px; height:58px;margin:0px;padding:0;" %>
+            <%= form.submit"送信📤", id: "talk_input_form_submit"%>
           </div>
         </div>
       </div>
