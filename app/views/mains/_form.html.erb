@@ -1,9 +1,6 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
 <!--======================発言フォーム==========================-->
-<%= form_with(model: recruitment, url: recruitments_create_path(5), local: true) do |form| %>
-  <% if recruitment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
+<%= form_with(model: recruitment, url: recruitments_create_path(5)) do |form| %>
 
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
@@ -17,7 +14,7 @@
 -->
     </div>
     <div class="form_layout_item-submit">
-      ,<!--<div class="actions">-->
+       <!--<div class="actions">-->
         <!--====================タグ検索情報====================-->
         <input type="hidden" name="school" value="<%=@inputtag.school %>">
         <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">

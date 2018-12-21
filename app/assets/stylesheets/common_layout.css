@@ -482,7 +482,7 @@ footer li {
 
 /*==============================================================================*/
 #talk_input_form{
-    width: 100%;
+    width: 680px;
     height: 85px;
     border-radius: 6px 0 0 6px;
     border-right: 1px solid black;
@@ -508,7 +508,7 @@ footer li {
 #recruit_input_form{
     margin: 0px;
     padding: 3px;
-    width:100%;
+    width: 680px;
     height:60px;
     border-radius: 0 0 0 6px;
     border-top: 1px solid black;
@@ -516,9 +516,9 @@ footer li {
 }
 #recruit_input_form_submit{
     width: 55px;
-    height:85px;
+    height:88px;
     margin:0;
     margin-bottom: 4px;
     border-left: 1px solid black;
-
+    border-radius: 0 6px 6px 0;
 }
