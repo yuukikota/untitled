@@ -1,3 +1,6 @@
+<!--
+発言と募集フォームの切り替え
+-->
 <div class="form_tab">
   <input type="radio" name="form_tab" id="form_tab_1" aria-controls="first_tab02" checked>
   <label for="form_tab_1">発言</label>
@@ -13,30 +16,3 @@
   </div>
 </div>
 
-
-<script>
-  function change_from1() {
-      var form1 = document.getElementById('form-type1').style;
-      var form2 = document.getElementById('form-type2').style;
-      var button1 = document.getElementById('form-type1-button');
-      var button2 = document.getElementById('form-type2-button');
-
-      form1.display = 'block';
-      form2.display = 'none';
-      button1.disabled=true;
-      button2.disabled=false;
-
-  }
-  function change_from2() {
-      var form1 = document.getElementById('form-type1').style;
-      var form2 = document.getElementById('form-type2').style;
-      var button1 = document.getElementById('form-type1-button');
-      var button2 = document.getElementById('form-type2-button');
-
-      form1.display = 'none';
-      form2.display = 'block';
-      button1.disabled=false;
-      button2.disabled=true;
-
-  }
-</script>
