@@ -68,7 +68,8 @@ class RecruitmentsController < ApplicationController
   # POST /recruitments.json
   def create
 
-    view_com_num = params[:id]
+    @view_num = params[:view_num]
+    @view_com_num = params[:id]
     @inputtag = Inputtag.new(inputtag_params)
     @inputtag.count_freetag
 
@@ -80,14 +81,15 @@ class RecruitmentsController < ApplicationController
       @recruitment.detail = nil
     end
 
-    if view_com_num == '5'
+    if @view_com_num == '5'
       @recruitment.re_id  = '発言'
       @recruitment.title = "発言"
-    else if  view_com_num == '6'
+    else if  @view_com_num == '6'
            @recruitment.re_id  = '募集'
            @recruitment.resolved = '未解決'
          end
     end
+
     if @recruitment.save
       respond_to do |format|
 
