@@ -144,6 +144,7 @@
     -moz-transition: 0.2s ease-in-out;
     -webkit-transition: 0.2s ease-in-out;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .common_style textarea:hover {

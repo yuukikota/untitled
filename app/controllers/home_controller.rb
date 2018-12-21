@@ -6,6 +6,7 @@ class HomeController < ApplicationController
   def show
 
     @home_button = '1'
+    @view_num = '1'
     @account = Account.find_by(acc_id: params[:acc_id])
     if @account.nil?
       respond_to do |format|
@@ -37,6 +38,7 @@ class HomeController < ApplicationController
 
   def button
     @home_button = params[:id]
+    @view_num = '1'
     @account = Account.find_by(acc_id: params[:acc_id])
     if @account.nil?
       respond_to do |format|
@@ -47,7 +49,7 @@ class HomeController < ApplicationController
       if @home_button == '1'
       @recruitments = @account.recruitments.order(updated_at: "DESC")
       elsif @home_button == '2'
-        #@recruitments = current_account.
+        @recruitments = current_account.bookmark_recruitments
       elsif @home_button == '3'
         @entry_chats = @account.entry_chats
       end
@@ -55,4 +57,19 @@ class HomeController < ApplicationController
       render template: 'home/show'
     end
   end
+
+  def button_view
+    @account = Account.find_by(acc_id: params[:acc_id])
+    @view_num = params[:id]
+    if @view_num == '1'
+      @recruitments = @account.recruitments.order(updated_at: "DESC")                         #タイムライン
+    elsif @view_num == '2'
+      @recruitments = @account.recruitments.where(re_id: '発言').order(updated_at: "DESC")    #発言
+    elsif @view_num == '3'
+      @recruitments = @account.recruitments.where(resolved: '未解決').order(updated_at: "DESC") #募集
+    elsif @view_num == '4'
+      @recruitments = @account.recruitments.where(resolved: '解決').order(updated_at: "DESC") #解決済み募集
+    end
+  end
+
 end
