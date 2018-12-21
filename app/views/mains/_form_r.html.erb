@@ -3,15 +3,15 @@
 <%= form_with(model: recruitment, url: recruitments_create_path(6)) do |form| %>
   <div class="form_layout">
     <div class="form_layout_item-textarea">
-      <div style="white-space: nowrap;">
-        <%= form.text_field :title, :placeholder => "タイトル", id:"recruit_input_title"%>
-        <span style="padding: 10 0 10 25px;">チャット</span>
-        <%= form.select :chat, [["有","有"],["無","無"]],{},{style:"width: 42px;margin:0px"} %>
-      </div><div>
+      <div style="white-space: nowrap;height: 25px;width: 680px;">
+        <%= form.text_field :title, :placeholder => "タイトル", id:"recruit_input_title"%><%= form.select :chat, [["チャットあり","有"],["チャットなし","無"]],{},{id:"recruit_input_chat-select"} %>
+      </div><div style="height: 56px;width: 680px;">
         <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id:"recruit_input_form"%>
       </div>
       <div>
-        <%= form.file_field :photo %>
+        <label for="recruit_input_file">ファイルを選択して下さい
+          <%= form.file_field :photo, id:"recruit_input_file"%>
+        </label>
       </div>
     </div>
     <div class="form_layout_item-submit">

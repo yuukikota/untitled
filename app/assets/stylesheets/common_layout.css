@@ -284,7 +284,7 @@ footer li {
 /*=====================================================================*/
 .form_layout {
     display: table;
-    width: 100%;
+    width: 730px;
     padding-left: 0px;
     padding-bottom: 0px;
     margin: 0px;
@@ -375,7 +375,7 @@ footer li {
     -moz-transform:    translateY(-50px);
     -moz-animation:    slideDown 3.5s 1.0s 1 ease forwards;
 }
-/*======================================================================================*/
+/*=発言募集選択タブ=====================================================================*/
 .form_tab *, .form_tab *:before, .form_tab *:after {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -432,7 +432,7 @@ footer li {
     background-color: #b2cde5;
 }
 .form_tab > input + label:last-of-type {
-    margin-bottom: 0px;
+    margin-bottom: 40px;
 
 }
 .form_tab > label:hover,
@@ -474,7 +474,7 @@ footer li {
     /*border-right: 2px solid black;
     border-bottom: 2px solid black;
     border-top: 2px solid black;*/
-    height: 105px;
+    height: 125px;
     width: 760px;
     background-color: #c6e4ff;
     border-radius: 0 6px 6px 6px;
@@ -483,16 +483,18 @@ footer li {
 /*==============================================================================*/
 #talk_input_form{
     width: 680px;
-    height: 85px;
-    border-radius: 6px 0 0 6px;
+    height: 80px;
+    border-radius: 6px 0 0 0;
     border-right: 1px solid black;
+    margin-top: 1px;
 }
 
 #talk_input_form_submit{
     width:55px;
-    height:85px;
+    height:103px;
     border-radius: 0 6px 6px 0;
     border-left: 1px solid black;
+    margin: 0;
 }
 
 #recruit_input_title{
@@ -500,7 +502,8 @@ footer li {
     margin:0;
     padding: 5px;
     width:550px;
-    height:29px;
+    height:23px;
+    border-bottom: 1px solid black;
     border-radius: 6px 0 0 0;
     bottom: 5px;
 }
@@ -509,16 +512,57 @@ footer li {
     margin: 0px;
     padding: 3px;
     width: 680px;
-    height:60px;
-    border-radius: 0 0 0 6px;
+    height:57px;
+    border-radius: 0 0 0 0px;
     border-top: 1px solid black;
     border-right: 1px solid black;
 }
 #recruit_input_form_submit{
     width: 55px;
-    height:88px;
+    height: 103px;
     margin:0;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
     border-left: 1px solid black;
     border-radius: 0 6px 6px 0;
+}
+
+#recruit_input_chat-select{
+    width: 131px;
+    height:23px;
+    margin:0 0 0 0;
+    position:relative;
+    top:1.5px;
+    right: 1px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+label[for="recruit_input_file"] > input {
+    display:none;	/* アップロードボタンのスタイルを無効にする */
+}
+label[for="recruit_input_file"] {
+    background-color: white;/* ラベルの背景色を指定する */
+    padding: 2px;	/* ラベルとテキスト間の余白を指定する */
+
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1.5px solid black;
+    border-left: 1.5px solid black;
+    border-radius: 0 0 0 6px;
+    width: 680px;
+}
+
+label[for="talk_input_file"] > input {
+    display:none;	/* アップロードボタンのスタイルを無効にする */
+}
+label[for="talk_input_file"] {
+    background-color: white;/* ラベルの背景色を指定する */
+    padding: 2px;	/* ラベルとテキスト間の余白を指定する */
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1.5px solid black;
+    border-left: 1.5px solid black;
+    border-radius: 0 0 0 6px;
+    width: 680px;
 }
