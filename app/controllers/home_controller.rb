@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     @home_button = '1'
     @view_num = '1'
     @account = Account.find_by(acc_id: params[:acc_id])
+    @bookmark = Bookmark.new
     if @account.nil?
       respond_to do |format|
         format.html { redirect_to root_path, notice: '存在しないアカウントです' }
@@ -40,6 +41,7 @@ class HomeController < ApplicationController
     @home_button = params[:id]
     @view_num = '1'
     @account = Account.find_by(acc_id: params[:acc_id])
+    @bookmark = Bookmark.new
     if @account.nil?
       respond_to do |format|
         format.html { redirect_to root_path, notice: '存在しないアカウントです' }
@@ -61,6 +63,7 @@ class HomeController < ApplicationController
   def button_view
     @account = Account.find_by(acc_id: params[:acc_id])
     @view_num = params[:id]
+    @bookmark = Bookmark.new
     if @view_num == '1'
       @recruitments = @account.recruitments.order(updated_at: "DESC")                         #タイムライン
     elsif @view_num == '2'
