@@ -19,7 +19,7 @@ describe Rack::Static do
   root = File.expand_path(File.dirname(__FILE__))
 
   OPTIONS = {:urls => ["/cgi"], :root => root}
-  STATIC_OPTIONS = {:urls => [""], :root => "#{root}/static", :index => 'index.html'}
+  STATIC_OPTIONS = {:urls => [""], :root => "#{root}/static", :index => 'index.html.erb'}
   HASH_OPTIONS = {:urls => {"/cgi/sekret" => 'cgi/test'}, :root => root}
   HASH_ROOT_OPTIONS = {:urls => {"/" => "static/foo.html"}, :root => root}
   GZIP_OPTIONS = {:urls => ["/cgi"], :root => root, :gzip=>true}
@@ -129,7 +129,7 @@ describe Rack::Static do
 
   it "supports header rule :all" do
     # Headers for all files via :all shortcut
-    res = @header_request.get('/cgi/assets/index.html')
+    res = @header_request.get('/cgi/assets/index.html.erb')
     res.must_be :ok?
     res.headers['Cache-Control'].must_equal 'public, max-age=100'
   end
