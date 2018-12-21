@@ -12,17 +12,17 @@
       </ul>
     </div>
   <% end %>
-  <table class="form">
-    <td style="padding: 0px">
-      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい"%>
+  <div class="form_layout">
+    <div style="padding: 0px" class="form_layout_item-textarea">
+      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい", style: "width:100%;height:58px;"%>
       <div class="field">
         <!--
             <%= form.label :添付 %>
             <%= form.number_field :file_id %>
          -->
       </div>
-    </td>
-    <td>
+    </div>
+    <div class="form_layout_item-submit">
       <div class="actions">
         <!--====================タグ検索情報====================-->
         <input type="hidden" name="school" value="<%=@inputtag.school %>">
@@ -42,10 +42,10 @@
         <!--====================タグ検索情報====================-->
         <div class="button1">
           <div class="on">
-        <%= form.submit"送信📤" %>
+            <%= form.submit"送信📤", style:"width:60px; height:58px;margin:0px;padding:0;" %>
           </div>
         </div>
       </div>
-    </td>
-  </table>
+    </div>
+  </div>
 <% end %>
