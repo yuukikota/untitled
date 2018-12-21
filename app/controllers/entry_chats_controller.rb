@@ -1,15 +1,10 @@
 class EntryChatsController < ApplicationController
-  before_action :set_entry_chat, only: [:show, :edit, :update, :destroy]
+  before_action :set_entry_chat, only: [ :destroy]
 
   # GET /entry_chats
   # GET /entry_chats.json
   def index
     @entry_chats = EntryChat.all
-  end
-
-  # GET /entry_chats/1
-  # GET /entry_chats/1.json
-  def show
   end
 
   # GET /entry_chats/new/:recruitment_id
@@ -31,6 +26,7 @@ class EntryChatsController < ApplicationController
   def add_result
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
+
     @recruitment = Recruitment.find_by(id: params[:recruitment_id]) # 元の募集を取得
     if @recruitment.nil?
       respond_to do |format|
@@ -41,10 +37,6 @@ class EntryChatsController < ApplicationController
     end
     @comments = @recruitment.comments.where('updated_at > ?', Time.zone.parse(params[:offset_time])).limit(20)
     @entry_chat = EntryChat.new
-  end
-
-  # GET /entry_chats/1/edit
-  def edit
   end
 
   # POST /entry_chats
@@ -68,29 +60,6 @@ class EntryChatsController < ApplicationController
       @entry_chat.acc_id = @entry_chat.account.acc_id
       @entry_chat.chat_id = @entry_chat.recruitment.id
       @entry_chat.save
-      #respond_to do |format|
-      #  if @entry_chat.save
-      #    format.html { redirect_to @entry_chat, notice: 'Entry chat was successfully created.' }
-      #    format.json { render :show, status: :created, location: @entry_chat }
-      #  else
-      #    format.html { render :new }
-      #    format.json { render json: @entry_chat.errors, status: :unprocessable_entity }
-      #  end
-      #end
-    end
-  end
-
-  # PATCH/PUT /entry_chats/1
-  # PATCH/PUT /entry_chats/1.json
-  def update
-    respond_to do |format|
-      if @entry_chat.update(entry_chat_params)
-        format.html { redirect_to @entry_chat, notice: 'Entry chat was successfully updated.' }
-        format.json { render :show, status: :ok, location: @entry_chat }
-      else
-        format.html { render :edit }
-        format.json { render json: @entry_chat.errors, status: :unprocessable_entity }
-      end
     end
   end
 

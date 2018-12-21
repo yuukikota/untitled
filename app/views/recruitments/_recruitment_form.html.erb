@@ -1,0 +1,5 @@
+<% if view_com_num == '5' %>
+  <%= render partial: 'mains/form', locals:{recruitment: recruitment, inputtag: inputtag, view_com_num: view_com_num, view_num: view_num}%>
+<% elsif view_com_num == '6' %>
+  <%= render partial: 'mains/form_r', locals:{recruitment: recruitment, inputtag: inputtag, view_com_num: view_com_num, view_num: view_num}%>
+<% end %>

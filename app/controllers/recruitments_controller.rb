@@ -88,23 +88,17 @@ class RecruitmentsController < ApplicationController
            @recruitment.resolved = '未解決'
          end
     end
+    if @recruitment.save
+      respond_to do |format|
 
-    respond_to do |format|
-      if @recruitment.save
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
         entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
         entry_chat.save
         format.html { redirect_to request_url(@inputtag.tag_to_arry, params[:view_num]), notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
-      else
-        @view_num = '1'
-        @view_com_num = '5'
-        format.html { render :template => "mains/add_index"}
-        format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end
   end
-
 
   # PATCH/PUT /entry_chats/1
   # PATCH/PUT /entry_chats/1.json
