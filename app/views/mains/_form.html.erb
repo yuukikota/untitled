@@ -5,13 +5,9 @@
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
       <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%>
-<!--
-      <div class="field">
-            <%= form.label :添付 %>
-            <%= form.number_field :file_id %>
-
-      </div>
--->
+    </div>
+    <div>
+      <%= form.file_field :photo %>
     </div>
     <div class="form_layout_item-submit">
        <!--<div class="actions">-->
