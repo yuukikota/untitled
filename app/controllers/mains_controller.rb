@@ -4,7 +4,7 @@ class MainsController < ApplicationController
     if params.has_key?(:view_num) then
       @view_num = params[:view_num]
     else
-      @view_num = '1'
+      @view_num = 1
     end
     logger.debug(@view_num)
     @view_com_num = '5'
@@ -17,26 +17,26 @@ class MainsController < ApplicationController
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,20, DateTime.tomorrow, 1) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,2, DateTime.tomorrow, 1) #入力されているタグで検索
       else #パラメータを受け取っていない
         @inputtag = Inputtag.new
         if current_account.id != 1 then
           @inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
         end
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,20, DateTime.tomorrow, 1)
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,2, DateTime.tomorrow, 1)
       end
     else #ログインしていない
       if params.has_key?(:school) then #パラメータを受け取っている
         @inputtag = Inputtag.new(inputtag_params) #入力されているタグを取得
         @inputtag.freetagnum = @inputtag.count_freetag
-        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,20, DateTime.tomorrow, @view_num) #入力されているタグで検索
+        @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,2, DateTime.tomorrow, @view_num) #入力されているタグで検索
       else
         @inputtag = Inputtag.new
         @recruitments = Recruitment.tagnamesearch([],2, DateTime.tomorrow, 1)
       end
     end
 
-    render template: 'mains/index'
+    render template: 'mains/add_index'
   end
 
   def add_index
@@ -45,25 +45,29 @@ class MainsController < ApplicationController
     #@bookmark = Bookmark.new
 
     @recruitment = Recruitment.new
-
+    @inputtag = Inputtag.new
+    @view_num =params[:view_num].to_i
     if params[:school].present? then #パラメータを受け取っている
-      inputtag = Inputtag.new(inputtag_params)
-      inputtag.freetagnum = inputtag.count_freetag
-      @recruitments = Recruitment.tagnamesearch(inputtag.tag_to_arry,20, params[:oldest].to_time, params[:view_num]) #入力されているタグで検索
+      @inputtag = Inputtag.new(inputtag_params)
+      @inputtag.freetagnum = @inputtag.count_freetag
+      @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,2, params[:oldest].to_time, @view_num) #入力されているタグで検索
     else #パラメータを受け取っていない
-      inputtag = Inputtag.new
+      @inputtag = Inputtag.new
       if current_account.id != 1 then
-        inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
+        @inputtag.setuniv(school: current_account.university, faculty: current_account.faculty, department: current_account.department) #タグに大学情報セット
       end
-      inputtag.freetagnum = inputtag.count_freetag
-      @recruitments = Recruitment.tagnamesearch(inputtag.tag_to_arry,20, DateTime.tomorrow, params[:view_num])
+      @inputtag.freetagnum = inputtag.count_freetag
+      @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry,2, DateTime.tomorrow, @view_num)
     end
-
+    for tag in @inputtag.tag_to_arry.each do
+      logger.debug(tag)
+    end
+    tmp = "view_num="+params[:view_num]
+    logger.debug(tmp)
     if account_signed_in? then #ログインしている
       taghistoryid = Taghistoryid.new #履歴用に変数準備
     end
 
-    #render template: 'mains/index'
   end
 
   def button_view

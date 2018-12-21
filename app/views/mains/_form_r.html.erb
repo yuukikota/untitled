@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
-
-<%= form_with(model: recruitment, url: recruitments_create_path(view_com_num), local: true) do |form| %>
+<!--======================募集フォーム==========================-->
+<%= form_with(model: recruitment, url: recruitments_create_path(6), local: true) do |form| %>
   <% if recruitment.errors.any? %>
     <div id="error_explanation">
       <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
@@ -13,17 +13,15 @@
     </div>
   <% end %>
   <table class="form">
-    <td>
+    <td style="padding: 0px">
       <div class="field">
-        <%= form.label :タイトル %>
-        <%= form.text_field :title %>
+        <%= form.text_field :title, :placeholder => "タイトル"%>
+        チャット
+        <%= form.select :chat, [["有","有"],["無","無"]],{},{style:"width: 41px;"} %>
       </div>
-        <%= form.label :チャットの有無 %>
-        <%= form.select :chat, [["有","有"],["無","無"]] %>
 
       <div class="field"　>
-      <%= form.label :募集 %>
-        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
+        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000", placeholder: "本文を入力して下さい"%>
       </div>
     </td>
     <td>

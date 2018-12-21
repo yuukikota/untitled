@@ -1,0 +1,39 @@
+<div>
+  <input type="button" value="発言" id="form-type1-button" disabled="disabled" onclick="change_from1()">
+  <input type="button" value="募集" id="form-type2-button" onclick="change_from2()">
+</div>
+<div id = "button_f2">
+  <div id="form-type1">
+    <%= render partial: 'mains/form', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num, view_num: @view_num}%>
+  </div>
+  <div id="form-type2" style="display:none;clear:both;">
+    <%= render partial: 'mains/form_r', locals:{recruitment: @recruitment, inputtag: @inputtag, view_com_num: @view_com_num, view_num: @view_num}%>
+  </div>
+</div>
+
+<script>
+  function change_from1() {
+      var form1 = document.getElementById('form-type1').style;
+      var form2 = document.getElementById('form-type2').style;
+      var button1 = document.getElementById('form-type1-button');
+      var button2 = document.getElementById('form-type2-button');
+
+      form1.display = 'block';
+      form2.display = 'none';
+      button1.disabled=true;
+      button2.disabled=false;
+
+  }
+  function change_from2() {
+      var form1 = document.getElementById('form-type1').style;
+      var form2 = document.getElementById('form-type2').style;
+      var button1 = document.getElementById('form-type1-button');
+      var button2 = document.getElementById('form-type2-button');
+
+      form1.display = 'none';
+      form2.display = 'block';
+      button1.disabled=false;
+      button2.disabled=true;
+
+  }
+</script>

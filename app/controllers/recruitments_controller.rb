@@ -96,7 +96,7 @@ class RecruitmentsController < ApplicationController
       else
         @view_num = '1'
         @view_com_num = '5'
-        format.html { render :template => "mains/index" }
+        format.html { render :template => "mains/add_index"}
         format.json { render json: @recruitment.errors, status: :unprocessable_entity }
       end
     end
