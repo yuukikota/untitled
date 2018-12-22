@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  has_many :tagmap
+  has_many :tagmaps
 
 
   #タグ名からタグIDを取得、一致するモノがなければnil

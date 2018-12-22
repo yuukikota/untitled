@@ -21,13 +21,16 @@
         </ul>
       </nav>
     </header><!--ヘッダーここまで-->
-
     <div class="container">
       <% if notice.present? %>
-        <div id="notice_panel"><p class="notice"><%= notice %></p></div>
+        <div id="notice_panel" class="notice_panel"><p class="notice"><%= notice %></p></div>
+      <% else %>
+        <div id="nothing_notice" class="notice_panel"><p class="notice"><%= notice %></p></div>
       <%end %>
       <% if alert.present? %>
-        <div id="alert_panel"><p class="alert"><%= alert %></p></div>
+        <div id="alert_panel" class="alert_panel"><p class="alert"><%= alert %></p></div>
+      <% else %>
+        <div id="nothing_alert" class="alert_panel"><p class="alert"><%= alert %></p></div>
       <%end %>
       <span class="common_style">
         <%= yield %>
@@ -36,5 +39,31 @@
 
     <footer><!-------フッダー-- ---->
     </footer><!---フッダーここまで--->
+    <div id="floating-ad-left"><div style="height: 500px;width: 150px;background-color: whitesmoke">広告</div></div>
+    <div id="floating-ad-right"><div style="height: 500px;width: 150px;background-color: whitesmoke">広告</div></div>
+    <div id="layer"></div>
+    <!-- ポップアップ -->
+    <div id="popup">
+      <div>popup</div>
+      <input type="button" id="close" value="close popup">
+    </div>
   </body>
 </html>
+
+<script>
+    function changeId(idname, changename){
+        var obj = document.getElementById(idname);
+        obj.id = changename;
+    }
+
+    $(function(){
+        $(".notice_panel").on('webkitAnimationEnd', function(){
+            changeId('notice_panel','nothing_notice');
+        });
+    });
+    $(function(){
+        $(".alert_panel").on('webkitAnimationEnd', function(){
+            changeId('alert_panel','nothing_alert');
+        });
+    });
+</script>

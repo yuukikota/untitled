@@ -1,6 +1,6 @@
 
 
-<table width="100%" border="3" rules="none" style="margin-bottom : 0px; padding :0px;"><!---->
+<table width="100%" id="tag_select_outer"><!---->
   <tr>
     <td style="padding-bottom: 0px">
       <%= form_for @inputtag, :url => {:action=>"update", :controller=>"tags"}, html: {id: 'tag_form',onsubmit: 'return _submit()'} do |f| %>
@@ -111,7 +111,7 @@
 
 <!-- 折り畳み展開ポインタ -->
 <div align="right">
-  <a onclick="open_fome()" id="open-close-text">▽自由タグを追加する</a>
+  <span onclick="open_fome()" id="open-close-text">▽自由タグを追加する</span>
 </div>
 <!--// 折り畳み展開ポインタ -->
 

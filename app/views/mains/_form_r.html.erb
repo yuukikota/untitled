@@ -9,7 +9,7 @@
         <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id:"recruit_input_form"%>
       </div>
       <div>
-        <label for="recruit_input_file">ファイルを選択して下さい
+        <label for="recruit_input_file" ><span id="recruit_input_file_label">ファイルを選択して下さい</span>
           <%= form.file_field :photo, id:"recruit_input_file"%>
         </label>
       </div>
@@ -40,3 +40,10 @@
     </div>
   </div>
 <% end %>
+
+<script>
+    var file_slect = document.getElementById('recruit_input_file');
+    file_slect.addEventListener('change',function(){
+        document.getElementById("recruit_input_file_label").textContent=this.value;
+    });
+</script>
