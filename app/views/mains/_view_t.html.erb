@@ -33,14 +33,15 @@
         <%= simple_format(recruitment.detail) %>
       </td>
     </tr>
-
+          <%if recruitment.photo_file_size  != nil%>
           <tr>
             <td class="box_comment3" colspan="3">
-              <%if recruitment.photo_file_size  != nil%>
+
                 <%= link_to 'ファイルを表示する', recruitment.file_id %>
-              <%end %>
+
             </td>
           </tr>
+          <%end %>
 
           <% if recruitment.resolved == '解決' %>
       <tr>

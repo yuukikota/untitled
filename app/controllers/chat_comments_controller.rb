@@ -11,7 +11,7 @@ class ChatCommentsController < ApplicationController
     @chat_num = params[:recruitment_id]
     @recruitment = Recruitment.find_by(id: params[:recruitment_id])
     if @recruitment.nil?
-      redirect_to root_path, notice: 'チャットルームに入れませんでした'
+      redirect_to root_path, alert: 'チャットルームに入れませんでした'
       return
     end
 
@@ -19,7 +19,7 @@ class ChatCommentsController < ApplicationController
       @chat_comments = @recruitment.chat_comments
       @chat_comment = ChatComment.new(recruitment_id: params[:recruitment_id])
     elsif
-      redirect_to root_path, notice: 'チャットルームに入れませんでした'
+      redirect_to root_path, alert: 'チャットルームに入れませんでした'
     end
   end
 
