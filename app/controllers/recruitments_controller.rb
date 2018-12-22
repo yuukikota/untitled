@@ -104,8 +104,10 @@ class RecruitmentsController < ApplicationController
 
       respond_to do |format|
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
-        entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
-        entry_chat.save
+        if @recruitment.re_id == "募集"
+          entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
+          entry_chat.save
+        end
         format.html { redirect_to request_url(@inputtag.tag_to_arry, params[:view_num]), notice: '送信しました' }
         format.json { render :show, status: :created, location: @recruitment }
       end
