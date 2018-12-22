@@ -7,13 +7,13 @@ class CommentsController < ApplicationController
     @recruitment = Recruitment.find_by(id: params[:recruitment_id])
     if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.html { redirect_to root_path, alert: '返信先がありません' }
         format.json { head :no_content }
       end
-      return
+    else
+      @comment = Comment.new(recruitment_id: params[:recruitment_id])
+      @comments = @recruitment.comments.limit(20) #20件を取得
     end
-    @comment = Comment.new(recruitment_id: params[:recruitment_id])
-    @comments = @recruitment.comments.limit(20) #20件を取得
   end
 
   # 表示する返信の追加
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
     @recruitment = Recruitment.find_by(id: params[:recruitment_id])
     if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.html { redirect_to root_path, alert: '返信先がありません' }
         format.json { head :no_content }
       end
       return
@@ -39,12 +39,12 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if !account_signed_in? #発言権限はあるか
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '発言するには、ログインしてください' }
+        format.html { redirect_to root_path, alert: '発言するには、ログインしてください' }
         format.json { head :no_content }
       end
     elsif @comment.recruitment.nil? # 返信先は存在するか
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.html { redirect_to root_path, alert: '返信先がありません' }
         format.json { head :no_content }
       end
     else
@@ -78,13 +78,13 @@ class CommentsController < ApplicationController
   def destroy
     if @comment.nil?  #削除すべきコメントは存在したか
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '削除すべき発言はありませんでした' }
+        format.html { redirect_to root_path, alert: '削除すべき発言はありませんでした' }
         format.json { head :no_content }
       end
     elsif !(account_signed_in? and (@comment.account.id == current_account.id or current_account.acc_id == 'administrator')) #削除権限があるか
       recruitment_id = @comment.recruitment_id
       respond_to do |format|
-        format.html { redirect_to comments_index_path(recruitment_id), notice: '削除権限がありません' }
+        format.html { redirect_to comments_index_path(recruitment_id), alert: '削除権限がありません' }
         format.json { head :no_content }
       end
     else

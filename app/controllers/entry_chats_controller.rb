@@ -12,7 +12,7 @@ class EntryChatsController < ApplicationController
     @recruitment = Recruitment.find_by(id: params[:recruitment_id]) # 元の募集を取得
     if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '募集が存在しません' }
+        format.html { redirect_to root_path, alert: '募集が存在しません' }
         format.json { head :no_content }
       end
       return
@@ -30,7 +30,7 @@ class EntryChatsController < ApplicationController
     @recruitment = Recruitment.find_by(id: params[:recruitment_id]) # 元の募集を取得
     if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信先がありません' }
+        format.html { redirect_to root_path, alert: '返信先がありません' }
         format.json { head :no_content }
       end
       return
@@ -47,12 +47,12 @@ class EntryChatsController < ApplicationController
 
     if (recruitment = Recruitment.find_by(id: entry_chat_params[:recruitment_id])).nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '募集が存在しません' }
+        format.html { redirect_to root_path, alert: '募集が存在しません' }
         format.json { head :no_content }
       end
     elsif recruitment.account.id == entry_chat_params[:account_id]
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '募集者自身を選択することはできません' }
+        format.html { redirect_to root_path, alert: '募集者自身を選択することはできません' }
         format.json { head :no_content }
       end
     else

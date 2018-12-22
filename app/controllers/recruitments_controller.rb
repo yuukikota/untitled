@@ -15,13 +15,13 @@ class RecruitmentsController < ApplicationController
   def edit
     if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '募集が存在しません' }
+        format.html { redirect_to root_path, alert: '募集が存在しません' }
         format.json { head :no_content }
       end
       return
     elsif !(account_signed_in? and @recruitment.acc_id == current_account.acc_id)
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '結果選択は募集者のみです' }
+        format.html { redirect_to root_path, alert: '結果選択は募集者のみです' }
         format.json { head :no_content }
       end
       return
@@ -45,7 +45,7 @@ class RecruitmentsController < ApplicationController
     @comment = Comment.find_by(id: params[:comment_id])
     if @comment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信がありません' }
+        format.html { redirect_to root_path, alert: '返信がありません' }
         format.json { head :no_content }
       end
     end
@@ -58,7 +58,7 @@ class RecruitmentsController < ApplicationController
     @comment = Comment.find_by(id: params[:comment_id])
     if @comment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信がありません' }
+        format.html { redirect_to root_path, alert: '返信がありません' }
         format.json { head :no_content }
       end
     end
@@ -121,7 +121,7 @@ class RecruitmentsController < ApplicationController
     if @recruitment_params[:chat] == "有"
       if EntryChat.find_by(recruitment_id: @recruitment_params[:id]).nil?
         respond_to do |format|
-          format.html { redirect_to new_entry_chats_path(@recruitment_params[:id]), notice: '結果を選択してください' }
+          format.html { redirect_to new_entry_chats_path(@recruitment_params[:id]), alert: '結果を選択してください' }
           format.json { head :no_content }
         end
         return
@@ -129,7 +129,7 @@ class RecruitmentsController < ApplicationController
     elsif @recruitment_params[:chat] == "無"
       if @recruitment_params[:answer].blank?
         respond_to do |format|
-          format.html { redirect_to edit_recruitment_path(@recruitment_params[:id]), notice: '結果を選択してください' }
+          format.html { redirect_to edit_recruitment_path(@recruitment_params[:id]), alert: '結果を選択してください' }
           format.json { head :no_content }
         end
         return
@@ -149,17 +149,24 @@ class RecruitmentsController < ApplicationController
   # DELETE /recruitments/1
   # DELETE /recruitments/1.json
   def destroy
-    @recruitment.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: '削除されました' }
-      format.json { head :no_content }
+    if @recruitment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'すでに削除されています' }
+        format.json { head :no_content }
+      end
+    else
+      @recruitment.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '削除されました' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recruitment
-      @recruitment = Recruitment.find(params[:id])
+      @recruitment = Recruitment.find_by(id: params[:id])
     end
 
     def add_answer

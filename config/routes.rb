@@ -1,15 +1,6 @@
 Rails.application.routes.draw do
 
   resources :bookmarks, only: [:create, :destroy]
-#  get "/inform" => "inform#gamen_sentaku"
-#  get "inform/hatsugen_inf"
-#  get "inform/hatsugen_inf/:ht11" => "inform#toukou"
-#  get "inform/hatsugen_inf/:re_id" => "inform#toukou"
-#  get "inform/toukou" => "inform"
-#  get "/b_inform/bosyuu_inf"
-#  get "b_inform/:ht22" => "b_inform#toukou"
-#  get "b_inform/:re_id" => "b_inform#toukou"
-#  get "b_inform/toukou" => "b_inform"
 
   devise_for :accounts, :controllers =>{
       :registrations => 'accounts/registrations'
@@ -42,8 +33,6 @@ Rails.application.routes.draw do
   get '/entry_chats/new/:recruitment_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
   post '/entry_chats/new/add/:recruitment_id/:offset_time', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { recruitment_id:/[0-9]+/ }
-
-  resources :pictures
 
   root 'mains#index'
 
