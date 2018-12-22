@@ -286,9 +286,6 @@ footer li {
 }
 
 /*======通知パネル==============================================================================*/
-#nothing_notice{
-    display: none;
-}
 #notice_panel {
     display: block;
     position: absolute;
@@ -320,10 +317,6 @@ footer li {
     -moz-transform:    translateY(-50px);
     -moz-animation:    slideDown 3.5s 1.0s 1 ease forwards;
 }
-#nothing_alert{
-    display: none;
-}
-
 #alert_panel {
     position: absolute;
     z-index: 101;
