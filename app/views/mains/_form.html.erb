@@ -5,7 +5,7 @@
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
       <div style="height: 80px"><%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%></div>
-      <div><label for="talk_input_file"><span id="talk_input_file_label">ファイルを選択して下さい</span>
+      <div><label for="talk_input_file" id="talk_input_file_label-label"><span id="talk_input_file_label">ファイルを選択して下さい</span>
         <%= form.file_field :photo, id: "talk_input_file" %>
       </label></div>
     </div>
@@ -43,4 +43,9 @@
     file_slect.addEventListener('change',function(){
         document.getElementById("talk_input_file_label").textContent=this.value;
     },false);
+
+    if(document.getElementById("talk_input_file_label-label").lastElementChild.className=='field_with_errors'){
+        document.getElementById("talk_input_file_label-label").style.borderColor = '#ff0847'
+        document.getElementById("talk_input_file_label-label").style.backgroundColor = '#ffebeb'
+    }
 </script>

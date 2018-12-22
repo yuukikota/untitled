@@ -24,7 +24,7 @@ class TagsController < ApplicationController
         @inputtag = Inputtag.new
       end
     end
-    @view_num = '1'
+    @view_num = params[:view_num]
     @view_com_num = '5'
     @inputtag.freetagnum = @inputtag.count_freetag #タグの数をかうんと
 

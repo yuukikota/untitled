@@ -23,10 +23,10 @@
     </header><!--ヘッダーここまで-->
     <div class="container">
       <% if notice.present? %>
-        <div id="notice_panel" class="notice_panel"><p class="notice"><%= notice %></p></div>
+        <div id="notice_panel"><p class="notice"><%= notice %></p></div>
       <%end %>
       <% if alert.present? %>
-        <div id="alert_panel" class="alert_panel"><p class="alert"><%= alert %></p></div>
+        <div id="alert_panel"><p class="alert"><%= alert %></p></div>
       <%end %>
       <span class="common_style">
         <%= yield %>
