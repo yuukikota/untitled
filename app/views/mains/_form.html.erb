@@ -5,7 +5,7 @@
   <div class="form_layout">
     <div style="padding: 0px" class="form_layout_item-textarea">
       <div style="height: 80px"><%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%></div>
-      <div><label for="talk_input_file">ファイルを選択して下さい
+      <div><label for="talk_input_file"><span id="talk_input_file_label">ファイルを選択して下さい</span>
         <%= form.file_field :photo, id: "talk_input_file" %>
       </label></div>
     </div>
@@ -36,3 +36,11 @@
     </div>
   </div>
 <% end %>
+
+
+<script>
+    var file_slect = document.getElementById('talk_input_file');
+    file_slect.addEventListener('change',function(){
+        document.getElementById("talk_input_file_label").textContent=this.value;
+    },false);
+</script>

@@ -6,7 +6,8 @@
     margin-bottom : 4px;
     margin-left: 0px;
     background-color: #FFF;
-    border: 1.5px solid #333;
+    border: 1.5px solid #5989cf;
+    border-radius: 4px 4px 4px 4px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -35,7 +36,7 @@
     opacity: 0.5;
     outline: 0;
     background-color: #FFF;
-    border: 1.5px solid #333;
+    border: 1.5px solid #5989cf;
     color: #333;
 }
 
@@ -46,7 +47,7 @@
     opacity: 0.5;
     outline: 0;
     background-color: #FFF;
-    border: 1.5px solid #333;
+    border: 1.5px solid #5989cf;
     color: #333;
 }
 
@@ -134,7 +135,8 @@
 .common_style textarea {
     resize: none;
     background-color: #FFF;
-    border: 1.5px solid #333;
+    border: 1.5px solid #5989cf;
+    border-radius: 4px 4px 4px 4px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -164,7 +166,8 @@
 /*selectのスタイル=====================================*/
 .common_style select {
     background-color: #FFF;
-    border: 1.5px solid #333;
+    border: 1.5px solid #5989cf;
+    border-radius: 4px 4px 4px 4px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -281,43 +284,7 @@ footer li {
     margin-left: 30px; /*li間の幅を開くために左にマージンを取っている*/
     list-style: none; /*デフォルトでついているliの黒点をnoneにしている*/
 }
-/*=====================================================================*/
-.form_layout {
-    display: table;
-    width: 730px;
-    padding-left: 0px;
-    padding-bottom: 0px;
-    margin: 0px;
-    padding-top: 7px;
-    background-color: #c6e4ff;
-    height: 90px;
-}
-.form_layout_item-button {
-    display: table-cell;
-    text-align: left;
-    vertical-align: center;
-    padding: 0px;
-    width: 43px;
-}
 
-.form_layout_item-form {
-    display: table-cell;
-    text-align: left;
-    vertical-align: bottom;
-}
-.form_layout_item-textarea {
-    display: table-cell;
-    padding: 0px;
-    text-align: left;
-    vertical-align: bottom;
-}
-.form_layout_item-submit{
-    display: table-cell;
-    text-align: left;
-    width: 50px;
-    padding: 0px;
-    vertical-align: bottom;
-}
 /*======通知パネル==============================================================================*/
 
 #notice_panel {
@@ -415,7 +382,7 @@ footer li {
 }
 .form_tab > input + label {
     position: relative;
-    z-index: 100;
+    z-index: 1;
     top: -10px;
     left: 0px;
     display: block;
@@ -479,22 +446,70 @@ footer li {
     background-color: #c6e4ff;
     border-radius: 0 6px 6px 6px;
 }
+/*===発言募集アイテム枠================================================*/
+.form_layout {
+    display: table;
+    width: 730px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    margin: 0px;
+    padding-top: 7px;
+    background-color: #c6e4ff;
+    height: 90px;
+}
+.form_layout_item-button {
+    display: table-cell;
+    text-align: left;
+    vertical-align: center;
+    padding: 0px;
+    width: 43px;
+}
 
-/*==============================================================================*/
+.form_layout_item-form {
+    display: table-cell;
+    text-align: left;
+    vertical-align: bottom;
+}
+.form_layout_item-textarea {
+    display: table-cell;
+    padding: 0px;
+    text-align: left;
+    vertical-align: bottom;
+}
+.form_layout_item-submit{
+    display: table-cell;
+    text-align: left;
+    width: 50px;
+    padding: 0px;
+    vertical-align: bottom;
+}
+/*===発言募集入力フォーム==============================================================*/
 #talk_input_form{
     width: 680px;
     height: 80px;
     border-radius: 6px 0 0 0;
     border-right: 1px solid black;
-    margin-top: 1px;
+
+    border-top: 2px solid #5989cf;
+    border-right: 1px solid #5989cf;
+    border-bottom: 1.5px solid #5989cf;
+    border-left: 2px solid #5989cf;
+    margin-top: 1.5px;
 }
 
 #talk_input_form_submit{
     width:55px;
     height:103px;
     border-radius: 0 6px 6px 0;
-    border-left: 1px solid black;
+
+    border-top: 2px solid #5989cf;
+    border-right: 2px solid #5989cf;
+    border-bottom: 2px solid #5989cf;
+    border-left: 1px solid #5989cf;
     margin: 0;
+}
+#talk_input_form_submit:hover{
+    border-color: orange;
 }
 
 #recruit_input_title{
@@ -503,9 +518,16 @@ footer li {
     padding: 5px;
     width:550px;
     height:23px;
-    border-bottom: 1px solid black;
+
+    border-top: 2px solid #5989cf;
+    border-right: 1.5px solid #5989cf;
+    border-bottom: 1px solid #5989cf;
+    border-left: 2px solid #5989cf;
+
     border-radius: 6px 0 0 0;
-    bottom: 5px;
+
+    top: 11px;
+    position: absolute;
 }
 
 #recruit_input_form{
@@ -516,6 +538,11 @@ footer li {
     border-radius: 0 0 0 0px;
     border-top: 1px solid black;
     border-right: 1px solid black;
+
+    border-top: 1px solid #5989cf;
+    border-right: 1px solid #5989cf;
+    border-bottom: 1.5px solid #5989cf;
+    border-left: 2px solid #5989cf;
 }
 #recruit_input_form_submit{
     width: 55px;
@@ -523,19 +550,32 @@ footer li {
     margin:0;
     margin-bottom: 0px;
     border-left: 1px solid black;
+
+    border-top: 2px solid #5989cf;
+    border-right: 2px solid #5989cf;
+    border-bottom: 2px solid #5989cf;
+    border-left: 1px solid #5989cf;
+
     border-radius: 0 6px 6px 0;
+}
+#recruit_input_form_submit:hover{
+    border-color: orange;
 }
 
 #recruit_input_chat-select{
     width: 131px;
     height:23px;
     margin:0 0 0 0;
-    position:relative;
-    top:1.5px;
-    right: 1px;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
+
+    border-top: 2px solid #5989cf;
+    border-right: 1px solid #5989cf;
+    border-bottom: 1px solid #5989cf;
+    border-left: 1.5px solid #5989cf;
+    border-radius: 0 0 0 0;
+
+    top: 11px;
+    left:562px;
+    position: absolute;
 }
 
 label[for="recruit_input_file"] > input {
@@ -545,12 +585,16 @@ label[for="recruit_input_file"] {
     background-color: white;/* ラベルの背景色を指定する */
     padding: 2px;	/* ラベルとテキスト間の余白を指定する */
 
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1.5px solid black;
-    border-left: 1.5px solid black;
+    border-top: 1px solid #5989cf;
+    border-right: 1px solid #5989cf;
+    border-bottom: 2px solid #5989cf;
+    border-left: 2px solid #5989cf;
     border-radius: 0 0 0 6px;
     width: 680px;
+    text-align: center;
+}
+label[for="recruit_input_file"]:hover {
+    color: orange;
 }
 
 label[for="talk_input_file"] > input {
@@ -559,10 +603,83 @@ label[for="talk_input_file"] > input {
 label[for="talk_input_file"] {
     background-color: white;/* ラベルの背景色を指定する */
     padding: 2px;	/* ラベルとテキスト間の余白を指定する */
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1.5px solid black;
-    border-left: 1.5px solid black;
+
+    border-top: 1px solid #5989cf;
+    border-right: 1px solid #5989cf;
+    border-bottom: 2px solid #5989cf;
+    border-left: 2px solid #5989cf;
     border-radius: 0 0 0 6px;
     width: 680px;
+    text-align: center;
+}
+label[for="talk_input_file"]:hover {
+    color: orange;
+}
+
+/*==広告============================================================*/
+#floating-ad-left{
+    top: 100px;
+    left: 4%;
+    position: fixed;
+    z-index: -1;
+}
+
+#floating-ad-right{
+    top: 100px;
+    right: 4%;
+    position: fixed;
+    z-index: -1;
+}
+
+/*===ポップアップ==========================================================*/
+
+#layer {
+    display: none;  /* 初期表示は非表示 */
+    position: fixed;
+    background-color: black;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.40;
+}
+
+#popup {
+    display: none;  /* 初期表示は非表示 */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 300px;
+    height: 200px;
+    margin-left: -150px;
+    margin-top: -100px;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/*===タグ選択===============================================*/
+
+#tagformremove, #tagformadd{
+    color: #5989cf;
+}
+#tagformremove:hover, #tagformadd:hover{
+    color: orange;
+}
+#tagformremove:focus, #tagformadd:focus{
+    color: orange;
+}
+
+#tag_select_outer{
+    /**/
+    border-color: #5989cf;
+    border-top: 3px solid #5989cf;
+    border-right: 3px solid #5989cf;
+    border-bottom: 3px solid #5989cf;
+    border-left: 3px solid #5989cf;
+    /**/
+    border-radius: 6px 6px 6px 6px;
+    background-color: aliceblue;
+    margin-bottom : 0;
+    padding :0;
 }

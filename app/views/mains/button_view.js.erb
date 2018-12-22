@@ -7,17 +7,6 @@ $('#button_v2').html(
 );
 $('#button_v3').html(
     "<%=
-=begin
-    if @view_num == "1"
-    escape_javascript render 'mains/view_t', recruitments: @recruitments
-    elsif @view_num == "2"
-    escape_javascript render 'mains/view_t', recruitments: @recruitments
-    elsif @view_num == "3"
-    escape_javascript render 'mains/view_t', recruitments: @recruitments
-    elsif @view_num == "4"
-    escape_javascript render 'mains/view_t', recruitments: @recruitments
-    end
-=end
     escape_javascript render 'mains/view_t', recruitments: @recruitments
     %>"
 );
