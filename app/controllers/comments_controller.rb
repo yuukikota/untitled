@@ -76,23 +76,21 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @alert = nil
+
     if @comment.nil?  #削除すべきコメントは存在したか
-      respond_to do |format|
-        format.html { redirect_to root_path, alert: '削除すべき発言はありませんでした' }
-        format.json { head :no_content }
-      end
+      @notice = '既に削除されています'
     elsif !(account_signed_in? and (@comment.account.id == current_account.id or current_account.acc_id == 'administrator')) #削除権限があるか
-      recruitment_id = @comment.recruitment_id
-      respond_to do |format|
-        format.html { redirect_to comments_index_path(recruitment_id), alert: '削除権限がありません' }
-        format.json { head :no_content }
-      end
+      @alert = '削除権限がありません'
     else
-      recruitment_id = @comment.recruitment_id
-      @comment.destroy
-      respond_to do |format|
-        format.html { redirect_to comments_index_path(recruitment_id), notice: '発言を削除しました' }
-        format.json { head :no_content }
+      @comment_id = @comment.id
+      if @comment.destroy
+        @notice = '返信を削除しました'
+      else
+        @alert = '返信の削除に失敗しました'
       end
     end
   end

@@ -1,3 +1,4 @@
+<div id=<%="comment_" + comment.id.to_s %>>
 <table width="100%" class="box_comment">
   <tr>
     <td class="box_comment2">
@@ -26,9 +27,10 @@
     <% if comment.account.id == current_account.id or current_account.acc_id == 'administrator' %>
       <tr>
         <td colspan="3">
-          <%= button_to '削除', comment, method: :delete, data: { confirm: '返信を本当に削除しますか?' } %>
+          <%= button_to '削除', comment, method: :delete, data: { confirm: '返信を本当に削除しますか?' } , remote: true%>
         </td>
       </tr>
     <% end %>
   <% end %>
 </table>
+</div>
