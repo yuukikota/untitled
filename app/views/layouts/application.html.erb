@@ -21,7 +21,6 @@
         </ul>
       </nav>
     </header><!--ヘッダーここまで-->
-
     <div class="container">
       <div id="flash_message">
         <%= render 'layouts/flash_message', notice: notice, alert: alert %>
@@ -33,5 +32,13 @@
 
     <footer><!-------フッダー-- ---->
     </footer><!---フッダーここまで--->
+    <div id="floating-ad-left"><div style="height: 500px;width: 150px;background-color: whitesmoke">広告</div></div>
+    <div id="floating-ad-right"><div style="height: 500px;width: 150px;background-color: whitesmoke">広告</div></div>
+    <div id="layer"></div>
+    <!-- ポップアップ -->
+    <div id="popup">
+      <div>popup</div>
+      <input type="button" id="close" value="close popup">
+    </div>
   </body>
 </html>
