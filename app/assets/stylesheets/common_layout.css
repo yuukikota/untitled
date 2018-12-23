@@ -287,8 +287,7 @@ footer li {
 
 /*======通知パネル==============================================================================*/
 #notice_panel {
-    display: block;
-    position: absolute;
+    position: fixed;
     z-index: 101;
     top: 0px;
     left: 0;
@@ -318,7 +317,7 @@ footer li {
     -moz-animation:    slideDown 3.5s 1.0s 1 ease forwards;
 }
 #alert_panel {
-    position: absolute;
+    position: fixed;
     z-index: 101;
     top: 0;
     left: 0;
@@ -699,26 +698,17 @@ label[for="talk_input_file"]:hover {
     border-radius: 6px 6px 6px 6px;
     padding: 5px;
 }
-#account_info_name_id{
-    background-color: aliceblue;
-    padding: 3px;
-    border-radius: 3px;
-}
-#account_info_belongs{
-    background-color: aliceblue;
-    padding: 0;
-    border-radius: 3px;
-}
-#account_info_intro{
-    background-color: aliceblue;
-    padding: 3px;
-    border-radius: 3px;
-}
+
 .account_info_content{
     background-color: aliceblue;
     padding: 3px;
     border-radius: 3px;
 }
+#account_info_content-intro{
+    margin: 0 6px 6px 6px;
+
+}
+
 .account_info_index{
     color: black;
     font-weight: bold;
