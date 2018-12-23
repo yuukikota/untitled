@@ -705,8 +705,8 @@ label[for="talk_input_file"]:hover {
     border-radius: 3px;
 }
 #account_info_content-intro{
-    margin-left: 3px;
-    margin-right: 3px;
+    margin: 0 6px 6px 6px;
+
 }
 
 .account_info_index{
