@@ -68,5 +68,6 @@ gem 'rails-i18n'
 gem 'paperclip'
 
 group :development do
-  gem 'rack-mini-profiler'#簡易プロファイラー
+  gem 'rack-mini-profiler' , require: false#簡易プロファイラー
 end
+

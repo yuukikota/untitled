@@ -1,79 +1,69 @@
 
 <h2> アカウント情報 </h2>
-
-<table width="100%" border="3" rules="none">
-  <tr>
-    <td>
-      アカウントID
-    </td>
-    <td>
-      <%= @account.acc_id %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      アカウント名
-    </td>
-    <td>
-      <%= @account.name %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      大学名
-    </td>
-    <td>
-      <%= @account.university %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      学部名
-    </td>
-    <td>
-      <%= @account.faculty %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      学科名
-    </td>
-    <td>
-      <%= @account.department %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      学年
-    </td>
-    <td>
-      <%= @account.grade %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      紹介文
-    </td>
-    <td>
-      <%= simple_format(@account.introduction) %>
-    </td>
-  </tr>
-  <% if account_signed_in? %>
-    <% if current_account.id == @account.id or current_account.acc_id == 'administrator' %>
-      <tr>
-        <td>
-          <%= button_to "アカウント情報更新", edit_account_registration_path , method: :get%>
-        </td>
-        <td>
-          <%= button_to "アカウント削除", account_delete_path(current_account.acc_id) , method: :get%>
-        </td>
-      </tr>
-    <% end %>
-  <% end %>
-
-</table>
-
-
+<div  id="account_info_space">
+  <table width="100%">
+    <tr>
+      <td width="50%" style="padding: 17px 0 0 4px;">
+        <div class="account_info_content">
+          <table>
+            <tr>
+              <td width="80px">アカウント名</td>
+              <td><%= @account.name %></td>
+            </tr>
+            <tr>
+              <td width="80px">ID</td>
+              <td><%= @account.acc_id %><td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td rowspan="2">
+        <p class="account_info_index">所属</p>
+        <div class="account_info_content">
+          <table>
+            <tr>
+              <td width="40px">大学</td>
+              <td><%= @account.university %></td>
+            </tr>
+            <tr>
+              <td width="40px">学部</td>
+              <td><%= @account.faculty %><td>
+            </tr>
+            <tr>
+              <td width="40px">学科</td>
+              <td><%= @account.department %><td>
+            </tr>
+            <tr>
+              <td width="40px">学年</td>
+              <td><%= @account.grade %><td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td height="25px">
+        <% if account_signed_in? %>
+          <% if current_account.id == @account.id or current_account.acc_id == 'administrator' %>
+            <table width="100%">
+              <tr>
+                <td style="padding-left: 20px">
+                  <%= button_to "アカウント情報更新", edit_account_registration_path , method: :get%>
+                </td><td>
+                  <%= button_to "アカウント削除", account_delete_path(current_account.acc_id) , method: :get%>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <p class="account_info_index">紹介文</p>
+  <div class="account_info_content">
+    <%= simple_format(@account.introduction) %>
+  </div>
+</div>
 
 <br>
   <div>

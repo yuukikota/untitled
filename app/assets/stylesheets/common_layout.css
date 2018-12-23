@@ -692,3 +692,62 @@ label[for="talk_input_file"]:hover {
     margin-bottom : 0;
     padding :0;
 }
+
+/*==アカウント表示============================================================*/
+#account_info_space{
+    background-color: #c6e4ff;
+    border-radius: 6px 6px 6px 6px;
+    padding: 5px;
+}
+#account_info_name_id{
+    background-color: aliceblue;
+    padding: 3px;
+    border-radius: 3px;
+}
+#account_info_belongs{
+    background-color: aliceblue;
+    padding: 0;
+    border-radius: 3px;
+}
+#account_info_intro{
+    background-color: aliceblue;
+    padding: 3px;
+    border-radius: 3px;
+}
+.account_info_content{
+    background-color: aliceblue;
+    padding: 3px;
+    border-radius: 3px;
+}
+.account_info_index{
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 3px;
+    padding-left: 3px;
+}
+
+#account_info_table{
+    border-color: #5989cf;
+    border-top: 3px solid #5989cf;
+    border-right: 3px solid #5989cf;
+    border-bottom: 3px solid #5989cf;
+    border-left: 3px solid #5989cf;
+    /*border-collapse:  collapse;*/
+    border-radius: 6px 6px 6px 6px;
+    background-color: aliceblue;
+
+}
+
+#account_info_table tr{
+    border:1px solid #5989cf;
+
+}
+
+#account_info_table th,td{
+    padding-top: 4px;
+}
+
+
