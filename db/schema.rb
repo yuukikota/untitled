@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2018_12_21_083836) do
     t.integer "chat_id"
     t.string "acc_id"
     t.date "time"
-    t.string "comment"
+    t.string "comment", limit: 1000, null: false
     t.integer "file_id"
     t.bigint "account_id", null: false
     t.bigint "recruitment_id", null: false
