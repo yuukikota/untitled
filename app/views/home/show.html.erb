@@ -47,10 +47,13 @@
           <% if current_account.id == @account.id or current_account.acc_id == 'administrator' %>
             <table width="100%">
               <tr>
-                <td style="padding-left: 20px">
-                  <%= button_to "アカウント情報更新", edit_account_registration_path , method: :get%>
-                </td><td>
-                  <%= button_to "アカウント削除", account_delete_path(current_account.acc_id) , method: :get%>
+                <% if current_account.acc_id != 'administrator' %>
+                  <td style="padding-left: 20px">
+                    <%= button_to "アカウント情報更新", edit_account_registration_path , method: :get%>
+                  </td>
+                <% end %>
+                <td>
+                  <%= button_to "アカウント削除", account_delete_path(@account.acc_id) , method: :get%>
                 </td>
               </tr>
             </table>
