@@ -104,7 +104,7 @@ class RecruitmentsController < ApplicationController
 
       respond_to do |format|
         Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
-        if @recruitment.re_id == "募集"
+        if @recruitment.chat == "有"
           entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
           entry_chat.save
         end
@@ -173,7 +173,6 @@ class RecruitmentsController < ApplicationController
       @recruitment = Recruitment.find(params[:id])
       @recruitment_params = { "id":@recruitment.id,
                               "acc_id":@recruitment.acc_id,
-                              "chat_id":@recruitment.chat_id,
                               "resolved":"解決",
                               "detail":@recruitment.detail,
                               "title":@recruitment.title,

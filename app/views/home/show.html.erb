@@ -48,7 +48,7 @@
             <table width="100%">
               <tr>
                 <td style="padding-left: 20px">
-                  <%= button_to "アカウント情報更新", edit_account_registration_path%>
+                  <%= button_to "アカウント情報更新", edit_account_registration_path , method: :get%>
                 </td><td>
                   <%= button_to "アカウント削除", account_delete_path(current_account.acc_id) , method: :get%>
                 </td>
@@ -57,7 +57,6 @@
           <% end %>
         <% end %>
       </td>
-
     </tr>
   </table>
   <p class="account_info_index">紹介文</p>
