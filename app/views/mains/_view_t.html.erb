@@ -1,9 +1,10 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
-<span class="view">
   <% @recruitments.each do |recruitment| %>
+
     <div id=<%="recruitment_" + recruitment.id.to_s %>>
       <table width="100%"  class="box_comment">
         <tr>
+
           <td>
             <table width="100%">
               <tr>
@@ -67,6 +68,7 @@
                 </td>
                 <% if account_signed_in? %>
                   <td>
+
                     <%= render partial: 'bookmarks/bookmark', locals: { current_account_id: current_account.id, recruitment_id: recruitment.id} %>
                   </td>
 
@@ -110,4 +112,4 @@
       </table>
     </div>
   <% end %>
-</span>
+
