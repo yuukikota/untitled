@@ -63,6 +63,7 @@ ja:
       too_long: "は%{count}文字以下に設定して下さい。"
       invalid: "は有効でありません。"
       confirmation: "が内容とあっていません。"
+      spoofed_media_type: "アップロードは画像、pdf、wordファイルのみです"
   activerecord:
     models:
       account: "アカウント"
@@ -85,3 +86,5 @@ ja:
       recruitment:
         detail: "本文"
         title: "タイトル"
+        photo: "ファイル"
+        photo_content_type: "拡張子"

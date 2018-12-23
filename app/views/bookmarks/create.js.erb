@@ -1,3 +1,7 @@
+<% if @alert.nil? %>
 $('<%= "#bookmark_" + @bookmark.recruitment.id.to_s %>').html(
     "<%= escape_javascript(render partial: 'bookmarks/selected', locals: { bookmark: @bookmark}) %>"
 );
+<% else %>
+$('#flash_message').html("<%=escape_javascript(render partial: 'layouts/flash_message', locals: {alert: @alert}) %>")
+<% end %>

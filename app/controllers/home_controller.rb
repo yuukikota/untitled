@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  def index
-  end
 
   # アカウント情報画面
   def show
@@ -8,9 +6,10 @@ class HomeController < ApplicationController
     @home_button = '1'
     @view_num = '1'
     @account = Account.find_by(acc_id: params[:acc_id])
+    @bookmark = Bookmark.new
     if @account.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '存在しないアカウントです' }
+        format.html { redirect_to root_path, alert: '存在しないアカウントです' }
         format.json { head :no_content }
       end
     else
@@ -25,12 +24,12 @@ class HomeController < ApplicationController
     @account = Account.find_by(acc_id: params[:acc_id])
     if @account.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '存在しないアカウントです' }
+        format.html { redirect_to root_path, alert: '存在しないアカウントです' }
         format.json { head :no_content }
       end
     elsif @account.id != current_account.id
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '削除権限がありません' }
+        format.html { redirect_to root_path, alert: '削除権限がありません' }
         format.json { head :no_content }
       end
     end
@@ -40,16 +39,17 @@ class HomeController < ApplicationController
     @home_button = params[:id]
     @view_num = '1'
     @account = Account.find_by(acc_id: params[:acc_id])
+    @bookmark = Bookmark.new
     if @account.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '存在しないアカウントです' }
+        format.html { redirect_to root_path, alert: '存在しないアカウントです' }
         format.json { head :no_content }
       end
     else
       if @home_button == '1'
       @recruitments = @account.recruitments.order(updated_at: "DESC")
       elsif @home_button == '2'
-        @recruitments = current_account.bookmark_recruitments
+        @recruitments = @account.bookmark_recruitments
       elsif @home_button == '3'
         @entry_chats = @account.entry_chats
       end
@@ -61,6 +61,7 @@ class HomeController < ApplicationController
   def button_view
     @account = Account.find_by(acc_id: params[:acc_id])
     @view_num = params[:id]
+    @bookmark = Bookmark.new
     if @view_num == '1'
       @recruitments = @account.recruitments.order(updated_at: "DESC")                         #タイムライン
     elsif @view_num == '2'

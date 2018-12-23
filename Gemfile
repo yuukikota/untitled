@@ -64,8 +64,9 @@ gem 'jquery-rails'
 # 日本語化設定時のエラーの日本語化のため
 gem 'rails-i18n'
 
-# 確認ダイアログのため
-
-
 # ファイルアップロードのため
 gem 'paperclip'
+
+group :development do
+  gem 'rack-mini-profiler'#簡易プロファイラー
+end

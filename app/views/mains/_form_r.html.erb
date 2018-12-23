@@ -1,34 +1,21 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
-
-<%= form_with(model: recruitment, url: recruitments_create_path(view_com_num), local: true) do |form| %>
-  <% if recruitment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
-
-      <ul>
-        <% recruitment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<!--======================募集フォーム==========================-->
+<%= form_with(model: recruitment, url: recruitments_create_path(6)) do |form| %>
+  <div class="form_layout">
+    <div class="form_layout_item-textarea">
+      <div style="white-space: nowrap;height: 25px;width: 680px;">
+        <%= form.text_field :title, :placeholder => "タイトル", id:"recruit_input_title"%><%= form.select :chat, [["チャットあり","有"],["チャットなし","無"]],{},{id:"recruit_input_chat-select"} %>
+      </div><div style="height: 56px;width: 680px;">
+        <%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id:"recruit_input_form"%>
+      </div>
+      <div>
+        <label for="recruit_input_file" id="recruit_input_file_label-label"><span id="recruit_input_file_label">ファイルを選択して下さい</span>
+          <%= form.file_field :photo, id:"recruit_input_file"%>
+        </label>
+      </div>
     </div>
-  <% end %>
-  <table class="form">
-    <td>
-      <div class="field">
-        <%= form.label :タイトル %>
-        <%= form.text_field :title %>
-      </div>
-        <%= form.label :チャットの有無 %>
-        <%= form.select :chat, [["有","有"],["無","無"]] %>
-
-      <div class="field"　>
-      <%= form.label :募集 %>
-        <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
-      </div>
-    </td>
-    <td>
-      <div class="actions">
-      <!--====================タグ検索情報====================-->
+    <div class="form_layout_item-submit">
+    <!--====================タグ検索情報====================-->
       <input type="hidden" name="school" value="<%=@inputtag.school %>">
       <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">
       <input type="hidden" name="department" value="<%=@inputtag.department %>">
@@ -42,15 +29,31 @@
       <input type="hidden" name="tag8" value="<%=@inputtag.tag8 %>">
       <input type="hidden" name="tag9" value="<%=@inputtag.tag9 %>">
       <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
-        <input type="hidden" name="view_num" value="<%=@view_num %>">
-      <!--====================タグ検索情報====================-->
-        <div class="button1">
-          <div class="on">
-      <%= form.submit"送信📤" %>
-          </div>
+      <input type="hidden" name="view_num" value="<%=@view_num %>">
+    <!--====================タグ検索情報====================-->
+      <%= form.submit"送信📤" , id:"recruit_input_form_submit"%>
+      <div><!--<div class="button1">-->
+        <div><!--<div class="on">-->
+
         </div>
       </div>
-    </td>
-  </table>
-
+    </div>
+  </div>
 <% end %>
+
+<script>
+    var file_slect = document.getElementById('recruit_input_file');
+    file_slect.addEventListener('change',function(){
+        document.getElementById("recruit_input_file_label").textContent=this.value;
+    });
+
+    var file_slect = document.getElementById('recruit_input_file');
+    file_slect.addEventListener('change',function(){
+        document.getElementById("recruit_input_file_label").textContent=this.value;
+    },false);
+
+    if(document.getElementById("recruit_input_file_label-label").lastElementChild.className=='field_with_errors'){
+        document.getElementById("recruit_input_file_label-label").style.borderColor = '#ff0847'
+        document.getElementById("talk_input_file_label-label").style.backgroundColor = '#ffebeb'
+    }
+</script>

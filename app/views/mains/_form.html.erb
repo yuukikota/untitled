@@ -1,30 +1,17 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
+<!--======================発言フォーム==========================-->
+<%= form_with(model: recruitment, url: recruitments_create_path(5)) do |form| %>
 
-<%= form_with(model: recruitment, url: recruitments_create_path(view_com_num), local: true) do |form| %>
-  <% if recruitment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= recruitment.errors.count %>個のエラーがあります:</h2>
-
-      <ul>
-        <% recruitment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <div class="form_layout">
+    <div style="padding: 0px" class="form_layout_item-textarea">
+      <div style="height: 80px"><%= form.text_area :detail,maxlength:"1000", placeholder: "本文を入力して下さい", id: "talk_input_form"%></div>
+      <div><label for="talk_input_file" id="talk_input_file_label-label"><span id="talk_input_file_label">ファイルを選択して下さい</span>
+        <%= form.file_field :photo, id: "talk_input_file" %>
+      </label></div>
     </div>
-  <% end %>
-  <table class="form">
-    <td>
-      <%= form.label :発言 %>
-      <%= form.text_area :detail,rows:"5",cols:"50",maxlength:"1000"%>
-      <div class="field">
-        <!--
-            <%= form.label :添付 %>
-            <%= form.number_field :file_id %>
-         -->
-      </div>
-    </td>
-    <td>
-      <div class="actions">
+
+    <div class="form_layout_item-submit">
+       <!--<div class="actions">-->
         <!--====================タグ検索情報====================-->
         <input type="hidden" name="school" value="<%=@inputtag.school %>">
         <input type="hidden" name="faculty" value="<%=@inputtag.faculty %>">
@@ -41,12 +28,24 @@
         <input type="hidden" name="tag10" value="<%=@inputtag.tag10 %>">
         <input type="hidden" name="view_num" value="<%=@view_num %>">
         <!--====================タグ検索情報====================-->
-        <div class="button1">
-          <div class="on">
-        <%= form.submit"送信📤" %>
-          </div>
-        </div>
-      </div>
-    </td>
-  </table>
+        <!--<div class="button1">-->
+        <!--<div class="on">-->
+        <%= form.submit"送信📤", id: "talk_input_form_submit"%>
+
+      <!--</div>-->
+    </div>
+  </div>
 <% end %>
+
+
+<script>
+    var file_slect = document.getElementById('talk_input_file');
+    file_slect.addEventListener('change',function(){
+        document.getElementById("talk_input_file_label").textContent=this.value;
+    },false);
+
+    if(document.getElementById("talk_input_file_label-label").lastElementChild.className=='field_with_errors'){
+        document.getElementById("talk_input_file_label-label").style.borderColor = '#ff0847'
+        document.getElementById("talk_input_file_label-label").style.backgroundColor = '#ffebeb'
+    }
+</script>

@@ -1,28 +1,36 @@
-
-<div class="box_comment">
-  <table width="100%">
+<div id=<%="comment_" + comment.id.to_s %>>
+<table width="100%" class="box_comment">
+  <tr>
+    <td class="box_comment2">
+      <%= link_to account_show_path(comment.account.acc_id) do %>
+        <%= comment.account.name %>
+      <% end %>
+    </td>
+    <td class="box_comment2">
+      <%= comment.account.acc_id %>
+    </td>
+    <td><%= comment.created_at %></td>
+  </tr>
+  <tr >
+    <td colspan="3" class="box_comment3">
+      <%= simple_format(comment.message) %>
+    </td>
+  </tr>
+  <%if comment.file_id != nil %>
     <tr>
-      <td class="box_comment2">
-        <%= link_to account_show_path(comment.account.acc_id) do %>
-          <%= comment.account.name %>
-        <% end %>
-      </td>
-      <td class="box_comment2">
-        <%= comment.account.acc_id %>
-      </td>
-      <td><%= comment.created_at %></td>
-    </tr>
-    <tr >
-      <td colspan="3" class="box_comment3">
-        <%= simple_format(comment.message) %>
+      <td class="box_comment3" colspan="3">
+        <%= link_to 'ファイルを表示する', comment.file_id %>
       </td>
     </tr>
-    <tr>
-      <td colspan="3">
-        <% if comment.account.id == current_account.id or current_account.acc_id == 'administrator' %>
-          <%= button_to '削除', comment, method: :delete, data: { confirm: '返信を本当に削除しますか?' } %>
-        <% end %>
-      </td>
-    </tr>
-  </table>
+  <%end %>
+  <% if account_signed_in? %>
+    <% if comment.account.id == current_account.id or current_account.acc_id == 'administrator' %>
+      <tr>
+        <td colspan="3">
+          <%= button_to '削除', comment, method: :delete, data: { confirm: '返信を本当に削除しますか?' } , remote: true%>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
 </div>

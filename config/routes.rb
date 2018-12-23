@@ -1,15 +1,6 @@
 Rails.application.routes.draw do
 
   resources :bookmarks, only: [:create, :destroy]
-#  get "/inform" => "inform#gamen_sentaku"
-#  get "inform/hatsugen_inf"
-#  get "inform/hatsugen_inf/:ht11" => "inform#toukou"
-#  get "inform/hatsugen_inf/:re_id" => "inform#toukou"
-#  get "inform/toukou" => "inform"
-#  get "/b_inform/bosyuu_inf"
-#  get "b_inform/:ht22" => "b_inform#toukou"
-#  get "b_inform/:re_id" => "b_inform#toukou"
-#  get "b_inform/toukou" => "b_inform"
 
   devise_for :accounts, :controllers =>{
       :registrations => 'accounts/registrations'
@@ -23,7 +14,7 @@ Rails.application.routes.draw do
   post '/recruitments/create/:id', to: 'recruitments#create', as: :recruitments_create
   post '/recruitments/:id', to: 'recruitments#update', constraints: {id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/recruitments/edit/add/:id/:offset_time', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/ }
+  post '/recruitments/edit/add/:id/:offset_time', to: 'recruitments#add_result', as: :results_add, constraints: { id:/[0-9]+/ }
   post '/recruitments/select/:id/:comment_id', to: 'recruitments#select', as: :select_result, constraints: { id:/[0-9]+/, comment_id:/[0-9]+/ }
   post '/recruitments/selected/:id/:comment_id', to: 'recruitments#selected', as: :selected_result, constraints: { id:/[0-9]+/, comment_id:/[0-9]+/ }
 
@@ -31,19 +22,17 @@ Rails.application.routes.draw do
   resources :comments, only: [ :create, :destroy ]
   get '/comments/index/:recruitment_id', to: 'comments#index', as: :comments_index, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
+  post '/comments/index/add/:recruitment_id/:offset_time', to: 'comments#add_index', as: :comments_add, constraints: { recruitment_id:/[0-9]+/ }
   
   resources :chat_comments, only: [:destroy]
-  get '/chat_comments/:chat_id', to: 'chat_comments#index', as: :chat_comments_index
+  get '/chat_comments/:recruitment_id', to: 'chat_comments#index', as: :chat_comments_index
   post '/chat_comments/create/:chat_id', to: 'chat_comments#create', as: :chat_comments_create
 
   resources :entry_chats, only: [:create, :destroy]
   # チャット有り結果選択
   get '/entry_chats/new/:recruitment_id', to: 'entry_chats#new', as: :new_entry_chats, constraints: { recruitment_id: /[0-9]+/ }
   # 返信追加読み込み
-  get '/entry_chats/new/add/:recruitment_id/:offset_time', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { recruitment_id:/[0-9]+/ }
-
-  resources :pictures
+  post '/entry_chats/new/add/:recruitment_id/:offset_time', to: 'entry_chats#add_result', as: :results_chat_add, constraints: { recruitment_id:/[0-9]+/ }
 
   root 'mains#index'
 

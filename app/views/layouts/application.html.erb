@@ -9,7 +9,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
 
   <body>
@@ -22,12 +21,10 @@
         </ul>
       </nav>
     </header><!--ヘッダーここまで-->
-
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-
-
+      <div id="flash_message">
+        <%= render 'layouts/flash_message', notice: notice, alert: alert %>
+      </div>
       <span class="common_style">
         <%= yield %>
       </span>
@@ -35,5 +32,13 @@
 
     <footer><!-------フッダー-- ---->
     </footer><!---フッダーここまで--->
+    <div id="floating-ad-left"><div style="height: 500px;width: 150px;background-color: whitesmoke">広告</div></div>
+    <div id="floating-ad-right"><div style="height: 500px;width: 150px;background-color: whitesmoke">広告</div></div>
+    <div id="layer"></div>
+    <!-- ポップアップ -->
+    <div id="popup">
+      <div>popup</div>
+      <input type="button" id="close" value="close popup">
+    </div>
   </body>
 </html>

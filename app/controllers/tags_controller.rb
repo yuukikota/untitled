@@ -24,17 +24,17 @@ class TagsController < ApplicationController
         @inputtag = Inputtag.new
       end
     end
-    @view_num = '1'
+    @view_num = params[:view_num]
     @view_com_num = '5'
     @inputtag.freetagnum = @inputtag.count_freetag #タグの数をかうんと
 
-    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry, 20, DateTime.tomorrow, params[:view_num].to_i) #入力タグで検索
+    @recruitments = Recruitment.tagnamesearch(@inputtag.tag_to_arry, 2, DateTime.tomorrow, params[:view_num].to_i) #入力タグで検索
     @recruitment = Recruitment.new
     @taghistoryid = Taghistoryid.new
     if account_signed_in? && params[:type] == "input" then
       add_taghistory(inputtag_params)
     end
-    render template: 'mains/index'
+    render template: 'mains/add_index'
   end
 
   private

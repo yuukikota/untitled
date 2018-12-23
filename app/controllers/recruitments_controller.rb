@@ -15,13 +15,13 @@ class RecruitmentsController < ApplicationController
   def edit
     if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '募集が存在しません' }
+        format.html { redirect_to root_path, alert: '募集が存在しません' }
         format.json { head :no_content }
       end
       return
     elsif !(account_signed_in? and @recruitment.acc_id == current_account.acc_id)
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '結果選択は募集者のみです' }
+        format.html { redirect_to root_path, alert: '結果選択は募集者のみです' }
         format.json { head :no_content }
       end
       return
@@ -45,7 +45,7 @@ class RecruitmentsController < ApplicationController
     @comment = Comment.find_by(id: params[:comment_id])
     if @comment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信がありません' }
+        format.html { redirect_to root_path, alert: '返信がありません' }
         format.json { head :no_content }
       end
     end
@@ -58,7 +58,7 @@ class RecruitmentsController < ApplicationController
     @comment = Comment.find_by(id: params[:comment_id])
     if @comment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, notice: '返信がありません' }
+        format.html { redirect_to root_path, alert: '返信がありません' }
         format.json { head :no_content }
       end
     end
@@ -68,50 +68,60 @@ class RecruitmentsController < ApplicationController
   # POST /recruitments.json
   def create
 
-    view_com_num = params[:id]
+    @view_num = params[:view_num]
+    @view_com_num = params[:id]
     @inputtag = Inputtag.new(inputtag_params)
     @inputtag.count_freetag
 
     @recruitment = Recruitment.new(recruitment_params)
     @recruitment.acc_id = current_account.acc_id#アカウントID
     @recruitment.account_id = current_account.id # アカウントの主キーのID 自動削除のため
+
     if @recruitment.detail.size ==0 || (@recruitment.detail.gsub(/\r\n|\r|\n|\s|\t/, "")).size==0
       @recruitment.detail = nil
     end
 
-    if view_com_num == '5'
+    if @view_com_num == '5'
       @recruitment.re_id  = '発言'
       @recruitment.title = "発言"
-    else if  view_com_num == '6'
+    else if  @view_com_num == '6'
            @recruitment.re_id  = '募集'
            @recruitment.resolved = '未解決'
          end
     end
 
-    respond_to do |format|
-      if @recruitment.save
-        Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
-        format.html { redirect_to request_url(@inputtag.tag_to_arry, params[:view_num]), notice: '送信しました' }
-        format.json { render :show, status: :created, location: @recruitment }
+    if @recruitment.photo_file_size != nil #ファイルがあった場合、file_idにurlを格納
+      max_id = Recruitment.maximum(:id)
+      if max_id.nil?
+        @recruitment.file_id= "/assets/arts/1/original/" +@recruitment.photo_file_name
       else
-        @view_num = '1'
-        @view_com_num = '5'
-        format.html { render :template => "mains/index" }
-        format.json { render json: @recruitment.errors, status: :unprocessable_entity }
+        @recruitment.file_id= "/assets/arts/"+(max_id+1).to_s+"/original/" +@recruitment.photo_file_name
       end
     end
 
-  end
+    if @recruitment.save
+      #ファイル追加
 
+      respond_to do |format|
+        Tagmap.associate(@recruitment.id, @inputtag.tag_to_arry)
+        if @recruitment.re_id == "募集"
+          entry_chat = EntryChat.new(recruitment_id: @recruitment.id, account_id: @recruitment.account.id)
+          entry_chat.save
+        end
+        format.html { redirect_to request_url(@inputtag.tag_to_arry, params[:view_num]), notice: '送信しました' }
+        format.json { render :show, status: :created, location: @recruitment }
+      end
+    end
+  end
 
   # PATCH/PUT /entry_chats/1
   # PATCH/PUT /entry_chats/1.json
   # 結果選択時のみ使用
   def update
     if @recruitment_params[:chat] == "有"
-      if EntryChat.find_by(chat_id: @recruitment_params[:id]).nil?
+      if EntryChat.find_by(recruitment_id: @recruitment_params[:id]).nil?
         respond_to do |format|
-          format.html { redirect_to new_entry_chats_path(@recruitment_params[:id]), notice: '結果を選択してください' }
+          format.html { redirect_to new_entry_chats_path(@recruitment_params[:id]), alert: '結果を選択してください' }
           format.json { head :no_content }
         end
         return
@@ -119,7 +129,7 @@ class RecruitmentsController < ApplicationController
     elsif @recruitment_params[:chat] == "無"
       if @recruitment_params[:answer].blank?
         respond_to do |format|
-          format.html { redirect_to edit_recruitment_path(@recruitment_params[:id]), notice: '結果を選択してください' }
+          format.html { redirect_to edit_recruitment_path(@recruitment_params[:id]), alert: '結果を選択してください' }
           format.json { head :no_content }
         end
         return
@@ -139,24 +149,37 @@ class RecruitmentsController < ApplicationController
   # DELETE /recruitments/1
   # DELETE /recruitments/1.json
   def destroy
-    @recruitment.destroy
-    #Tagmap.delrelated(@recruitment.id)
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Recruitment was successfully destroyed.' }
-      format.json { head :no_content }
+    if @recruitment.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'すでに削除されています' }
+        format.json { head :no_content }
+      end
+    else
+      @recruitment.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: '削除されました' }
+        format.json { head :no_content }
+      end
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recruitment
-      @recruitment = Recruitment.find(params[:id])
+      @recruitment = Recruitment.find_by(id: params[:id])
     end
 
     def add_answer
       @recruitment = Recruitment.find(params[:id])
-      @recruitment_params = recruitment_params
-      @recruitment_params[:resolved] = "解決"
+      @recruitment_params = { "id":@recruitment.id,
+                              "acc_id":@recruitment.acc_id,
+                              "chat_id":@recruitment.chat_id,
+                              "resolved":"解決",
+                              "detail":@recruitment.detail,
+                              "title":@recruitment.title,
+                              "answer":params[:answer],
+                              "file_id":@recruitment.file_id,
+                              "chat":@recruitment.chat}
       if @recruitment_params[:chat] == "有"
         @recruitment_params[:answer] = "募集は終了しました"
       end
@@ -165,7 +188,7 @@ class RecruitmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
 
     def recruitment_params
-      params.require(:recruitment).permit(:acc_id, :chat_id, :resolved, :detail, :title, :answer, :file_id, :chat)
+      params.require(:recruitment).permit(:acc_id, :resolved, :detail, :title, :answer, :file_id, :chat, :photo)
     end
 
     def inputtag_params

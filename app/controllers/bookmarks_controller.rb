@@ -1,46 +1,53 @@
 class BookmarksController < ApplicationController
   before_action :set_bookmark, only: [:destroy]
 
-  # GET /bookmarks
-  # GET /bookmarks.json
-  def index
-    @bookmarks = Bookmark.all
-  end
-
   # POST /bookmarks
   # POST /bookmarks.json
   def create
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
     @bookmark = Bookmark.new(bookmark_params)
     @bookmark.account_id = current_account.id
-    @bookmark.save
-    # respond_to do |format|
-    #  if @bookmark.save
-    #    format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
-    #    format.json { render :show, status: :created, location: @bookmark }
-    #  else
-    #    format.html { render :new }
-    #    format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-    #  end
-    #end
+    @alert = nil
+    if @bookmark.recruitment.nil?
+      @alert = "存在しない発言または募集です"
+    else
+      if @bookmark.save
+        # 保存成功
+      else
+        # 保存失敗
+        @alert = "ブックマークに失敗しました"
+      end
+    end
   end
 
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.json
   def destroy
-    @new_bookmark = Bookmark.new
-    @new_bookmark.account_id = @bookmark.account_id
-    @new_bookmark.recruitment_id = @bookmark.recruitment_id
-    @bookmark.destroy
-    #respond_to do |format|
-    #  format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
-    #  format.json { head :no_content }
-    #end
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @alert = nil
+
+    if @bookmark.nil?
+      @alert = '存在しない発言または募集です'
+    else
+      @new_bookmark = Bookmark.new
+      @new_bookmark.account_id = @bookmark.account_id
+      @new_bookmark.recruitment_id = @bookmark.recruitment_id
+      if @bookmark.destroy
+        # 削除成功
+      else
+        @alert = 'ブックマークの取り消しに失敗しました'
+      end
+    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
+      @bookmark = Bookmark.find_by(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
