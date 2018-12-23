@@ -80,13 +80,13 @@ class CommentsController < ApplicationController
     return redirect_to '/404.html' unless request.xhr?
 
     @alert = nil
-
+    @comment_id = params[:id]
     if @comment.nil?  #削除すべきコメントは存在したか
       @notice = '既に削除されています'
     elsif !(account_signed_in? and (@comment.account.id == current_account.id or current_account.acc_id == 'administrator')) #削除権限があるか
       @alert = '削除権限がありません'
     else
-      @comment_id = @comment.id
+
       if @comment.destroy
         @notice = '返信を削除しました'
       else

@@ -1,0 +1,6 @@
+<% if @alert.nil? %>
+$('<%= "#recruitment_" + @recruitment_id.to_s %>').remove();
+$('#flash_message').html("<%=escape_javascript(render partial: 'layouts/flash_message', locals: {notice: @notice}) %>");
+<% else %>
+$('#flash_message').html("<%=escape_javascript(render partial: 'layouts/flash_message', locals: {alert: @alert}) %>");
+<% end %>
