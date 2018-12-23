@@ -15,7 +15,7 @@ class ChatCommentsController < ApplicationController
       return
     end
 
-    if EntryChat.find_by(recruitment_id: @chat_num, account_id: current_account.id).present? || current_account.id == 'administrater'
+    if EntryChat.find_by(recruitment_id: @chat_num, account_id: current_account.id).present? || current_account.acc_id == 'administrator'
       @chat_comments = @recruitment.chat_comments
       @chat_comment = ChatComment.new(recruitment_id: params[:recruitment_id])
     else

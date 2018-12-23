@@ -16,6 +16,11 @@
         <table width="100%" class="box_comment">
           <tr>
             <td class="box_comment2">
+              <%= link_to account_show_path(chat_comment.account.acc_id) do %>
+                <%= chat_comment.account.name %>👤
+              <% end %>
+            </td>
+            <td class="box_comment2">
               <%= chat_comment.account.acc_id %>
             </td>
             <td class="box_comment2">
