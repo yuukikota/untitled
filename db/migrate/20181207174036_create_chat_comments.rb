@@ -4,7 +4,7 @@ class CreateChatComments < ActiveRecord::Migration[5.2]
       t.integer :chat_id
       t.string :acc_id
       t.date :time
-      t.string :comment
+      t.string :comment, null: false, limit: 1000
       t.integer :file_id
       t.bigint :account_id, null: false , index: true
       t.bigint :recruitment_id, null: false , index: true
