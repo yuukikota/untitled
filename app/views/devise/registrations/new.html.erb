@@ -75,13 +75,12 @@
 
     $("#university").on({
         "input" : function() {//大学タグ入力欄に変更があった場合、学部情報を取得する
-            //alert("");
             get_faculty_tag();
 
         }
     });
     $("#faculty").on({
-        "input" : function() {//学部タグ入力欄に変更があった場合、学部情報を取得する
+        "change" : function() {//学部タグ入力欄に変更があった場合、学部情報を取得する
             get_department_tag();
         }
     });
@@ -93,7 +92,6 @@
             faculty_request.open("GET", `/univtag/list?`+ param);
             faculty_request.addEventListener("load", (event) => {//学部情報取得時の処理
                 var s = JSON.parse(event.target.responseText)
-
                 document.getElementById('faculty').value = "";
                 recreate_list(document.getElementById('faculty'), s);//学部リストの更新
                 get_department_tag();
