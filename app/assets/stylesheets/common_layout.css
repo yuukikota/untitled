@@ -77,7 +77,7 @@
 }
 
 .common_style input[type=text]{
-    width: 160px;
+    width: 176px;
 }
 .common_style input[type=text]:hover {
     background-color: #FFFFEE;
@@ -87,7 +87,7 @@
 }
 
 .common_style input[type=password]{
-    width: 160px;
+    width: 176px;
 }
 .common_style input[type=password]:hover {
     background-color: #FFFFEE;
@@ -97,7 +97,7 @@
 }
 
 .common_style input[type=email]{
-    width: 160px;
+    width: 176px;
 }
 .common_style input[type=email]:hover {
     background-color: #FFFFEE;
@@ -175,7 +175,7 @@
     font-size: 13px;
     padding: 2px;
     height: 28px;
-    width: 160px;
+    width: 176px;
 }
 .common_style select:focus {
     outline: 0;
