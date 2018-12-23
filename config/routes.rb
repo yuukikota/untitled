@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   devise_scope :account do
     post '/accounts/sign_up/confirm', to: 'accounts/registrations#confirm'
+    delete '/accounts/:id', to: 'accounts/registrations#destroy', as: :account_destroy, constraints: {id: /[0-9]+/ }
   end
 
   resources :recruitments, only: [ :edit, :update, :destroy ]

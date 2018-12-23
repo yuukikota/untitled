@@ -33,10 +33,41 @@ class Accounts::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  # DELETE /resource/:id
+  def destroy
+    #super
+
+    @account = Account.find_by(id: params[:id])
+
+    if @account.nil?
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: '存在しないアカウントです' }
+        format.json { head :no_content }
+      end
+    elsif @account.acc_id == 'administrator'
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: '管理者アカウントを削除することはできません' }
+        format.json { head :no_content }
+      end
+    elsif !(@account.id == current_account.id or current_account.acc_id == 'administrator')
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: '削除権限がありません' }
+        format.json { head :no_content }
+      end
+    else
+      if @account.destroy
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'アカウントを削除しました' }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to root_path, alert: 'アカウント削除に失敗しました' }
+          format.json { head :no_content }
+        end
+      end
+    end
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
