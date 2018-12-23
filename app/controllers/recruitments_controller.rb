@@ -149,16 +149,19 @@ class RecruitmentsController < ApplicationController
   # DELETE /recruitments/1
   # DELETE /recruitments/1.json
   def destroy
+    #ajax通信以外は弾く
+    return redirect_to '/404.html' unless request.xhr?
+
+    @alert = nil
+    @recruitment_id = params[:id]
+
     if @recruitment.nil?
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: 'すでに削除されています' }
-        format.json { head :no_content }
-      end
+      @notice = 'すでに削除されています'
     else
-      @recruitment.destroy
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: '削除されました' }
-        format.json { head :no_content }
+      if @recruitment.destroy
+        @notice = '削除されました'
+      else
+        @alert = '削除に失敗しました'
       end
     end
   end
