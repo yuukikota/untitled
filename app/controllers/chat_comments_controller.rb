@@ -15,10 +15,10 @@ class ChatCommentsController < ApplicationController
       return
     end
 
-    if EntryChat.find_by(recruitment_id: @chat_num, account_id: current_account.id).present?
+    if EntryChat.find_by(recruitment_id: @chat_num, account_id: current_account.id).present? || current_account.id == 'administrater'
       @chat_comments = @recruitment.chat_comments
       @chat_comment = ChatComment.new(recruitment_id: params[:recruitment_id])
-    elsif
+    else
       redirect_to root_path, alert: 'チャットルームに入れませんでした'
     end
   end
