@@ -62,7 +62,7 @@
     <% if current_account.id == @account.id or current_account.acc_id == 'administrator' %>
       <tr>
         <td>
-          <%= button_to "アカウント情報更新", edit_account_registration_path %>
+          <%= button_to "アカウント情報更新", edit_account_registration_path , method: :get%>
         </td>
         <td>
           <%= button_to "アカウント削除", account_delete_path(current_account.acc_id) , method: :get%>
