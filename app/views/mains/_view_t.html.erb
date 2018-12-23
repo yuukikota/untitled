@@ -1,5 +1,4 @@
 <%= stylesheet_link_tag "box.css", :media => "all" %>
-<span class="view">
   <% @recruitments.each do |recruitment| %>
     <table width="100%"  class="box_comment">
     <tr>
@@ -30,7 +29,9 @@
     <% end %>
           <tr>
       <td class="box_comment3" colspan="3">
+        <div class="word">
         <%= simple_format(recruitment.detail) %>
+        </div>
       </td>
     </tr>
           <%if recruitment.photo_file_size  != nil%>
@@ -108,7 +109,5 @@
           </table>
       </td>
     </tr>
-
     </table>
   <% end %>
-</span>
