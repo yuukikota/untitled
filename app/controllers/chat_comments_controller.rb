@@ -15,10 +15,10 @@ class ChatCommentsController < ApplicationController
       return
     end
 
-    if EntryChat.find_by(recruitment_id: @chat_num, account_id: current_account.id).present?
+    if EntryChat.find_by(recruitment_id: @chat_num, account_id: current_account.id).present? || current_account.id == 'administrater'
       @chat_comments = @recruitment.chat_comments
       @chat_comment = ChatComment.new(recruitment_id: params[:recruitment_id])
-    elsif
+    else
       redirect_to root_path, alert: 'チャットルームに入れませんでした'
     end
   end
@@ -36,8 +36,8 @@ class ChatCommentsController < ApplicationController
 
     if @chat_comment.save
       respond_to do |format|
-        format.html { redirect_to chat_comments_index_path(@chat_num), notice: '発言が送信されました' }
-        format.json { render head :no_content }
+        format.html { redirect_to chat_comments_index_path(@chat_num), notice: 'チャットが送信されました' }
+        format.json { render :index, status: :created, location: @chat_comment }
       end
     end
   end
