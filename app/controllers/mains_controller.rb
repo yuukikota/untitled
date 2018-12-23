@@ -67,7 +67,9 @@ class MainsController < ApplicationController
     if account_signed_in? then #ログインしている
       taghistoryid = Taghistoryid.new #履歴用に変数準備
     end
-
+    if @recruitments.present? then
+      @oldest = params[:oldest].to_time
+    end
   end
 
   def button_view
