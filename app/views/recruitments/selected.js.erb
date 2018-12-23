@@ -1,7 +1,12 @@
+<% if @alert.nil? %>
 $('#decide_answer').html(
-    "<%=escape_javascript(render partial: 'recruitments/decide_answer', locals: {recruitment: @recruitment, answer: nil})%>"
+    "<%=escape_javascript(render partial: 'recruitments/decide_answer', locals: {recruitment: @recruitment, answer: ''})%>"
 );
 $('<%= "#" + @comment.id.to_s %>').html(
     "<%= escape_javascript(render partial: 'recruitments/select', locals: {comment: @comment}) %>"
 );
 $('.selected').attr("class", "select");
+<% else %>
+$('<%= "#comment_" + @comment_id.to_s %>').remove();
+$('#flash_message').html("<%=escape_javascript(render partial: 'layouts/flash_message', locals: {alert: @alert}) %>");
+<% end %>

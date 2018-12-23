@@ -1,5 +1,5 @@
 class RecruitmentsController < ApplicationController
-  before_action :set_recruitment, only: [ :edit, :add_result, :select, :destroy]
+  before_action :set_recruitment, only: [ :edit, :add_result, :select, :selected, :destroy]
   before_action :add_answer, only: [:update]
 
   # GET /recruitments
@@ -37,29 +37,43 @@ class RecruitmentsController < ApplicationController
     @comments = @recruitment.comments.where('updated_at > ?', Time.zone.parse(params[:offset_time])).limit(20)
   end
 
+  # チャット無しの結果選択
   #ajaxで動的に選択
   def select
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
 
-    @comment = Comment.find_by(id: params[:comment_id])
-    if @comment.nil?
+    if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, alert: '返信がありません' }
+        format.html { redirect_to root_path, alert: '募集が存在しません' }
         format.json { head :no_content }
+      end
+    else
+      @comment = Comment.find_by(id: params[:comment_id])
+      @alert = nil
+      @comment_id = params[:comment_id]
+      if @comment.nil?
+        @alert = '返信がありません'
       end
     end
   end
 
+  # チャット無しの結果選択
   def selected
     #ajax通信以外は弾く
     return redirect_to '/404.html' unless request.xhr?
 
-    @comment = Comment.find_by(id: params[:comment_id])
-    if @comment.nil?
+    if @recruitment.nil?
       respond_to do |format|
-        format.html { redirect_to root_path, alert: '返信がありません' }
+        format.html { redirect_to root_path, alert: '募集が存在しません' }
         format.json { head :no_content }
+      end
+    else
+      @comment = Comment.find_by(id: params[:comment_id])
+      @alert = nil
+      @comment_id = params[:comment_id]
+      if @comment.nil?
+        @alert = '返信がありません'
       end
     end
   end
@@ -118,18 +132,18 @@ class RecruitmentsController < ApplicationController
   # PATCH/PUT /entry_chats/1.json
   # 結果選択時のみ使用
   def update
-    if @recruitment_params[:chat] == "有"
-      if EntryChat.find_by(recruitment_id: @recruitment_params[:id]).nil?
+    if @recruitment.chat == "有"
+      if EntryChat.find_by(recruitment_id: @recruitment.id).nil?
         respond_to do |format|
-          format.html { redirect_to new_entry_chats_path(@recruitment_params[:id]), alert: '結果を選択してください' }
+          format.html { redirect_to new_entry_chats_path(@recruitment.id), alert: '結果を選択してください' }
           format.json { head :no_content }
         end
         return
       end
-    elsif @recruitment_params[:chat] == "無"
+    elsif @recruitment.chat == "無"
       if @recruitment_params[:answer].blank?
         respond_to do |format|
-          format.html { redirect_to edit_recruitment_path(@recruitment_params[:id]), alert: '結果を選択してください' }
+          format.html { redirect_to edit_recruitment_path(@recruitment.id), alert: '結果を選択してください' }
           format.json { head :no_content }
         end
         return
@@ -174,14 +188,8 @@ class RecruitmentsController < ApplicationController
 
     def add_answer
       @recruitment = Recruitment.find(params[:id])
-      @recruitment_params = { "id":@recruitment.id,
-                              "acc_id":@recruitment.acc_id,
-                              "resolved":"解決",
-                              "detail":@recruitment.detail,
-                              "title":@recruitment.title,
-                              "answer":params[:answer],
-                              "file_id":@recruitment.file_id,
-                              "chat":@recruitment.chat}
+      @recruitment_params = { "resolved":"解決",
+                              "answer":recruitment_params[:answer]}
       if @recruitment_params[:chat] == "有"
         @recruitment_params[:answer] = "募集は終了しました"
       end

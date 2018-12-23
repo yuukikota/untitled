@@ -1,0 +1,27 @@
+<div id=<%= "comment_" + comment.id.to_s %>>
+<table width="100%" class="box_comment">
+  <tr>
+    <td class="box_comment2">
+      <%= link_to account_show_path(comment.account.acc_id) do %>
+        <%= comment.account.name %>
+      <% end %>
+    </td>
+    <td class="box_comment2">
+      <%= comment.account.acc_id %>
+    </td>
+    <td><%= comment.created_at %></td>
+  </tr>
+  <tr >
+    <td colspan="3" class="box_comment3">
+      <%= simple_format(comment.message) %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <div id=<%= comment.id.to_s %> class="select">
+        <%= render partial: 'recruitments/select', locals: {comment: comment} %>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
