@@ -14,7 +14,10 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+//// require_tree .
+//
+//// require bootstrap
+/////jquery, jquery_ujs, bootstrap, turbolinks
 
 $(function() {
     document.body.addEventListener('ajax:send', function(event) {

@@ -12,7 +12,7 @@ gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '4.1.20'#'>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'duktape'
 # Use CoffeeScript for .coffee assets and views
@@ -59,7 +59,9 @@ gem 'devise'
 gem 'railroady'
 
 #jQuery
-gem 'jquery-rails'
+gem 'jquery-rails','4.3.3'
+gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
 
 # 日本語化設定時のエラーの日本語化のため
 gem 'rails-i18n'
@@ -70,4 +72,12 @@ gem 'paperclip'
 group :development do
   gem 'rack-mini-profiler' , require: false#簡易プロファイラー
 end
+
+gem 'rails_serve_static_assets' , require: false
+
+group :development, :test do
+  gem 'bullet'
+end
+
+
 
