@@ -21,7 +21,7 @@
 <div class="button1">
   <div class="on">
     <div id="button_v">
-      <%= button_to '最新を読み込む', mains_button_view_path(@view_num), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10,view_num:@view_num}, remote: true %>
+      <%= button_to '最新を読み込む', mains_button_view_path(@view_num), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10,view_num:@view_num}, remote: true,id: "new_load" %>
     </div>
   </div>
 </div>
@@ -30,19 +30,40 @@
 
 <br>
 <br>
-<div class="box3" id="button_v3">
-  <%= render 'mains/view_t', recruitments: @recruitments %>
+<div id="display_area">
+  <div id="change_load_spinner"><div class="lds-spinner" style="width:100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div class="box3" >
+    <div id="new_load_spinner"><div class="lds-spinner" style="width:100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+    <div id="button_v3">
+      <%= render 'mains/view_t', recruitments: @recruitments %>
+    </div>
+    <div id="add_load_spinner"><div class="lds-spinner" style="width:100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+  </div>
 </div>
-
 <div class="button1">
   <div class="on">
 <div id="button_v4">
   <% if @recruitments.present? then %>
-    <%=button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10, oldest:@recruitments.last.updated_at.utc.to_s, view_num: @view_num}, remote: true %>
+    <%=button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10, oldest:@recruitments.last.updated_at.utc.to_s, view_num: @view_num}, remote: true ,id: "add_load" %>
   <% else %>
-    <%=button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10, oldest:DateTime.tomorrow , view_num: @view_num}, remote: true %>
+    <%=button_to "もっと読み込む", mains_add_path(@recruitments.size.to_s), method: :get, params:{school:@inputtag.school,faculty:@inputtag.faculty,department:@inputtag.department,tag1:@inputtag.tag1,tag2:@inputtag.tag2,tag3:@inputtag.tag3,tag4:@inputtag.tag4,tag5:@inputtag.tag5,tag6:@inputtag.tag6,tag7:@inputtag.tag7,tag8:@inputtag.tag8,tag9:@inputtag.tag9,tag10:@inputtag.tag10, oldest:DateTime.tomorrow , view_num: @view_num}, remote: true ,id: "add_load"%>
   <% end %>
 </div>
   </div>
 </div>
-</span>
+
+<script>
+    add_button = document.getElementById("add_load");
+    add_button.addEventListener('click',function () {
+        $('#add_load_spinner').show();
+    })
+    new_button = document.getElementById("new_load");
+    new_button.addEventListener('click',function () {
+        $('#new_load_spinner').show();
+    })
+    $(".change_load").on({
+        "click" : function() {
+            $('#change_load_spinner').show();
+        }
+    });
+</script>

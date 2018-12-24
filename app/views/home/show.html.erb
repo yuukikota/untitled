@@ -75,14 +75,30 @@
 <br>
 <br>
 <% if @home_button == '1' %>
-    <div id="button_v2">
-      <%= render 'home/button_v', view_num: @view_num, acc_id: @account.acc_id %>
+  <div id="button_v2">
+    <%= render 'home/button_v', view_num: @view_num, acc_id: @account.acc_id %>
+  </div>
+  <div>
+    <div class="box3">
+      <div id="display_area">
+        <div id="change_load_spinner2"><div class="lds-spinner" style="width:100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+      </div>
+      <div id="button_v3">
+        <%= render 'mains/view_t', recruitments: @recruitments %>  <!--個人の発言-->
+      </div>
     </div>
-  <div class="box3" id="button_v3">
-    <%= render 'mains/view_t', recruitments: @recruitments %>  <!--個人の発言-->
   </div>
 <% elsif @home_button == '2' %>
   <%= render 'mains/view_t',recruitment: @recruitments %> <!--ブックマーク-->
 <% elsif @home_button == '3' %>
   <%= render 'view_c',entry_chats: @entry_chats %> <!--チャット一覧-->
 <% end %>
+
+
+<script>
+    $(".change_load").on({
+        "click" : function() {
+            $('#change_load_spinner2').show();
+        }
+    });
+</script>
