@@ -35,7 +35,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: '157.80.138.26', port: 3000 }
 
   config.action_mailer.smtp_settings = {
       :enable_starttls_auto => true,
@@ -73,5 +73,13 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-
+=begin
+  config.after_initialize do
+    Bullet.enable = true # Bulletプラグインを有効
+    Bullet.alert = true # JavaScriptでの通知
+    Bullet.bullet_logger = true # log/bullet.logへの出力
+    Bullet.console = true # ブラウザのコンソールログに記録
+    Bullet.rails_logger = true # Railsログに出力
+  end
+=end
 end

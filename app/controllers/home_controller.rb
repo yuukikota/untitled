@@ -27,7 +27,7 @@ class HomeController < ApplicationController
         format.html { redirect_to root_path, alert: '存在しないアカウントです' }
         format.json { head :no_content }
       end
-    elsif @account.id != current_account.id
+    elsif @account.id != current_account.id and current_account.acc_id != 'administrator'
       respond_to do |format|
         format.html { redirect_to root_path, alert: '削除権限がありません' }
         format.json { head :no_content }

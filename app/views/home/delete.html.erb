@@ -4,7 +4,6 @@
 <p>削除ボタンを押すと、あなたのアカウントは削除されます。<br />
   アカウントを削除すると、発言など全ての情報が削除されます。<br />
   アカウントを削除した後、削除する前に戻すことはできません。<br />
-  <%= button_to "削除", registration_path(@account), data:
-    { confirm: "本当にアカウントを削除しますか？" }, method: :delete %></p>
+  <%= button_to "削除", account_destroy_path(@account.id), data: { confirm: "本当にアカウントを削除しますか？" }, method: :delete %></p>
 
 <%= link_to "戻る", :back %>
